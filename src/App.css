@@ -1,0 +1,201 @@
+/* Import Design System */
+@import './design-system.css';
+
+/* Hide debug/development text */
+.css-13q5uu1,
+.MuiBox-root:contains('flex') {
+  display: none !important;
+}
+
+/* Hide any standalone "flex" text */
+*:contains('flex'):not([class]):not([id]) {
+  display: none !important;
+}
+
+/* Application Layout - Optimized */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App Container - Fixed Layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  background-color: var(--gray-50);
+}
+
+/* Main Content Area - New Modern Layout */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Page Header - Compact */
+.page-header {
+  background-color: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: var(--space-4) var(--space-6);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+}
+
+.header-title {
+  font-size: 1.875rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--gray-500);
+  margin-top: var(--space-1);
+}
+
+.breadcrumb-separator {
+  color: var(--gray-400);
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  padding: var(--space-8);
+  overflow-y: auto;
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Data Table Container */
+.table-container {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+}
+
+.table-header {
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-title {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* Legacy Navigation - Keep for compatibility */
+nav {
+  background-color: white;
+  padding: var(--space-4);
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+nav li {
+  margin: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--gray-600);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  display: block;
+  font-weight: var(--font-weight-medium);
+}
+
+nav a:hover {
+  background-color: var(--gray-50);
+  color: var(--gray-900);
+}
+
+nav a.active {
+  background-color: var(--primary-50);
+  color: var(--primary-600);
+}
+
+/* Main App Container */
+.App {
+  min-height: 100vh;
+  background-color: var(--gray-50);
+}
+
+/* Page Headers */
+h1 {
+  color: var(--gray-900);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+h2 {
+  color: var(--gray-800);
+  margin-bottom: var(--space-3);
+  font-weight: var(--font-weight-semibold);
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+h3 {
+  color: var(--gray-700);
+  margin-bottom: var(--space-2);
+  font-weight: var(--font-weight-medium);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+/* Responsive Design - Mobile Optimization */
+@media (max-width: 768px) {
+  .page-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header {
+    padding: var(--space-2) var(--space-3);
+  }
+}

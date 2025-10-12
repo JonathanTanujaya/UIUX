@@ -311,32 +311,13 @@ const ContextualSidebar = () => {
               fontWeight: active ? 600 : 400,
             }}
           />
-          {showFavorite && (
-            <IconButton
-              size="small"
-              onClick={e => {
-                e.stopPropagation();
-                toggleFavorite(item);
-              }}
-              sx={{
-                opacity: favorite ? 1 : 0.5,
-                '&:hover': { opacity: 1 },
-              }}
-            >
-              {favorite ? (
-                <StarIconSolid className="w-4 h-4 text-yellow-500" />
-              ) : (
-                <StarIcon className="w-4 h-4" />
-              )}
-            </IconButton>
-          )}
         </ListItemButton>
       </ListItem>
     );
   };
 
   const drawerContent = (
-    <Box sx={{ width: 280, height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ width: 240, height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
       <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
@@ -349,77 +330,19 @@ const ContextualSidebar = () => {
                 : 'text.primary',
             }}
           >
-            {activeCategoryConfig?.label || 'Navigation'}
+            {/* Show active page name, not category */}
+            {activeItems.find(item => item.path === location.pathname)?.label || activeCategoryConfig?.label || 'Navigation'}
           </Typography>
         </Box>
       </Box>
 
       {/* Content */}
       <Box sx={{ flex: 1, overflow: 'auto', p: 1 }}>
-        {/* Favorite Items */}
-        {favoriteItems.length > 0 && (
-          <Box sx={{ mb: 2 }}>
-            <ListItemButton
-              onClick={() => handleSectionToggle('favorites')}
-              sx={{ borderRadius: 1, py: 0.5 }}
-            >
-              <ListItemIcon sx={{ minWidth: 32 }}>
-                <StarIcon className="w-4 h-4" />
-              </ListItemIcon>
-              <ListItemText
-                primary="Favorites"
-                primaryTypographyProps={{
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  color: 'text.secondary',
-                }}
-              />
-              <Badge badgeContent={favoriteItems.length} color="primary" sx={{ mr: 1 }} />
-              {expandedSections.favorites ? (
-                <ChevronDownIcon className="w-4 h-4" />
-              ) : (
-                <ChevronRightIcon className="w-4 h-4" />
-              )}
-            </ListItemButton>
-            <Collapse in={expandedSections.favorites}>
-              <List sx={{ pl: 1 }}>{favoriteItems.map(item => renderMenuItem(item, false))}</List>
-            </Collapse>
-          </Box>
-        )}
-
-        {/* Divider if we have favorites */}
-        {favoriteItems.length > 0 && <Divider sx={{ my: 1 }} />}
-
-        {/* Main Items */}
+        {/* Main Items - Direct list without collapse */}
         {filteredItems.length > 0 && (
-          <Box>
-            <ListItemButton
-              onClick={() => handleSectionToggle('items')}
-              sx={{ borderRadius: 1, py: 0.5 }}
-            >
-              <ListItemText
-                primary={`All ${activeCategoryConfig?.label || 'Items'}`}
-                primaryTypographyProps={{
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  color: 'text.secondary',
-                }}
-              />
-              <Chip
-                size="small"
-                label={filteredItems.length}
-                sx={{ mr: 1, height: 20, fontSize: '0.75rem' }}
-              />
-              {expandedSections.items ? (
-                <ChevronDownIcon className="w-4 h-4" />
-              ) : (
-                <ChevronRightIcon className="w-4 h-4" />
-              )}
-            </ListItemButton>
-            <Collapse in={expandedSections.items}>
-              <List>{filteredItems.map(item => renderMenuItem(item))}</List>
-            </Collapse>
-          </Box>
+          <List>
+            {filteredItems.map(item => renderMenuItem(item, false))}
+          </List>
         )}
 
         {/* Empty state */}
@@ -437,7 +360,7 @@ const ContextualSidebar = () => {
   return (
     <Box
       sx={{
-        width: 280,
+        width: 240,
         flexShrink: 0,
         height: '100%',
         borderRight: '1px solid',

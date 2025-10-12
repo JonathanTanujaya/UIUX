@@ -49,19 +49,24 @@ Modul master data untuk sistem inventory management dengan 10 jenis master data.
 - Status management
 - CRUD operations lengkap
 
-### 4. Master Bank (`MasterBank.jsx`)
+### 4. Master Bank & Rekening (`MasterBank.jsx`)
 
-- Kode dan nama bank
-- Alamat dan telepon
-- Status management
-- CRUD operations lengkap
-
-### 5. Master Rekening (`MasterRekening.jsx`)
-
-- No rekening dan nama rekening
-- Jenis rekening (Tabungan/Giro/Deposito)
-- Saldo awal
-- CRUD operations lengkap
+- **UNIFIED PAGE**: Menggabungkan manajemen bank dan rekening dalam satu halaman
+- **Two Tabs**: 
+  - 📋 Daftar Rekening: CRUD rekening bank dengan detail bank
+  - 💰 Monitoring Saldo: Visual monitoring saldo per rekening
+- **Fields**:
+  - No rekening (primary key)
+  - Kode bank dan nama bank  
+  - Atas nama rekening
+  - Status rekening (aktif/non-aktif)
+  - Saldo
+- **Features**:
+  - Form validation
+  - Currency formatting
+  - Status badges
+  - Card-based saldo view
+  - CRUD operations lengkap
 
 ## Routes
 
@@ -73,8 +78,8 @@ Modul master data untuk sistem inventory management dengan 10 jenis master data.
 - `/master/sales` - Master Sales (existing)
 - `/master/supplier` - Master Supplier (existing)
 - `/master/customer` - Master Customer (existing)
-- `/master/bank` - Master Bank
-- `/master/rekening` - Master Rekening
+- `/master/bank` - Master Bank & Rekening (unified page)
+- `/master/rekening` - Master Bank & Rekening (same as above)
 
 ## Navigation
 

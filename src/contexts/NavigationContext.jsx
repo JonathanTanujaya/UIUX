@@ -21,13 +21,11 @@ export const navigationConfig = {
     items: [
       { label: 'Kategori', path: '/master/kategori', icon: 'TagIcon' },
       { label: 'Sparepart', path: '/master/sparepart', icon: 'CogIcon' },
-      { label: 'Checklist', path: '/master/checklist', icon: 'CheckCircleIcon' },
-      { label: 'Area', path: '/master/area', icon: 'MapPinIcon' },
-      { label: 'Sales', path: '/master/sales', icon: 'UserGroupIcon' },
+      { label: 'Area', path: '/master/area', icon: 'MapIcon' },
+      { label: 'Sales', path: '/master/sales', icon: 'UserIcon' },
       { label: 'Supplier', path: '/master/supplier', icon: 'TruckIcon' },
       { label: 'Customer', path: '/master/customer', icon: 'UsersIcon' },
       { label: 'Bank', path: '/master/bank', icon: 'BuildingLibraryIcon' },
-      { label: 'Rekening', path: '/master/rekening', icon: 'CreditCardIcon' },
     ],
   },
   transactions: {

@@ -5,7 +5,6 @@ import { NavigationProvider } from '../../contexts/NavigationContext';
 import TopNavbar from './TopNavbar';
 import ContextualSidebar from './ContextualSidebar';
 import CommandPalette from './CommandPalette';
-import BreadcrumbNavigation from './BreadcrumbNavigation';
 
 const ModernLayout = () => {
   return (
@@ -13,9 +12,6 @@ const ModernLayout = () => {
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         {/* Top Navigation */}
         <TopNavbar />
-
-        {/* Breadcrumb */}
-        <BreadcrumbNavigation />
 
         {/* Main Content Area */}
         <Box sx={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
@@ -29,7 +25,6 @@ const ModernLayout = () => {
               flex: 1,
               overflow: 'auto',
               backgroundColor: 'background.default',
-              p: 3,
             }}
           >
             <Outlet />

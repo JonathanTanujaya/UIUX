@@ -8,13 +8,17 @@ import CustomerManager from './components/CustomerManager';
 import BarangManager from './components/BarangManager';
 import InvoiceManager from './components/InvoiceManager';
 // Master Data pages
-import MasterArea from './pages/MasterData/Area/MasterArea';
+import MasterArea from './pages/MasterData/Area/MasterAreaNew';
+import AreaListPage from './pages/MasterData/Area/AreaListPage';
+import AreaFormPage from './pages/MasterData/Area/AreaFormPage';
 import MasterSales from './pages/MasterData/Sales/MasterSales';
+import SalesListPage from './pages/MasterData/Sales/SalesListPage';
+import SalesFormPage from './pages/MasterData/Sales/SalesFormPage';
 import MasterSuppliers from './pages/MasterData/Suppliers/MasterSuppliers';
 import MasterBank from './pages/MasterData/Bank/MasterBank';
 import ModernMasterCategories from './pages/MasterData/Categories/ModernMasterCategories';
-import MasterSparepartOptimized from './pages/MasterData/Sparepart/MasterSparepartOptimized';
-import MasterChecklistOptimized from './pages/MasterData/Checklist/MasterChecklistOptimized';
+import SparepartListPage from './pages/MasterData/Sparepart/SparepartListPage';
+import SparepartFormPage from './pages/MasterData/Sparepart/SparepartFormPage';
 // Transactions pages
 import SalesForm from './pages/Sales/SalesForm';
 import ReturPenjualanForm from './pages/Sales/ReturPenjualanForm';
@@ -120,11 +124,16 @@ function AppWithModernNavigation() {
             <Route path="/master/divisi" element={<DivisiManager />} />
             <Route path="/master/customer" element={<WithDivisi Component={CustomerManager} />} />
             <Route path="/master/kategori" element={<ModernMasterCategories />} />
-            <Route path="/master/sparepart" element={<MasterSparepartOptimized />} />
-            <Route path="/master/checklist" element={<MasterChecklistOptimized />} />
+            <Route path="/master/sparepart" element={<SparepartListPage />} />
+            <Route path="/master/sparepart/create" element={<SparepartFormPage />} />
+            <Route path="/master/sparepart/:id/edit" element={<SparepartFormPage />} />
             <Route path="/master/barang" element={<WithDivisi Component={BarangManager} />} />
-            <Route path="/master/area" element={<MasterArea />} />
-            <Route path="/master/sales" element={<MasterSales />} />
+            <Route path="/master/area" element={<AreaListPage />} />
+            <Route path="/master/area/create" element={<AreaFormPage />} />
+            <Route path="/master/area/edit/:kodeArea" element={<AreaFormPage />} />
+            <Route path="/master/sales" element={<SalesListPage />} />
+            <Route path="/master/sales/create" element={<SalesFormPage />} />
+            <Route path="/master/sales/edit/:kodeSales" element={<SalesFormPage />} />
             <Route path="/master/supplier" element={<MasterSuppliers />} />
             <Route path="/master/bank" element={<MasterBank />} />
             <Route path="/master/rekening" element={<MasterBank />} />

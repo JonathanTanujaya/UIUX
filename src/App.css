@@ -56,19 +56,6 @@
   margin: 0;
 }
 
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: 0.875rem;
-  color: var(--gray-500);
-  margin-top: var(--space-1);
-}
-
-.breadcrumb-separator {
-  color: var(--gray-400);
-}
-
 /* Page Content */
 .page-content {
   flex: 1;

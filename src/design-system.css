@@ -1817,43 +1817,6 @@ kbd {
   }
 }
 
-/* Breadcrumb Navigation */
-.breadcrumb {
-  padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: var(--space-4);
-}
-.breadcrumb-list {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.breadcrumb-item {
-  display: flex;
-  align-items: center;
-}
-.breadcrumb-separator {
-  margin: 0 var(--space-2);
-  color: var(--gray-400);
-  font-size: var(--text-sm);
-}
-.breadcrumb-link {
-  color: var(--accent-600);
-  text-decoration: none;
-  font-size: var(--text-sm);
-}
-.breadcrumb-link:hover {
-  text-decoration: underline;
-}
-.breadcrumb-current {
-  color: var(--gray-700);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--text-sm);
-}
-
 .modal-footer {
   display: flex;
   justify-content: flex-end;

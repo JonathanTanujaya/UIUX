@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { banksAPI } from '../../../services/api';
 import '../../../design-system.css';
 
-const MasterBank = () => {
+const MasterBankRekening = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -433,4 +433,4 @@ const MasterBank = () => {
   );
 };
 
-export default MasterBank;
+export default MasterBankRekening;

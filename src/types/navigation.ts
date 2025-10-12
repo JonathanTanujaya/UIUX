@@ -55,8 +55,6 @@ export interface ContextualSidebarProps {}
 
 export interface CommandPaletteProps {}
 
-export interface BreadcrumbNavigationProps {}
-
 export interface ModernLayoutProps {
   children: React.ReactNode;
 }
@@ -68,14 +66,4 @@ export interface UseNavigationReturn extends NavigationContextType {}
 export interface SearchResult extends NavigationItem {
   type: 'item' | 'category' | 'recent' | 'favorite';
   category?: string;
-}
-
-// Breadcrumb item type
-export interface BreadcrumbItem {
-  label: string;
-  path: string;
-  isRoot?: boolean;
-  isCategory?: boolean;
-  isItem?: boolean;
-  color?: string;
 }

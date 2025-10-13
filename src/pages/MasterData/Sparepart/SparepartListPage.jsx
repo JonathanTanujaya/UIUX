@@ -124,7 +124,7 @@ function SparepartListPage() {
   return (
     <div style={{ 
       padding: '20px', 
-      backgroundColor: '#f8fafc', 
+      backgroundColor: '#f9fafb', 
       minHeight: '100vh' 
     }}>
       {/* Action Bar */}

@@ -6,7 +6,7 @@ import Button from '../../../components/ui/Button';
 const EditIcon = () => <span>✏️</span>;
 const TrashIcon = () => <span>🗑️</span>;
 
-function AreaListPage() {
+function SupplierListPage() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
@@ -16,69 +16,76 @@ function AreaListPage() {
     const dummyData = [
       {
         id: 1,
-        kode_area: 'JKT01',
-        nama_area: 'Jakarta Utara',
-        wilayah: 'DKI Jakarta',
-        provinsi: 'DKI Jakarta',
-        keterangan: 'Area Jakarta Utara dan sekitarnya',
-        status: 'Aktif',
+        kode_supplier: 'SUP001',
+        nama_supplier: 'PT. Supplier Utama',
+        alamat: 'Jl. Raya No. 123, Jakarta',
+        telepon: '021-1234567',
+        email: 'contact@supplierutama.com',
+        kontak_person: 'Budi Santoso',
+        status: 'aktif'
       },
       {
         id: 2,
-        kode_area: 'JKT02', 
-        nama_area: 'Jakarta Selatan',
-        wilayah: 'DKI Jakarta',
-        provinsi: 'DKI Jakarta',
-        keterangan: 'Area Jakarta Selatan dan sekitarnya',
-        status: 'Aktif',
+        kode_supplier: 'SUP002',
+        nama_supplier: 'CV. Mitra Sejati',
+        alamat: 'Jl. Sudirman No. 456, Bandung',
+        telepon: '022-7654321',
+        email: 'info@mitrasejati.com',
+        kontak_person: 'Sari Dewi',
+        status: 'aktif'
       },
       {
         id: 3,
-        kode_area: 'BDG01',
-        nama_area: 'Bandung Kota',
-        wilayah: 'Jawa Barat',
-        provinsi: 'Jawa Barat',
-        keterangan: 'Area Bandung Kota',
-        status: 'Tidak Aktif',
+        kode_supplier: 'SUP003',
+        nama_supplier: 'UD. Berkah Jaya',
+        alamat: 'Jl. Ahmad Yani No. 789, Surabaya',
+        telepon: '031-9876543',
+        email: 'admin@berkahjaya.com',
+        kontak_person: 'Ahmad Rizki',
+        status: 'nonaktif'
       },
       {
         id: 4,
-        kode_area: 'SBY01',
-        nama_area: 'Surabaya Timur',
-        wilayah: 'Jawa Timur',
-        provinsi: 'Jawa Timur',
-        keterangan: 'Area Surabaya bagian Timur',
-        status: 'Aktif',
+        kode_supplier: 'SUP004',
+        nama_supplier: 'PT. Global Supply',
+        alamat: 'Jl. Gatot Subroto No. 321, Jakarta',
+        telepon: '021-5555666',
+        email: 'cs@globalsupply.com',
+        kontak_person: 'Diana Putri',
+        status: 'aktif'
       },
       {
         id: 5,
-        kode_area: 'MDN01',
-        nama_area: 'Medan Kota',
-        wilayah: 'Sumatera Utara',
-        provinsi: 'Sumatera Utara', 
-        keterangan: 'Area Medan Kota dan sekitarnya',
-        status: 'Aktif',
+        kode_supplier: 'SUP005',
+        nama_supplier: 'CV. Prima Mandiri',
+        alamat: 'Jl. Diponegoro No. 654, Yogyakarta',
+        telepon: '0274-888999',
+        email: 'hello@primamandiri.com',
+        kontak_person: 'Eko Prasetyo',
+        status: 'aktif'
       }
     ];
-    
     setData(dummyData);
   }, []);
 
-  const filteredData = data.filter(item => 
-    item.nama_area?.toLowerCase().includes(search.toLowerCase()) ||
-    item.kode_area?.toLowerCase().includes(search.toLowerCase()) ||
-    item.wilayah?.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const handleDelete = async id => {
-    if (confirm('Yakin ingin menghapus data ini?')) {
-      setData(prev => prev.filter(item => item.id !== id));
-      alert('Data berhasil dihapus!');
+  const handleDelete = (id) => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus supplier ini?')) {
+      setData(data.filter(item => item.id !== id));
     }
   };
 
+  const filteredData = data.filter(item => {
+    const searchLower = search.toLowerCase();
+    return (
+      item.kode_supplier?.toLowerCase().includes(searchLower) ||
+      item.nama_supplier?.toLowerCase().includes(searchLower) ||
+      item.alamat?.toLowerCase().includes(searchLower) ||
+      item.kontak_person?.toLowerCase().includes(searchLower)
+    );
+  });
+
   const getStatusBadge = (status) => {
-    return status === 'Aktif' 
+    return status === 'aktif' 
       ? { text: 'Aktif', color: '#10b981', bg: '#f0fdf4' }
       : { text: 'Tidak Aktif', color: '#6b7280', bg: '#f9fafb' };
   };
@@ -94,12 +101,12 @@ function AreaListPage() {
         <div style={{ maxWidth: '400px', flex: 1 }}>
           <Input
             type="text"
-            placeholder="Cari area..."
+            placeholder="Cari supplier..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Button onClick={() => navigate('/master/area/create')}>Tambah Baru</Button>
+        <Button onClick={() => navigate('/master/supplier/create')}>Tambah Baru</Button>
       </div>
 
       {/* Table */}
@@ -109,7 +116,7 @@ function AreaListPage() {
         border: '1px solid #e5e7eb',
         overflow: 'hidden',
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-      }}> 
+      }}>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
@@ -123,7 +130,7 @@ function AreaListPage() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px'
                 }}>
-                  Kode Area
+                  Kode Supplier
                 </th>
                 <th style={{ 
                   padding: '16px 20px', 
@@ -134,7 +141,7 @@ function AreaListPage() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px'
                 }}>
-                  Nama Area
+                  Nama Supplier
                 </th>
                 <th style={{ 
                   padding: '16px 20px', 
@@ -145,7 +152,7 @@ function AreaListPage() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px'
                 }}>
-                  Wilayah
+                  Alamat
                 </th>
                 <th style={{ 
                   padding: '16px 20px', 
@@ -156,18 +163,7 @@ function AreaListPage() {
                   textTransform: 'uppercase',
                   letterSpacing: '0.5px'
                 }}>
-                  Provinsi
-                </th>
-                <th style={{ 
-                  padding: '16px 20px', 
-                  textAlign: 'left', 
-                  fontSize: '13px', 
-                  fontWeight: '600', 
-                  color: '#475569', 
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
-                }}>
-                  Keterangan
+                  Kontak Person
                 </th>
                 <th style={{ 
                   padding: '16px 20px', 
@@ -194,13 +190,13 @@ function AreaListPage() {
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((item, index) => {
+              {filteredData.map((item, idx) => {
                 const statusBadge = getStatusBadge(item.status);
                 return (
-                  <tr 
+                  <tr
                     key={item.id}
                     style={{ 
-                      borderBottom: index < filteredData.length - 1 ? '1px solid #f1f5f9' : 'none',
+                      borderBottom: idx < filteredData.length - 1 ? '1px solid #f1f5f9' : 'none',
                       backgroundColor: 'white',
                       transition: 'background-color 0.15s ease'
                     }}
@@ -218,7 +214,7 @@ function AreaListPage() {
                       color: '#1e293b',
                       fontFamily: 'monospace'
                     }}>
-                      {item.kode_area}
+                      {item.kode_supplier}
                     </td>
                     <td style={{ 
                       padding: '18px 20px', 
@@ -226,29 +222,22 @@ function AreaListPage() {
                       color: '#334155',
                       fontWeight: '500'
                     }}>
-                      {item.nama_area}
+                      {item.nama_supplier}
+                    </td>
+                    <td style={{ 
+                      padding: '18px 20px', 
+                      fontSize: '14px', 
+                      color: '#64748b',
+                      maxWidth: '300px'
+                    }}>
+                      {item.alamat}
                     </td>
                     <td style={{ 
                       padding: '18px 20px', 
                       fontSize: '14px', 
                       color: '#64748b'
                     }}>
-                      {item.wilayah}
-                    </td>
-                    <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
-                      color: '#64748b'
-                    }}>
-                      {item.provinsi}
-                    </td>
-                    <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
-                      color: '#64748b', 
-                      maxWidth: '200px'
-                    }}>
-                      {item.keterangan}
+                      {item.kontak_person}
                     </td>
                     <td style={{ padding: '18px 20px', textAlign: 'center' }}>
                       <span style={{
@@ -266,7 +255,7 @@ function AreaListPage() {
                     <td style={{ padding: '18px 20px', textAlign: 'center' }}>
                       <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
                         <button
-                          onClick={() => navigate(`/master/area/edit/${item.kode_area}`)}
+                          onClick={() => navigate(`/master/supplier/edit/${item.kode_supplier}`)}
                           style={{
                             padding: '8px',
                             backgroundColor: 'transparent',
@@ -277,7 +266,7 @@ function AreaListPage() {
                             transition: 'all 150ms',
                             fontSize: '16px'
                           }}
-                          title="Edit area"
+                          title="Edit supplier"
                         >
                           <EditIcon />
                         </button>
@@ -293,7 +282,7 @@ function AreaListPage() {
                             transition: 'all 150ms',
                             fontSize: '16px'
                           }}
-                          title="Hapus area"
+                          title="Hapus supplier"
                         >
                           <TrashIcon />
                         </button>
@@ -312,7 +301,7 @@ function AreaListPage() {
               color: '#64748b',
               fontSize: '14px'
             }}>
-              Tidak ada data area yang ditemukan
+              Tidak ada data supplier yang ditemukan
             </div>
           )}
         </div>
@@ -326,11 +315,11 @@ function AreaListPage() {
           color: '#64748b',
           fontWeight: '500'
         }}>
-          Menampilkan {filteredData.length} dari {data.length} area
+          Menampilkan {filteredData.length} dari {data.length} supplier
         </div>
       </div>
     </div>
   );
 }
 
-export default AreaListPage;
+export default SupplierListPage;

@@ -5,6 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import ModernLayout from './components/Layout/ModernLayout';
 import DivisiManager from './components/DivisiManager';
 import CustomerManager from './components/CustomerManager';
+import CustomerListPage from './pages/MasterData/Customers/CustomerListPage';
+import CustomerFormPage from './pages/MasterData/Customers/CustomerFormPage';
 import BarangManager from './components/BarangManager';
 import InvoiceManager from './components/InvoiceManager';
 // Master Data pages
@@ -15,6 +17,8 @@ import MasterSales from './pages/MasterData/Sales/MasterSales';
 import SalesListPage from './pages/MasterData/Sales/SalesListPage';
 import SalesFormPage from './pages/MasterData/Sales/SalesFormPage';
 import MasterSuppliers from './pages/MasterData/Suppliers/MasterSuppliers';
+import SupplierListPage from './pages/MasterData/Suppliers/SupplierListPage';
+import SupplierFormPage from './pages/MasterData/Suppliers/SupplierFormPage';
 import MasterBank from './pages/MasterData/Bank/MasterBank';
 import ModernMasterCategories from './pages/MasterData/Categories/ModernMasterCategories';
 import SparepartListPage from './pages/MasterData/Sparepart/SparepartListPage';
@@ -122,7 +126,9 @@ function AppWithModernNavigation() {
             <Route path="/dashboard" element={<DashboardPage />} />
             {/* Master */}
             <Route path="/master/divisi" element={<DivisiManager />} />
-            <Route path="/master/customer" element={<WithDivisi Component={CustomerManager} />} />
+            <Route path="/master/customer" element={<CustomerListPage />} />
+            <Route path="/master/customer/create" element={<CustomerFormPage />} />
+            <Route path="/master/customer/edit/:kodeCustomer" element={<CustomerFormPage />} />
             <Route path="/master/kategori" element={<ModernMasterCategories />} />
             <Route path="/master/sparepart" element={<SparepartListPage />} />
             <Route path="/master/sparepart/create" element={<SparepartFormPage />} />
@@ -134,7 +140,9 @@ function AppWithModernNavigation() {
             <Route path="/master/sales" element={<SalesListPage />} />
             <Route path="/master/sales/create" element={<SalesFormPage />} />
             <Route path="/master/sales/edit/:kodeSales" element={<SalesFormPage />} />
-            <Route path="/master/supplier" element={<MasterSuppliers />} />
+            <Route path="/master/supplier" element={<SupplierListPage />} />
+            <Route path="/master/supplier/create" element={<SupplierFormPage />} />
+            <Route path="/master/supplier/edit/:kodeSupplier" element={<SupplierFormPage />} />
             <Route path="/master/bank" element={<MasterBank />} />
             <Route path="/master/rekening" element={<MasterBank />} />
             {/* Transactions */}

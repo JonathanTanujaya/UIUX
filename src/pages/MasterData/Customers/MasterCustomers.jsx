@@ -280,17 +280,8 @@ const MasterCustomers = () => {
         {/* Table Panel - Right */}
         <div className="lg:col-span-2">
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 p-8">
-            {/* Search & Stats */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-              <div>
-                <h2 className="text-xl font-bold text-gray-900 flex items-center">
-                  📊 Data Customer
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">
-                  Total: {filteredCustomers.length} customer
-                </p>
-              </div>
-
+            {/* Search */}
+            <div className="flex justify-end items-center mb-6">
               <div className="relative">
                 <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input

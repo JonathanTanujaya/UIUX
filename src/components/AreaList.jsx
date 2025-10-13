@@ -75,8 +75,7 @@ function AreaList({ onEdit, onRefresh }) {
         actions={actions}
         loading={loading}
         onRefresh={refresh}
-        searchable={true}
-        searchFields={['kodearea', 'namaarea', 'status']}
+        searchable={false}
         keyField="id"
       />
     </div>

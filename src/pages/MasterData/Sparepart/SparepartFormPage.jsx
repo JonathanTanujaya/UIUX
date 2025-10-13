@@ -229,7 +229,7 @@ function SparepartFormPage() {
                     fontSize: '14px',
                     fontWeight: '500',
                     color: 'white',
-                    backgroundColor: loading ? '#9ca3af' : '#22c55e',
+                    backgroundColor: loading ? '#9ca3af' : '#3b82f6',
                     border: 'none',
                     borderRadius: '6px',
                     cursor: loading ? 'not-allowed' : 'pointer'

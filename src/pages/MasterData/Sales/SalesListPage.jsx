@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '../../../components/ui/Card';
+import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
 import { salesAPI } from '../../../services/api';
 
@@ -224,154 +224,102 @@ function SalesListPage() {
 
   return (
     <div style={{ 
-      padding: spacing[6], 
-      backgroundColor: colors.gray[50], 
-      height: '100vh', 
-      overflow: 'hidden' 
+      padding: '20px', 
+      backgroundColor: '#f9fafb', 
+      minHeight: '100vh' 
     }}>
-      {/* Header Actions */}
-      <Card padding={spacing[4]} style={{ marginBottom: spacing[4] }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: spacing[2], maxWidth: '400px' }}>
-            <label style={{ 
-              fontWeight: typography.fontWeight.medium,
-              fontSize: typography.fontSize.sm,
-              color: colors.gray[700],
-              minWidth: '80px'
-            }}>
-              Pencarian:
-            </label>
-            <div style={{ position: 'relative', flex: 1 }}>
-              <input
-                type="text"
-                placeholder="Cari sales (kode/nama)..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={{
-                  width: '100%',
-                  height: '40px',
-                  padding: `${spacing[2]} ${spacing[3]} ${spacing[2]} ${spacing[10]}`,
-                  fontSize: typography.fontSize.sm,
-                  border: `1px solid ${colors.gray[300]}`,
-                  borderRadius: borderRadius.md,
-                  outline: 'none',
-                }}
-              />
-              <div style={{ position: 'absolute', left: spacing[3], top: '50%', transform: 'translateY(-50%)', color: colors.gray[400] }}>
-                🔍
-              </div>
-            </div>
-          </div>
-          <Button 
-            onClick={() => navigate('/master/sales/create')}
-            style={{
-              backgroundColor: colors.primary[500],
-              color: 'white',
-              padding: `${spacing[2]} ${spacing[4]}`,
-              fontSize: typography.fontSize.sm,
-              fontWeight: typography.fontWeight.medium,
-              borderRadius: borderRadius.md,
-              border: 'none',
-              cursor: 'pointer'
-            }}
-          >
-            ➕ Tambah Sales
-          </Button>
+      {/* Action Bar */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div style={{ maxWidth: '400px', flex: 1 }}>
+          <Input
+            type="text"
+            placeholder="Cari sales..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-      </Card>
+        <Button onClick={() => navigate('/master/sales/create')}>Tambah Baru</Button>
+      </div>
 
       {/* Table */}
-      <Card padding="0">
-        <div style={{ height: 'calc(100vh - 280px)', overflowY: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: typography.fontSize.sm }}>
-            <thead style={{ position: 'sticky', top: 0, backgroundColor: colors.gray[50], zIndex: 1 }}>
-              <tr style={{ borderBottom: `2px solid ${colors.gray[200]}` }}>
-                <th style={tableHeaderStyle}>No</th>
-                <th style={tableHeaderStyle}>Kode Sales</th>
-                <th style={tableHeaderStyle}>Nama Sales</th>
-                <th style={tableHeaderStyle}>Alamat</th>
-                <th style={tableHeaderStyle}>No HP</th>
-                <th style={tableHeaderStyle}>Target</th>
-                <th style={tableHeaderStyle}>Status</th>
-                <th style={{ ...tableHeaderStyle, textAlign: 'center', width: '120px' }}>Aksi</th>
+      <div style={{ 
+        backgroundColor: 'white', 
+        borderRadius: '12px', 
+        border: '1px solid #e5e7eb',
+        overflow: 'hidden',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>No</th>
+                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Kode Sales</th>
+                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Nama Sales</th>
+                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Alamat</th>
+                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>No HP</th>
+                <th style={{ padding: '16px 20px', textAlign: 'right', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Target</th>
+                <th style={{ padding: '16px 20px', textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
+                <th style={{ padding: '16px 20px', textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Aksi</th>
               </tr>
             </thead>
             <tbody>
               {filteredSales.length === 0 ? (
                 <tr>
-                  <td colSpan="9" style={{ 
-                    ...tableCellStyle, 
-                    textAlign: 'center', 
-                    padding: spacing[6],
-                    color: colors.gray[500]
-                  }}>
+                  <td colSpan="8" style={{ padding: '40px', textAlign: 'center', color: '#64748b', fontSize: '14px' }}>
                     {searchTerm ? 'Tidak ada sales yang ditemukan' : 'Belum ada data sales'}
                   </td>
                 </tr>
               ) : (
-                filteredSales.map((sale, index) => (
-                  <tr
-                    key={`${sale.kodeDivisi}-${sale.kodeSales}`}
-                    style={tableRowStyle}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = colors.gray[50];
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                    }}
-                  >
-                    <td style={tableCellStyle}>{index + 1}</td>
-                    <td style={tableCellStyle}>{sale.kodeSales}</td>
-                    <td style={{ ...tableCellStyle, fontWeight: typography.fontWeight.medium }}>
-                      {sale.namaSales}
-                    </td>
-                    <td style={tableCellStyle}>{sale.alamat}</td>
-                    <td style={tableCellStyle}>{sale.noHp}</td>
-                    <td style={tableCellStyle}>{formatCurrency(sale.target)}</td>
-                    <td style={tableCellStyle}>{getStatusBadge(sale.status)}</td>
-                    <td style={{ ...tableCellStyle, textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-                        <button
-                          onClick={() => navigate(`/master/sales/edit/${sale.kodeSales}`)}
-                          style={{
-                            padding: '8px',
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                            cursor: 'pointer',
-                            color: '#6b7280',
-                            borderRadius: '6px',
-                            transition: 'all 150ms',
-                            fontSize: '16px'
-                          }}
-                          title="Edit sales"
-                        >
-                          <EditIcon />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(sale.kodeSales)}
-                          style={{
-                            padding: '8px',
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                            cursor: 'pointer',
-                            color: '#dc2626',
-                            borderRadius: '6px',
-                            transition: 'all 150ms',
-                            fontSize: '16px'
-                          }}
-                          title="Hapus sales"
-                        >
-                          <TrashIcon />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                filteredSales.map((sale, index) => {
+                  const statusBadge = sale.status === 'Aktif' 
+                    ? { text: 'Aktif', color: '#10b981', bg: '#f0fdf4' }
+                    : { text: 'Tidak Aktif', color: '#6b7280', bg: '#f9fafb' };
+                  return (
+                    <tr
+                      key={sale.kodeSales}
+                      style={{ 
+                        borderBottom: index < filteredSales.length - 1 ? '1px solid #f1f5f9' : 'none',
+                        backgroundColor: 'white',
+                        transition: 'background-color 0.15s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'}
+                      onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
+                    >
+                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b' }}>{index + 1}</td>
+                      <td style={{ padding: '18px 20px', fontSize: '14px', fontWeight: '600', color: '#1e293b', fontFamily: 'monospace' }}>{sale.kodeSales}</td>
+                      <td style={{ padding: '18px 20px', fontSize: '15px', color: '#334155', fontWeight: '500' }}>{sale.namaSales}</td>
+                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b', maxWidth: '250px' }}>{sale.alamat}</td>
+                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b' }}>{sale.noHp}</td>
+                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#475569', textAlign: 'right', fontWeight: '500' }}>{formatCurrency(sale.target)}</td>
+                      <td style={{ padding: '18px 20px', textAlign: 'center' }}>
+                        <span style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: statusBadge.color, backgroundColor: statusBadge.bg, border: `1px solid ${statusBadge.color}20` }}>
+                          {statusBadge.text}
+                        </span>
+                      </td>
+                      <td style={{ padding: '18px 20px', textAlign: 'center' }}>
+                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                          <button onClick={() => navigate(`/master/sales/edit/${sale.kodeSales}`)} style={{ padding: '8px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '6px', transition: 'all 150ms', fontSize: '16px' }} title="Edit sales">
+                            <EditIcon />
+                          </button>
+                          <button onClick={() => handleDelete(sale.kodeSales)} style={{ padding: '8px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '6px', transition: 'all 150ms', fontSize: '16px' }} title="Hapus sales">
+                            <TrashIcon />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
         </div>
-      </Card>
+        
+        {/* Footer */}
+        <div style={{ padding: '16px 20px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '14px', color: '#64748b', fontWeight: '500' }}>
+          Menampilkan {filteredSales.length} dari {sales.length} sales
+        </div>
+      </div>
     </div>
   );
 }

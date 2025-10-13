@@ -54,45 +54,47 @@ function SalesForm({ sale, onSave, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Kode Divisi:</label>
-        <input
-          type="text"
-          name="KodeDivisi"
-          value={formData.KodeDivisi}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Kode Sales:</label>
-        <input
-          type="text"
-          name="KodeSales"
-          value={formData.KodeSales}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Nama Sales:</label>
-        <input type="text" name="namasales" value={formData.namasales} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Alamat:</label>
-        <input type="text" name="alamat" value={formData.alamat} onChange={handleChange} />
-      </div>
-      <div>
-        <label>No HP:</label>
-        <input type="text" name="nohp" value={formData.nohp} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Target:</label>
-        <input type="number" name="target" value={formData.target} onChange={handleChange} />
-      </div>
-      <div>
-        <label>Status:</label>
-        <input type="checkbox" name="status" checked={formData.status} onChange={handleChange} />
+      <div className="form-container bg-white p-4 rounded-lg">
+        <div>
+          <label>Kode Divisi:</label>
+          <input
+            type="text"
+            name="KodeDivisi"
+            value={formData.KodeDivisi}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Kode Sales:</label>
+          <input
+            type="text"
+            name="KodeSales"
+            value={formData.KodeSales}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Nama Sales:</label>
+          <input type="text" name="namasales" value={formData.namasales} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Alamat:</label>
+          <input type="text" name="alamat" value={formData.alamat} onChange={handleChange} />
+        </div>
+        <div>
+          <label>No HP:</label>
+          <input type="text" name="nohp" value={formData.nohp} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Target:</label>
+          <input type="number" name="target" value={formData.target} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Status:</label>
+          <input type="checkbox" name="status" checked={formData.status} onChange={handleChange} />
+        </div>
       </div>
       <button type="submit">Simpan</button>
       <button type="button" onClick={onCancel}>

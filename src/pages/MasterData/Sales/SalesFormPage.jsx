@@ -83,24 +83,6 @@ function SalesFormPage() {
           border: '1px solid #e5e7eb',
           padding: '16px'
         }}>
-          {!isEdit && (
-            <div style={{
-              backgroundColor: '#f0f9ff',
-              border: '1px solid #bfdbfe',
-              borderRadius: '6px',
-              padding: '12px',
-              marginBottom: '16px'
-            }}>
-              <p style={{
-                margin: 0,
-                fontSize: '14px',
-                color: '#1e40af',
-                fontWeight: '500'
-              }}>
-                ℹ️ Kode Sales akan dibuat otomatis oleh sistem
-              </p>
-            </div>
-          )}
           <form onSubmit={handleSubmit}>
             <div style={{ display: 'grid', gap: '12px' }}>
               {/* Row 1: Nama Sales */}
@@ -209,7 +191,7 @@ function SalesFormPage() {
                     fontSize: '14px',
                     fontWeight: '500',
                     color: 'white',
-                    backgroundColor: loading ? '#9ca3af' : '#22c55e',
+                    backgroundColor: loading ? '#9ca3af' : '#3b82f6',
                     border: 'none',
                     borderRadius: '6px',
                     cursor: loading ? 'not-allowed' : 'pointer'

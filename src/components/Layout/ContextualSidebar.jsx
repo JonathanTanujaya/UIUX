@@ -247,6 +247,10 @@ const ContextualSidebar = () => {
 
   const { activeItems, activeCategoryConfig, favoriteItems, toggleFavorite } = useNavigation();
 
+  // Use compact width but keep labels visible
+  const collapsed = false;
+  const SIDEBAR_WIDTH = 180; // compact but readable
+
   // Show all items since search is now in TopNavbar
   const filteredItems = activeItems;
 
@@ -274,67 +278,87 @@ const ContextualSidebar = () => {
     const active = isActiveItem(item.path);
     const favorite = isFavorite(item);
 
-    return (
-      <ListItem key={item.path} disablePadding>
-        <ListItemButton
-          onClick={() => handleItemClick(item)}
-          selected={active}
-          sx={{
-            borderRadius: 1,
-            mb: 0.5,
-            '&.Mui-selected': {
-              backgroundColor: 'primary.50',
-              borderLeft: '3px solid',
-              borderLeftColor: 'primary.main',
-              '&:hover': {
-                backgroundColor: 'primary.100',
-              },
-            },
+    const button = (
+      <ListItemButton
+        onClick={() => handleItemClick(item)}
+        selected={active}
+        sx={{
+          borderRadius: 1,
+          mb: 0.5,
+          justifyContent: collapsed ? 'center' : 'flex-start',
+          px: collapsed ? 1 : 1.25,
+          '&.Mui-selected': {
+            backgroundColor: 'primary.50',
+            borderLeft: collapsed ? '0' : '3px solid',
+            borderLeftColor: 'primary.main',
             '&:hover': {
-              backgroundColor: 'action.hover',
+              backgroundColor: 'primary.100',
             },
-          }}
-        >
-          <ListItemIcon sx={{ minWidth: 36 }}>
-            {IconComponent ? (
-              <IconComponent />
-            ) : (
-              <div className="w-5 h-5 bg-gray-100 rounded flex items-center justify-center text-gray-600 text-xs font-bold">
-                {item.label.charAt(0)}
-              </div>
-            )}
-          </ListItemIcon>
+          },
+          '&:hover': {
+            backgroundColor: 'action.hover',
+          },
+        }}
+      >
+        <ListItemIcon sx={{ minWidth: collapsed ? 0 : 28, display: 'flex', justifyContent: 'center' }}>
+          {IconComponent ? (
+            <IconComponent />
+          ) : (
+            <div className="w-5 h-5 bg-gray-100 rounded flex items-center justify-center text-gray-600 text-xs font-bold">
+              {item.label.charAt(0)}
+            </div>
+          )}
+        </ListItemIcon>
+        {!collapsed && (
           <ListItemText
             primary={item.label}
             primaryTypographyProps={{
-              fontSize: '0.875rem',
+              fontSize: '0.8125rem', // ~13px
               fontWeight: active ? 600 : 400,
+              noWrap: true,
             }}
           />
-        </ListItemButton>
+        )}
+      </ListItemButton>
+    );
+
+    return (
+      <ListItem key={item.path} disablePadding>
+        {collapsed ? (
+          <Tooltip title={item.label} placement="right">
+            {button}
+          </Tooltip>
+        ) : (
+          button
+        )}
       </ListItem>
     );
   };
 
   const drawerContent = (
-    <Box sx={{ width: 240, height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Box sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Header */}
-      <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 600,
-              color: activeCategoryConfig?.color
-                ? `${activeCategoryConfig.color}.main`
-                : 'text.primary',
-            }}
-          >
-            {/* Show active page name, not category */}
-            {activeItems.find(item => item.path === location.pathname)?.label || activeCategoryConfig?.label || 'Navigation'}
-          </Typography>
+      {!collapsed && (
+        <Box sx={{ p: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Typography
+              variant="subtitle2"
+              sx={{
+                fontWeight: 600,
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                color: activeCategoryConfig?.color
+                  ? `${activeCategoryConfig.color}.main`
+                  : 'text.primary',
+              }}
+              title={activeItems.find(item => item.path === location.pathname)?.label || activeCategoryConfig?.label || 'Navigation'}
+            >
+              {activeItems.find(item => item.path === location.pathname)?.label || activeCategoryConfig?.label || 'Navigation'}
+            </Typography>
+          </Box>
         </Box>
-      </Box>
+      )}
 
       {/* Content */}
       <Box sx={{ flex: 1, overflow: 'auto', p: 1 }}>
@@ -360,7 +384,7 @@ const ContextualSidebar = () => {
   return (
     <Box
       sx={{
-        width: 240,
+        width: SIDEBAR_WIDTH,
         flexShrink: 0,
         height: '100%',
         borderRight: '1px solid',
@@ -368,6 +392,7 @@ const ContextualSidebar = () => {
         backgroundColor: 'background.paper',
         display: 'flex',
         flexDirection: 'column',
+        overflow: 'hidden',
       }}
     >
       {drawerContent}

@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { banksAPI } from '../../../services/api';
-import '../../../design-system.css';
+import Input from '../../../components/ui/Input';
+import Button from '../../../components/ui/Button';
+import Select from '../../../components/ui/Select';
 
 const MasterBank = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
-  const [activeTab, setActiveTab] = useState('list'); // 'list' or 'saldo'
+  const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState({
     no_rekening: '',
     kode_bank: '',
@@ -135,300 +139,398 @@ const MasterBank = () => {
   };
 
   const getStatusBadge = (status) => {
-    return status ? (
-      <span className="badge badge-success">Aktif</span>
-    ) : (
-      <span className="badge badge-danger">Non-Aktif</span>
+    return (
+      <span style={{
+        padding: '4px 12px',
+        borderRadius: '12px',
+        fontSize: '12px',
+        fontWeight: '500',
+        backgroundColor: status ? '#dcfce7' : '#fee2e2',
+        color: status ? '#166534' : '#991b1b',
+      }}>
+        {status ? 'Aktif' : 'Non-Aktif'}
+      </span>
     );
   };
 
-  if (loading)
+  const filteredData = data.filter(item => {
+    if (!searchTerm) return true;
+    const search = searchTerm.toLowerCase();
     return (
-      <div className="page-container">
-        <div className="loading-spinner">Loading...</div>
+      item.no_rekening?.toLowerCase().includes(search) ||
+      item.kode_bank?.toLowerCase().includes(search) ||
+      item.nama_bank?.toLowerCase().includes(search) ||
+      item.atas_nama?.toLowerCase().includes(search)
+    );
+  });
+
+  if (loading) {
+    return (
+      <div style={{ 
+        padding: '20px',
+        backgroundColor: '#f9fafb',
+        minHeight: '100%'
+      }}>
+        <div style={{ textAlign: 'center', padding: '50px' }}>Loading...</div>
       </div>
     );
+  }
+
+  if (showForm) {
+    return (
+      <div style={{ 
+        padding: '20px',
+        backgroundColor: '#f8fafc',
+        minHeight: '100%'
+      }}>
+        <div style={{ marginBottom: '20px' }}>
+          <Button
+            onClick={resetForm}
+            style={{
+              padding: '8px 16px',
+              fontSize: '14px',
+              backgroundColor: 'white',
+              color: '#6b7280',
+              border: '1px solid #d1d5db',
+            }}
+          >
+            ← Kembali
+          </Button>
+        </div>
+
+        <div style={{
+          maxWidth: '600px',
+          margin: '0 auto',
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          border: '1px solid #e5e7eb',
+          padding: '16px',
+        }}>
+          <h2 style={{
+            fontSize: '18px',
+            fontWeight: '600',
+            color: '#111827',
+            marginBottom: '16px',
+          }}>
+            {editingItem ? 'Edit Bank' : 'Tambah Bank'}
+          </h2>
+
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                No. Rekening
+              </label>
+              <Input
+                name="no_rekening"
+                value={formData.no_rekening}
+                onChange={handleInputChange}
+                placeholder="Masukkan nomor rekening"
+                required
+                disabled={editingItem}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                Kode Bank
+              </label>
+              <Input
+                name="kode_bank"
+                value={formData.kode_bank}
+                onChange={handleInputChange}
+                placeholder="Contoh: BCA, BNI, BRI"
+                required
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                Nama Bank
+              </label>
+              <Input
+                name="nama_bank"
+                value={formData.nama_bank}
+                onChange={handleInputChange}
+                placeholder="Contoh: Bank Central Asia"
+                required
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                Atas Nama
+              </label>
+              <Input
+                name="atas_nama"
+                value={formData.atas_nama}
+                onChange={handleInputChange}
+                placeholder="Nama pemegang rekening"
+                required
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '4px', fontSize: '14px', fontWeight: '500', color: '#374151' }}>
+                Saldo Awal
+              </label>
+              <Input
+                type="number"
+                name="saldo"
+                value={formData.saldo}
+                onChange={handleInputChange}
+                placeholder="0"
+                min="0"
+                step="0.01"
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  name="status_rekening"
+                  checked={formData.status_rekening}
+                  onChange={handleInputChange}
+                  style={{ width: '16px', height: '16px' }}
+                />
+                <span style={{ fontSize: '14px', color: '#374151' }}>Rekening Aktif</span>
+              </label>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+              <Button
+                type="submit"
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                }}
+              >
+                {editingItem ? 'Update' : 'Simpan'}
+              </Button>
+              <Button
+                type="button"
+                onClick={resetForm}
+                style={{
+                  flex: 1,
+                  padding: '10px',
+                  backgroundColor: 'white',
+                  color: '#dc2626',
+                  border: '1px solid #dc2626',
+                  borderRadius: '6px',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                }}
+              >
+                Batal
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="page-container">
-      <div className="page-header">
-        <h1 className="page-title">Master Bank & Rekening</h1>
-        <p className="page-subtitle">Kelola data bank dan rekening perusahaan</p>
-      </div>
-
-      {/* Tab Navigation */}
-      <div className="tab-navigation">
-        <button 
-          className={`tab-button ${activeTab === 'list' ? 'active' : ''}`}
-          onClick={() => setActiveTab('list')}
+    <div style={{ 
+      padding: '20px',
+      backgroundColor: '#f9fafb',
+      minHeight: '100%'
+    }}>
+      <div style={{ 
+        marginBottom: '20px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+        <div>
+          <h1 style={{
+            fontSize: '24px',
+            fontWeight: '700',
+            color: '#111827',
+            marginBottom: '4px'
+          }}>
+            Rekening Bank
+          </h1>
+          <p style={{
+            fontSize: '14px',
+            color: '#6b7280'
+          }}>
+            Kelola rekening bank perusahaan
+          </p>
+        </div>
+        <Button
+          onClick={() => setShowForm(true)}
+          style={{
+            padding: '10px 16px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            border: 'none',
+            borderRadius: '6px',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer',
+          }}
         >
-          📋 Daftar Rekening
-        </button>
-        <button 
-          className={`tab-button ${activeTab === 'saldo' ? 'active' : ''}`}
-          onClick={() => setActiveTab('saldo')}
-        >
-          💰 Monitoring Saldo
-        </button>
+          + Tambah Bank
+        </Button>
       </div>
 
-      {/* Actions */}
-      <div className="page-actions">
-        <button className="btn btn-primary" onClick={() => setShowForm(!showForm)}>
-          {showForm ? 'Tutup Form' : '+ Tambah Rekening Bank'}
-        </button>
-        <button className="btn btn-secondary" onClick={fetchData}>
-          🔄 Refresh
-        </button>
-      </div>
+      {/* Bank Cards Grid - segmented and comfortable for small lists */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+        gap: '16px',
+      }}>
+        {data.map((item) => (
+          <div
+            key={item.no_rekening}
+            onClick={() => {
+              // TODO: Navigate ke laporan arus kas untuk bank ini
+              // navigate(`/reports/cash-flow/${item.no_rekening}`);
+              console.log('Navigate to cash flow report for:', item.nama_bank);
+            }}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              border: '1px solid #e5e7eb',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              overflow: 'hidden',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              position: 'relative',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 2px 6px -1px rgba(0, 0, 0, 0.08), 0 1px 3px -1px rgba(0, 0, 0, 0.04)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            {/* Header segment */}
+            <div style={{
+              background: '#f5f7ff',
+              borderBottom: '1px solid #e5e7eb',
+              padding: '12px 14px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '10px'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+                <div style={{
+                  width: '40px', height: '40px', borderRadius: '10px', background: 'white',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'inset 0 0 0 1px #e5e7eb'
+                }}>
+                  <span style={{ fontSize: '20px' }}>🏦</span>
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 220 }} title={item.nama_bank}>
+                      {item.nama_bank}
+                    </div>
+                    <span title={item.status_rekening ? 'Aktif' : 'Non-Aktif'} style={{ display: 'inline-block', width: 8, height: 8, borderRadius: 9999, backgroundColor: item.status_rekening ? '#10b981' : '#ef4444' }} />
+                  </div>
+                  <div style={{ fontSize: 12, color: '#6b7280' }}>{item.kode_bank}</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleEdit(item); }}
+                  style={{ width: 30, height: 30, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#3b82f6', background: 'white', border: '1px solid #dbeafe', borderRadius: 8, cursor: 'pointer' }}
+                  title="Edit"
+                >✏️</button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleDelete(item.no_rekening); }}
+                  style={{ width: 30, height: 30, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#dc2626', background: 'white', border: '1px solid #fee2e2', borderRadius: 8, cursor: 'pointer' }}
+                  title="Hapus"
+                >🗑️</button>
+              </div>
+            </div>
 
-      {/* Form */}
-      {showForm && (
-        <div className="card mb-4">
-          <div className="card-header">
-            <h3 className="card-title">
-              {editingItem ? '✏️ Edit Rekening Bank' : '➕ Tambah Rekening Bank'}
+            {/* Body segment */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', padding: '12px 14px' }}>
+              <div style={{ background: '#f9fafb', borderRadius: '8px', padding: '10px 12px', flex: 1, border: '1px solid #eef2f7' }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'auto 1fr',
+                  rowGap: '6px',
+                  columnGap: '10px',
+                  alignItems: 'center',
+                }}>
+                  <div style={{ fontSize: '11px', color: '#6b7280' }}>No. Rek</div>
+                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#111827', fontFamily: 'monospace' }}>
+                    {item.no_rekening}
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#6b7280' }}>Atas Nama</div>
+                  <div style={{ fontSize: '14px', fontWeight: 500, color: '#111827', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {item.atas_nama}
+                  </div>
+                </div>
+              </div>
+              <div style={{ paddingLeft: '4px', textAlign: 'right', minWidth: '160px' }}>
+                <div style={{ fontSize: '12px', color: '#6b7280' }}>Saldo</div>
+                <div style={{ fontSize: '20px', fontWeight: 700, color: '#16a34a' }}>
+                  {formatCurrency(item.saldo)}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Empty State */}
+        {data.length === 0 && (
+          <div style={{
+            gridColumn: '1 / -1',
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            border: '1px solid #e5e7eb',
+            padding: '60px 20px',
+            textAlign: 'center',
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '16px' }}>🏦</div>
+            <h3 style={{
+              fontSize: '18px',
+              fontWeight: '600',
+              color: '#111827',
+              marginBottom: '8px',
+            }}>
+              Belum ada rekening bank
             </h3>
+            <p style={{
+              fontSize: '14px',
+              color: '#6b7280',
+              marginBottom: '20px',
+            }}>
+              Tambahkan rekening bank untuk mulai mengelola keuangan
+            </p>
+            <Button
+              onClick={() => setShowForm(true)}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontWeight: '500',
+                cursor: 'pointer',
+              }}
+            >
+              + Tambah Bank Pertama
+            </Button>
           </div>
-          <div className="card-body">
-            <form onSubmit={handleSubmit}>
-              <div className="form-grid grid-cols-2">
-                <div className="form-group">
-                  <label className="form-label">No. Rekening *</label>
-                  <input
-                    type="text"
-                    name="no_rekening"
-                    value={formData.no_rekening}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Masukkan nomor rekening"
-                    required
-                    disabled={editingItem} // No rekening tidak bisa diubah saat edit
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Kode Bank *</label>
-                  <input
-                    type="text"
-                    name="kode_bank"
-                    value={formData.kode_bank}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Contoh: BCA, BNI, BRI"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Nama Bank *</label>
-                  <input
-                    type="text"
-                    name="nama_bank"
-                    value={formData.nama_bank}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Contoh: Bank Central Asia"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Atas Nama *</label>
-                  <input
-                    type="text"
-                    name="atas_nama"
-                    value={formData.atas_nama}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="Nama pemegang rekening"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Saldo Awal</label>
-                  <input
-                    type="number"
-                    name="saldo"
-                    value={formData.saldo}
-                    onChange={handleInputChange}
-                    className="form-input"
-                    placeholder="0"
-                    min="0"
-                    step="0.01"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">Status</label>
-                  <div className="checkbox-wrapper">
-                    <input
-                      type="checkbox"
-                      name="status_rekening"
-                      checked={formData.status_rekening}
-                      onChange={handleInputChange}
-                      className="form-checkbox"
-                    />
-                    <span>Rekening Aktif</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-actions">
-                <button type="submit" className="btn btn-primary">
-                  {editingItem ? 'Update' : 'Simpan'}
-                </button>
-                <button type="button" className="btn btn-secondary" onClick={resetForm}>
-                  Batal
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Content based on active tab */}
-      {activeTab === 'list' && (
-        <div className="card">
-          <div className="card-header">
-            <h3 className="card-title">📋 Daftar Rekening Bank</h3>
-            <div className="card-actions">
-              <span className="data-count">{data.length} rekening</span>
-            </div>
-          </div>
-          <div className="card-body">
-            <div className="table-container">
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>No. Rekening</th>
-                    <th>Bank</th>
-                    <th>Atas Nama</th>
-                    <th>Saldo</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map(item => (
-                    <tr key={item.no_rekening}>
-                      <td>
-                        <div className="cell-with-icon">
-                          🏦 {item.no_rekening}
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <div className="font-medium">{item.nama_bank}</div>
-                          <div className="text-sm text-gray-500">{item.kode_bank}</div>
-                        </div>
-                      </td>
-                      <td>{item.atas_nama}</td>
-                      <td>
-                        <span className="font-mono text-green-600">
-                          {formatCurrency(item.saldo)}
-                        </span>
-                      </td>
-                      <td>{getStatusBadge(item.status_rekening)}</td>
-                      <td>
-                        <div className="action-buttons">
-                          <button
-                            className="btn btn-sm btn-warning"
-                            onClick={() => handleEdit(item)}
-                            title="Edit"
-                          >
-                            ✏️
-                          </button>
-                          <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => handleDelete(item.no_rekening)}
-                            title="Hapus"
-                          >
-                            🗑️
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                  {data.length === 0 && (
-                    <tr>
-                      <td colSpan="6" className="text-center py-8">
-                        <div className="empty-state">
-                          <div className="empty-icon">🏦</div>
-                          <p>Belum ada data rekening bank</p>
-                          <button className="btn btn-primary" onClick={() => setShowForm(true)}>
-                            Tambah Rekening Pertama
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'saldo' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {data.map(item => (
-            <div key={item.no_rekening} className="card">
-              <div className="card-header">
-                <h4 className="card-title">{item.nama_bank}</h4>
-                {getStatusBadge(item.status_rekening)}
-              </div>
-              <div className="card-body">
-                <div className="space-y-2">
-                  <div>
-                    <span className="text-sm text-gray-500">No. Rekening:</span>
-                    <p className="font-mono">{item.no_rekening}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm text-gray-500">Atas Nama:</span>
-                    <p>{item.atas_nama}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm text-gray-500">Saldo:</span>
-                    <p className="text-2xl font-bold text-green-600">
-                      {formatCurrency(item.saldo)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="card-footer">
-                <div className="action-buttons">
-                  <button
-                    className="btn btn-sm btn-primary"
-                    onClick={() => handleEdit(item)}
-                  >
-                    ✏️ Edit
-                  </button>
-                  <button
-                    className="btn btn-sm btn-outline"
-                    onClick={() => {/* Future: Open transaction history */}}
-                  >
-                    📊 History
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-          {data.length === 0 && (
-            <div className="col-span-full">
-              <div className="card">
-                <div className="card-body text-center py-8">
-                  <div className="empty-state">
-                    <div className="empty-icon">💰</div>
-                    <p>Belum ada data saldo bank</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

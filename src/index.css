@@ -1,8 +1,16 @@
 @tailwind base;
-@tailwind components;
+@ta ilwind components;
 @tailwind utilities;
 
 /* Custom base styles */
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden; /* Lock page-level scroll; use inner containers */
+  overscroll-behavior: none; /* Prevent inertial scroll/bounce when no overflow */
+}
+
 body {
   font-family:
     'Segoe UI',

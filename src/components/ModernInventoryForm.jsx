@@ -100,11 +100,11 @@ const ModernInventoryForm = () => {
         
         {/* Container Utama - Semua Menyatu */}
         <div className="bg-white shadow-sm border">
-          {/* Header Form - Multi Row Compact */}
+          {/* Header Form - Responsive Full Width */}
           <div className="p-3 border-l-4 border-blue-500 border-b border-gray-200">
-            {/* Row 1: Tanggal & No Faktur */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
-              <div>
+            {/* Single Row: All 5 fields responsive to fill device width */}
+            <div className="flex gap-2 w-full">
+              <div className="flex-1 min-w-[120px]">
                 <label className="block text-xs font-medium text-gray-700 mb-1">TGL TERIMA</label>
                 <input
                   type="date"
@@ -113,7 +113,7 @@ const ModernInventoryForm = () => {
                   className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
-              <div>
+              <div className="flex-1 min-w-[120px]">
                 <label className="block text-xs font-medium text-gray-700 mb-1">TGL JATUH TEMPO</label>
                 <input
                   type="date"
@@ -122,7 +122,7 @@ const ModernInventoryForm = () => {
                   className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
-              <div>
+              <div className="flex-1 min-w-[120px]">
                 <label className="block text-xs font-medium text-gray-700 mb-1">NO FAKTUR</label>
                 <input
                   type="text"
@@ -132,11 +132,7 @@ const ModernInventoryForm = () => {
                   className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
-            </div>
-
-            {/* Row 2: Supplier & Financial */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-              <div className="md:col-span-2">
+              <div className="flex-[1.5] min-w-[180px]">
                 <label className="block text-xs font-medium text-gray-700 mb-1">SUPPLIER</label>
                 <div className="flex space-x-1">
                   <select
@@ -153,7 +149,7 @@ const ModernInventoryForm = () => {
                   </button>
                 </div>
               </div>
-              <div>
+              <div className="flex-[0.7] min-w-[80px]">
                 <label className="block text-xs font-medium text-gray-700 mb-1">PPN %</label>
                 <input
                   type="number"

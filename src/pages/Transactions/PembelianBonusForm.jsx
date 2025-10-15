@@ -229,118 +229,65 @@ const PembelianBonusForm = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Header Form */}
           <div className="bg-white shadow-sm border border-l-4 border-green-500 p-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Tanggal Penerimaan */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+            {/* Single Row: All fields responsive to fill device width */}
+            <div className="flex gap-2 w-full">
+              <div className="flex-1 min-w-[120px]">
+                <label className="block text-xs font-medium text-gray-700 mb-1">
                   <Calendar className="w-4 h-4 inline mr-1" />
-                  Tanggal Penerimaan
+                  TGL PENERIMAAN
                 </label>
                 <input
                   type="date"
                   value={formData.tanggalPenerimaan}
                   onChange={(e) => handleInputChange('tanggalPenerimaan', e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                 />
               </div>
-
-              {/* Jatuh Tempo */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+              <div className="flex-1 min-w-[120px]">
+                <label className="block text-xs font-medium text-gray-700 mb-1">
                   <Calendar className="w-4 h-4 inline mr-1" />
-                  Jatuh Tempo
+                  JATUH TEMPO
                 </label>
                 <input
                   type="date"
                   value={formData.jatuhTempo}
                   onChange={(e) => handleInputChange('jatuhTempo', e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                 />
               </div>
-
-              {/* No Faktur */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">No Faktur</label>
+              <div className="flex-1 min-w-[120px]">
+                <label className="block text-xs font-medium text-gray-700 mb-1">NO FAKTUR</label>
                 <input
                   type="text"
                   value={formData.noFaktur}
                   onChange={(e) => handleInputChange('noFaktur', e.target.value)}
-                  placeholder="Masukkan no faktur..."
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  placeholder="No Faktur"
+                  className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   required
                 />
               </div>
-            </div>
-
-            {/* Supplier Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div className="relative">
-                <input
-                  type="text"
-                  value={formData.namaSupplier}
-                  onChange={(e) => handleSupplierInputChange(e.target.value)}
-                  onKeyDown={handleSupplierKeyDown}
-                  onBlur={() => setTimeout(() => setShowSupplierSuggestions(false), 150)}
-                  onFocus={(e) => handleSupplierInputChange(e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent peer placeholder-transparent"
-                  placeholder="Supplier"
-                  autoComplete="off"
-                  required
-                />
-                <label className={`absolute left-3 transition-all duration-200 pointer-events-none text-gray-500 ${
-                  formData.namaSupplier 
-                    ? '-top-2 text-xs bg-white px-1 text-green-600' 
-                    : 'top-2 text-sm peer-focus:-top-2 peer-focus:text-xs peer-focus:bg-white peer-focus:px-1 peer-focus:text-green-600'
-                }`}>
-                  <Building className="w-3 h-3 inline mr-1" />
-                  Supplier
-                </label>
-                
-                {/* Supplier Suggestions Dropdown */}
-                {showSupplierSuggestions && (
-                  <div className="absolute top-full left-0 right-0 z-10 bg-white border border-gray-300 rounded-md shadow-lg max-h-48 overflow-y-auto">
-                    {supplierSuggestions.map((supplier, index) => (
-                      <div
-                        key={supplier.kode}
-                        className={`px-3 py-2 cursor-pointer text-sm border-b border-gray-100 last:border-b-0 ${
-                          index === supplierActiveIndex 
-                            ? 'bg-green-600 text-white' 
-                            : 'hover:bg-green-50 text-gray-700'
-                        }`}
-                        onMouseDown={() => selectSupplier(supplier)}
-                        onMouseEnter={() => setSupplierActiveIndex(index)}
-                      >
-                        <div className="font-medium" 
-                             dangerouslySetInnerHTML={{
-                               __html: highlightMatch(supplier.nama, formData.namaSupplier)
-                             }} 
-                        />
-                        <div className={`text-xs ${index === supplierActiveIndex ? 'text-green-200' : 'text-gray-500'}`}>
-                          {supplier.kode}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="relative">
-                <input
-                  type="text"
-                  value={formData.kodeSupplier}
-                  readOnly
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-gray-50 text-gray-600 peer placeholder-transparent"
-                  placeholder="Kode Supplier"
-                />
-                <label className={`absolute left-3 transition-all duration-200 pointer-events-none text-gray-500 ${
-                  formData.kodeSupplier 
-                    ? '-top-2 text-xs bg-white px-1 text-gray-600' 
-                    : 'top-2 text-sm'
-                }`}>
-                  Kode Supplier
-                </label>
+              <div className="flex-[1.5] min-w-[180px]">
+                <label className="block text-xs font-medium text-gray-700 mb-1">SUPPLIER</label>
+                <div className="flex space-x-1">
+                  <input
+                    type="text"
+                    value={formData.namaSupplier}
+                    onChange={(e) => handleSupplierInputChange(e.target.value)}
+                    onKeyDown={(e) => handleSupplierKeyDown(e)}
+                    onFocus={() => setShowSupplierSuggestions(true)}
+                    placeholder="Cari supplier..."
+                    className="flex-1 px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="px-2 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700"
+                  >
+                    <Package className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>

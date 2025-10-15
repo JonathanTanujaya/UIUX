@@ -28,7 +28,7 @@ import SalesForm from './pages/Sales/SalesForm';
 import ReturPenjualanForm from './pages/Sales/ReturPenjualanForm';
 import PurchaseFormModern from './pages/Purchasing/PurchaseFormModern';
 import ReturPembelianForm from './pages/Purchasing/ReturPembelianForm';
-import StokOpnameForm from './pages/Transactions/StokOpnameForm';
+import StokOpnamePage from './components/StokOpnamePage';
 import PembelianBonusForm from './pages/Transactions/PembelianBonusForm';
 import PenjualanBonusForm from './pages/Transactions/PenjualanBonusForm';
 import CustomerClaimForm from './pages/Transactions/CustomerClaimForm';
@@ -151,7 +151,7 @@ function AppWithModernNavigation() {
             <Route path="/transactions/pembelian" element={<WithDivisi Component={PurchaseFormModern} />} />
             <Route path="/transactions/retur-pembelian" element={<WithDivisi Component={ReturPembelianForm} />} />
             <Route path="/transactions/retur-penjualan" element={<WithDivisi Component={ReturPenjualanForm} />} />
-            <Route path="/transactions/stok-opname" element={<WithDivisi Component={StokOpnameForm} />} />
+            <Route path="/transactions/stok-opname" element={<WithDivisi Component={StokOpnamePage} />} />
             <Route path="/transactions/pembelian-bonus" element={<WithDivisi Component={PembelianBonusForm} />} />
             <Route path="/transactions/penjualan-bonus" element={<WithDivisi Component={PenjualanBonusForm} />} />
             <Route path="/transactions/customer-claim" element={<WithDivisi Component={CustomerClaimForm} />} />

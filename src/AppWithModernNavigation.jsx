@@ -35,8 +35,17 @@ import CustomerClaimForm from './pages/Transactions/CustomerClaimForm';
 // Finance pages
 import PenerimaanResi from './pages/Finance/PenerimaanResi';
 import PiutangResi from './pages/Finance/PiutangResi';
+import PiutangResiListPage from './pages/Finance/PiutangResiListPage';
+import PiutangResiFormPage from './pages/Finance/PiutangResiFormPage';
+import PiutangResiViewPage from './pages/Finance/PiutangResiViewPage';
 import PiutangRetur from './pages/Finance/PiutangRetur';
+import PiutangReturListPage from './pages/Finance/PiutangReturListPage';
+import PiutangReturFormPage from './pages/Finance/PiutangReturFormPage';
+import PiutangReturViewPage from './pages/Finance/PiutangReturViewPage';
 import PenambahanSaldo from './pages/Finance/PenambahanSaldo';
+import PenambahanSaldoListPage from './pages/Finance/PenambahanSaldoListPage';
+import PenambahanSaldoFormPage from './pages/Finance/PenambahanSaldoFormPage';
+import PenambahanSaldoViewPage from './pages/Finance/PenambahanSaldoViewPage';
 import PenguranganSaldo from './pages/Finance/PenguranganSaldo';
 // Reports pages
 import StokBarangReport from './pages/Reports/StokBarangReport';
@@ -157,9 +166,18 @@ function AppWithModernNavigation() {
             <Route path="/transactions/customer-claim" element={<WithDivisi Component={CustomerClaimForm} />} />
             {/* Finance */}
             <Route path="/finance/penerimaan-resi" element={<WithDivisi Component={PenerimaanResi} />} />
-            <Route path="/finance/piutang-resi" element={<WithDivisi Component={PiutangResi} />} />
-            <Route path="/finance/piutang-retur" element={<WithDivisi Component={PiutangRetur} />} />
-            <Route path="/finance/penambahan-saldo" element={<WithDivisi Component={PenambahanSaldo} />} />
+            <Route path="/finance/piutang-resi" element={<PiutangResiListPage />} />
+            <Route path="/finance/piutang-resi/create" element={<PiutangResiFormPage />} />
+            <Route path="/finance/piutang-resi/edit/:id" element={<PiutangResiFormPage />} />
+            <Route path="/finance/piutang-resi/view/:id" element={<PiutangResiViewPage />} />
+            <Route path="/finance/piutang-retur" element={<PiutangReturListPage />} />
+            <Route path="/finance/piutang-retur/create" element={<PiutangReturFormPage />} />
+            <Route path="/finance/piutang-retur/edit/:id" element={<PiutangReturFormPage />} />
+            <Route path="/finance/piutang-retur/view/:id" element={<PiutangReturViewPage />} />
+            <Route path="/finance/penambahan-saldo" element={<PenambahanSaldoListPage />} />
+            <Route path="/finance/penambahan-saldo/create" element={<PenambahanSaldoFormPage />} />
+            <Route path="/finance/penambahan-saldo/edit/:id" element={<PenambahanSaldoFormPage />} />
+            <Route path="/finance/penambahan-saldo/view/:id" element={<PenambahanSaldoViewPage />} />
             <Route path="/finance/pengurangan-saldo" element={<WithDivisi Component={PenguranganSaldo} />} />
             {/* Reports */}
             <Route path="/reports/stok-barang" element={<WithDivisi Component={StokBarangReport} />} />

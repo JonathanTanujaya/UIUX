@@ -33,27 +33,27 @@ import { useNavigation } from '../../contexts/NavigationContext';
 const iconMap = {
   // Master Data icons
   TagIcon: () => (
-    <div className="w-5 h-5 bg-yellow-100 rounded flex items-center justify-center text-yellow-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-yellow-100 rounded flex items-center justify-center text-yellow-600 text-sm font-bold">
       K
     </div>
   ),
   CogIcon: () => (
-    <div className="w-5 h-5 bg-gray-100 rounded flex items-center justify-center text-gray-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-gray-100 rounded flex items-center justify-center text-gray-600 text-sm font-bold">
       S
     </div>
   ),
   ExclamationTriangleIcon: () => (
-    <div className="w-5 h-5 bg-red-100 rounded flex items-center justify-center text-red-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-red-100 rounded flex items-center justify-center text-red-600 text-sm font-bold">
       !
     </div>
   ),
   CheckCircleIcon: () => (
-    <div className="w-5 h-5 bg-green-100 rounded flex items-center justify-center text-green-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-green-100 rounded flex items-center justify-center text-green-600 text-sm font-bold">
       ✓
     </div>
   ),
   MapPinIcon: () => (
-    <div className="w-5 h-5 bg-blue-100 rounded flex items-center justify-center text-blue-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-blue-100 rounded flex items-center justify-center text-blue-600 text-sm font-bold">
       A
     </div>
   ),
@@ -68,24 +68,24 @@ const iconMap = {
     </div>
   ),
   UsersIcon: () => (
-    <div className="w-5 h-5 bg-pink-100 rounded flex items-center justify-center text-pink-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-pink-100 rounded flex items-center justify-center text-pink-600 text-sm font-bold">
       C
     </div>
   ),
   BuildingLibraryIcon: () => (
-    <div className="w-5 h-5 bg-cyan-100 rounded flex items-center justify-center text-cyan-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-cyan-100 rounded flex items-center justify-center text-cyan-600 text-sm font-bold">
       B
     </div>
   ),
   CreditCardIcon: () => (
-    <div className="w-5 h-5 bg-emerald-100 rounded flex items-center justify-center text-emerald-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-emerald-100 rounded flex items-center justify-center text-emerald-600 text-sm font-bold">
       R
     </div>
   ),
 
   // Transaction icons
   ShoppingCartIcon: () => (
-    <div className="w-5 h-5 bg-green-100 rounded flex items-center justify-center text-green-600 text-xs font-bold">
+    <div className="w-6 h-6 bg-green-100 rounded flex items-center justify-center text-green-600 text-sm font-bold">
       P
     </div>
   ),
@@ -247,9 +247,9 @@ const ContextualSidebar = () => {
 
   const { activeItems, activeCategoryConfig, favoriteItems, toggleFavorite } = useNavigation();
 
-  // Use compact width but keep labels visible
+  // Use expanded width for better readability
   const collapsed = false;
-  const SIDEBAR_WIDTH = 180; // compact but readable
+  const SIDEBAR_WIDTH = 240; // increased from 180 for better spacing
 
   // Show all items since search is now in TopNavbar
   const filteredItems = activeItems;
@@ -286,7 +286,8 @@ const ContextualSidebar = () => {
           borderRadius: 1,
           mb: 0.5,
           justifyContent: collapsed ? 'center' : 'flex-start',
-          px: collapsed ? 1 : 1.25,
+          px: collapsed ? 1 : 1.5,
+          py: 0.75, // increased vertical padding for better spacing
           '&.Mui-selected': {
             backgroundColor: 'primary.50',
             borderLeft: collapsed ? '0' : '3px solid',
@@ -300,11 +301,11 @@ const ContextualSidebar = () => {
           },
         }}
       >
-        <ListItemIcon sx={{ minWidth: collapsed ? 0 : 28, display: 'flex', justifyContent: 'center' }}>
+        <ListItemIcon sx={{ minWidth: collapsed ? 0 : 32, display: 'flex', justifyContent: 'center' }}>
           {IconComponent ? (
             <IconComponent />
           ) : (
-            <div className="w-5 h-5 bg-gray-100 rounded flex items-center justify-center text-gray-600 text-xs font-bold">
+            <div className="w-6 h-6 bg-gray-100 rounded flex items-center justify-center text-gray-600 text-sm font-bold">
               {item.label.charAt(0)}
             </div>
           )}
@@ -313,9 +314,10 @@ const ContextualSidebar = () => {
           <ListItemText
             primary={item.label}
             primaryTypographyProps={{
-              fontSize: '0.8125rem', // ~13px
-              fontWeight: active ? 600 : 400,
+              fontSize: active ? '0.95rem' : '0.875rem', // larger for active items: ~15px vs ~14px
+              fontWeight: active ? 600 : 500,
               noWrap: true,
+              color: active ? 'primary.main' : 'text.primary',
             }}
           />
         )}
@@ -342,9 +344,10 @@ const ContextualSidebar = () => {
         <Box sx={{ p: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography
-              variant="subtitle2"
+              variant="subtitle1"
               sx={{
                 fontWeight: 600,
+                fontSize: '1rem', // increased from default subtitle2 size
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',

@@ -77,7 +77,7 @@ const PiutangResiViewPage = () => {
 
   if (loading) {
     return (
-      <div className="p-6 bg-gray-50 min-h-screen">
+      <div className="p-6 bg-gray-50 h-full">
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
           <span className="ml-3 text-gray-600">Memuat data...</span>
@@ -88,8 +88,8 @@ const PiutangResiViewPage = () => {
 
   if (!data) {
     return (
-      <div className="p-6 bg-gray-50 min-h-screen">
-        <div className="text-center py-12">
+      <div className="p-6 bg-gray-50 h-full">
+        <div className="text-center py-16">
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Data Tidak Ditemukan</h2>
           <p className="text-gray-600 mb-4">Piutang resi yang Anda cari tidak dapat ditemukan.</p>
           <button
@@ -104,7 +104,7 @@ const PiutangResiViewPage = () => {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50 h-full">
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-4 mb-4">

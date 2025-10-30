@@ -159,7 +159,7 @@ const PenambahanSaldoListPage = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50 h-full">
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center justify-between">

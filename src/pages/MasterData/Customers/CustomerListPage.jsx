@@ -123,12 +123,12 @@ function CustomerListPage() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Kode Customer</th>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Nama Customer</th>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Alamat</th>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Email</th>
-                <th style={{ padding: '16px 20px', textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
-                <th style={{ padding: '16px 20px', textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Aksi</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Kode Customer</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Nama Customer</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Alamat</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Email</th>
+                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Status</th>
+                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -136,17 +136,17 @@ function CustomerListPage() {
                 const statusBadge = getStatusBadge(item.status);
                 return (
                   <tr key={item.id} style={{ borderBottom: idx < filteredData.length - 1 ? '1px solid #f1f5f9' : 'none', backgroundColor: 'white', transition: 'background-color 0.15s ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}>
-                    <td style={{ padding: '18px 20px', fontSize: '14px', fontWeight: '600', color: '#1e293b', fontFamily: 'monospace' }}>{item.kode_customer}</td>
-                    <td style={{ padding: '18px 20px', fontSize: '15px', color: '#334155', fontWeight: '500' }}>{item.nama_customer}</td>
-                    <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b', maxWidth: '300px' }}>{item.alamat}</td>
-                    <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b' }}>{item.email}</td>
-                    <td style={{ padding: '18px 20px', textAlign: 'center' }}>
-                      <span style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: statusBadge.color, backgroundColor: statusBadge.bg, border: `1px solid ${statusBadge.color}20` }}>{statusBadge.text}</span>
+                    <td style={{ padding: '6px 12px', fontSize: '13px', fontWeight: '600', color: '#1e293b', fontFamily: 'monospace' }}>{item.kode_customer}</td>
+                    <td style={{ padding: '6px 12px', fontSize: '13px', color: '#334155', fontWeight: '500' }}>{item.nama_customer}</td>
+                    <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b', maxWidth: '300px' }}>{item.alamat}</td>
+                    <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b' }}>{item.email}</td>
+                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                      <span style={{ padding: '3px 8px', borderRadius: '16px', fontSize: '11px', fontWeight: '600', color: statusBadge.color, backgroundColor: statusBadge.bg, border: `1px solid ${statusBadge.color}20` }}>{statusBadge.text}</span>
                     </td>
-                    <td style={{ padding: '18px 20px', textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                        <button onClick={() => navigate(`/master/customer/edit/${item.kode_customer}`)} style={{ padding: '8px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '6px', transition: 'all 150ms', fontSize: '16px' }} title="Edit customer"><EditIcon /></button>
-                        <button onClick={() => handleDelete(item.id)} style={{ padding: '8px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '6px', transition: 'all 150ms', fontSize: '16px' }} title="Hapus customer"><TrashIcon /></button>
+                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                      <div style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
+                        <button onClick={() => navigate(`/master/customer/edit/${item.kode_customer}`)} style={{ padding: '4px 6px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '4px', transition: 'all 150ms', fontSize: '14px' }} title="Edit customer"><EditIcon /></button>
+                        <button onClick={() => handleDelete(item.id)} style={{ padding: '4px 6px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '4px', transition: 'all 150ms', fontSize: '14px' }} title="Hapus customer"><TrashIcon /></button>
                       </div>
                     </td>
                   </tr>

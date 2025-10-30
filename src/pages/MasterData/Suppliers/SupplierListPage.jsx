@@ -122,68 +122,68 @@ function SupplierListPage() {
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Kode Supplier
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Nama Supplier
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Alamat
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Kontak Person
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'center', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Status
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'center', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Aksi
                 </th>
@@ -208,8 +208,8 @@ function SupplierListPage() {
                     }}
                   >
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       fontWeight: '600', 
                       color: '#1e293b',
                       fontFamily: 'monospace'
@@ -217,33 +217,33 @@ function SupplierListPage() {
                       {item.kode_supplier}
                     </td>
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '15px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       color: '#334155',
                       fontWeight: '500'
                     }}>
                       {item.nama_supplier}
                     </td>
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       color: '#64748b',
                       maxWidth: '300px'
                     }}>
                       {item.alamat}
                     </td>
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       color: '#64748b'
                     }}>
                       {item.kontak_person}
                     </td>
-                    <td style={{ padding: '18px 20px', textAlign: 'center' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
                       <span style={{
-                        padding: '4px 12px',
-                        borderRadius: '20px',
-                        fontSize: '12px',
+                        padding: '3px 8px',
+                        borderRadius: '16px',
+                        fontSize: '11px',
                         fontWeight: '600',
                         color: statusBadge.color,
                         backgroundColor: statusBadge.bg,
@@ -252,19 +252,19 @@ function SupplierListPage() {
                         {statusBadge.text}
                       </span>
                     </td>
-                    <td style={{ padding: '18px 20px', textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                      <div style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
                         <button
                           onClick={() => navigate(`/master/supplier/edit/${item.kode_supplier}`)}
                           style={{
-                            padding: '8px',
+                            padding: '4px 6px',
                             backgroundColor: 'transparent',
                             border: 'none',
                             cursor: 'pointer',
                             color: '#6b7280',
-                            borderRadius: '6px',
+                            borderRadius: '4px',
                             transition: 'all 150ms',
-                            fontSize: '16px'
+                            fontSize: '14px'
                           }}
                           title="Edit supplier"
                         >
@@ -273,14 +273,14 @@ function SupplierListPage() {
                         <button
                           onClick={() => handleDelete(item.id)}
                           style={{
-                            padding: '8px',
+                            padding: '4px 6px',
                             backgroundColor: 'transparent',
                             border: 'none',
                             cursor: 'pointer',
                             color: '#6b7280',
-                            borderRadius: '6px',
+                            borderRadius: '4px',
                             transition: 'all 150ms',
-                            fontSize: '16px'
+                            fontSize: '14px'
                           }}
                           title="Hapus supplier"
                         >

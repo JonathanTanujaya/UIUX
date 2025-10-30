@@ -249,7 +249,7 @@ const ContextualSidebar = () => {
 
   // Use expanded width for better readability
   const collapsed = false;
-  const SIDEBAR_WIDTH = 240; // increased from 180 for better spacing
+  const SIDEBAR_WIDTH = 220; // dikurangi dari 280 untuk menghemat ruang horizontal
 
   // Show all items since search is now in TopNavbar
   const filteredItems = activeItems;

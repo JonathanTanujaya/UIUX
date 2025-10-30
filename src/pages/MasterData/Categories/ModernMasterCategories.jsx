@@ -91,8 +91,7 @@ const ModernMasterCategories = () => {
     <div style={{ 
       padding: spacing[6], 
       backgroundColor: colors.gray[50], 
-      height: '100vh', 
-      overflow: 'hidden' 
+      height: '100%' 
     }}>
       {/* Inline Form */}
       <Card padding={spacing[4]} style={{ marginBottom: spacing[4] }}>
@@ -233,28 +232,86 @@ const ModernMasterCategories = () => {
         </div>
       </Card>
 
-      {/* Table - Scrollable */}
-      <Card padding="0">
-        <div style={{ height: 'calc(100vh - 300px)', overflowY: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: typography.fontSize.sm }}>
-            <thead style={{ position: 'sticky', top: 0, backgroundColor: colors.gray[50], zIndex: 1 }}>
-              <tr style={{ borderBottom: `2px solid ${colors.gray[200]}` }}>
-                <th style={tableHeaderStyle}>No</th>
-                <th style={tableHeaderStyle}>Kode Kategori</th>
-                <th style={tableHeaderStyle}>Nama Kategori</th>
-                <th style={{ ...tableHeaderStyle, textAlign: 'center', width: '120px' }}>Aksi</th>
+      {/* Table */}
+      <div style={{ 
+        backgroundColor: 'white', 
+        borderRadius: '12px', 
+        border: '1px solid #e5e7eb',
+        overflow: 'hidden',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+      }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                <th style={{ 
+                  padding: '6px 12px', 
+                  textAlign: 'center', 
+                  fontSize: '12px', 
+                  fontWeight: '600', 
+                  color: '#475569', 
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.3px',
+                  width: '60px'
+                }}>
+                  No
+                </th>
+                <th style={{ 
+                  padding: '6px 12px', 
+                  textAlign: 'left', 
+                  fontSize: '12px', 
+                  fontWeight: '600', 
+                  color: '#475569', 
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.3px'
+                }}>
+                  Kode Kategori
+                </th>
+                <th style={{ 
+                  padding: '6px 12px', 
+                  textAlign: 'left', 
+                  fontSize: '12px', 
+                  fontWeight: '600', 
+                  color: '#475569', 
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.3px'
+                }}>
+                  Nama Kategori
+                </th>
+                <th style={{ 
+                  padding: '6px 12px', 
+                  textAlign: 'center', 
+                  fontSize: '12px', 
+                  fontWeight: '600', 
+                  color: '#475569', 
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.3px',
+                  width: '100px'
+                }}>
+                  Aksi
+                </th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="4" style={{ padding: spacing[8], textAlign: 'center', color: colors.gray[500] }}>
+                  <td colSpan="4" style={{ 
+                    padding: '12px 12px', 
+                    textAlign: 'center', 
+                    color: '#64748b',
+                    fontSize: '13px'
+                  }}>
                     Loading data...
                   </td>
                 </tr>
               ) : filteredCategories.length === 0 ? (
                 <tr>
-                  <td colSpan="4" style={{ padding: spacing[8], textAlign: 'center', color: colors.gray[500] }}>
+                  <td colSpan="4" style={{ 
+                    padding: '12px 12px', 
+                    textAlign: 'center', 
+                    color: '#64748b',
+                    fontSize: '13px'
+                  }}>
                     {searchTerm ? 'Tidak ada kategori yang sesuai pencarian' : 'Belum ada data kategori'}
                   </td>
                 </tr>
@@ -263,44 +320,104 @@ const ModernMasterCategories = () => {
                   <tr 
                     key={category.kode_kategori || index} 
                     style={{ 
-                      borderBottom: `1px solid ${colors.gray[200]}`,
-                      backgroundColor: editingId === category.kode_kategori ? colors.primary[50] : 'transparent'
+                      borderBottom: index < filteredCategories.length - 1 ? '1px solid #f1f5f9' : 'none',
+                      backgroundColor: editingId === category.kode_kategori ? '#eff6ff' : 'white',
+                      transition: 'background-color 0.15s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (editingId !== category.kode_kategori) {
+                        e.currentTarget.style.backgroundColor = '#f8fafc';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (editingId !== category.kode_kategori) {
+                        e.currentTarget.style.backgroundColor = 'white';
+                      }
                     }}
                   >
-                    <td style={{ ...tableCellStyle, width: '60px', textAlign: 'center' }}>
-                      <span style={{ color: colors.gray[500], fontSize: typography.fontSize.sm }}>{index + 1}</span>
+                    <td style={{ 
+                      padding: '6px 12px', 
+                      textAlign: 'center',
+                      fontSize: '13px', 
+                      color: '#64748b'
+                    }}>
+                      {index + 1}
                     </td>
-                    <td style={tableCellStyle}>
-                      <span style={{ 
-                        fontFamily: typography.fontFamily.mono, 
-                        fontSize: typography.fontSize.sm,
-                        fontWeight: typography.fontWeight.medium,
-                        color: colors.primary[700],
-                        backgroundColor: colors.primary[50],
-                        padding: `${spacing[1]} ${spacing[2]}`,
-                        borderRadius: borderRadius.base
-                      }}>
-                        {category.kode_kategori}
-                      </span>
+                    <td style={{ 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
+                      fontWeight: '600', 
+                      color: '#1e293b',
+                      fontFamily: 'monospace'
+                    }}>
+                      {category.kode_kategori}
                     </td>
-                    <td style={tableCellStyle}>
-                      <span style={{ fontWeight: typography.fontWeight.medium, color: colors.gray[900] }}>
-                        {category.nama_kategori}
-                      </span>
+                    <td style={{ 
+                      padding: '6px 12px', 
+                      fontSize: '14px', 
+                      color: '#334155',
+                      fontWeight: '500'
+                    }}>
+                      {category.nama_kategori}
                     </td>
-                    <td style={{ ...tableCellStyle, textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: spacing[2], justifyContent: 'center' }}>
+                    <td style={{ 
+                      padding: '6px 12px', 
+                      textAlign: 'center'
+                    }}>
+                      <div style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
                         <button 
-                          style={actionButtonStyle} 
+                          style={{
+                            padding: '4px 6px',
+                            backgroundColor: '#3b82f6',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '3px',
+                            fontSize: '10px',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.15s ease',
+                            minWidth: '24px',
+                            height: '20px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
                           onClick={() => handleEdit(category)}
                           title="Edit kategori"
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#2563eb';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = '#3b82f6';
+                          }}
                         >
                           <EditIcon />
                         </button>
                         <button 
-                          style={{ ...actionButtonStyle, color: colors.error[600] }} 
+                          style={{
+                            padding: '4px 6px',
+                            backgroundColor: '#ef4444',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '3px',
+                            fontSize: '10px',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.15s ease',
+                            minWidth: '24px',
+                            height: '20px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
                           onClick={() => handleDelete(category.kode_kategori)}
                           title="Hapus kategori"
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#dc2626';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = '#ef4444';
+                          }}
                         >
                           <TrashIcon />
                         </button>
@@ -315,45 +432,19 @@ const ModernMasterCategories = () => {
 
         {/* Footer Info */}
         <div style={{ 
-          padding: spacing[3], 
-          borderTop: `1px solid ${colors.gray[200]}`, 
-          backgroundColor: colors.gray[50],
-          fontSize: typography.fontSize.sm,
-          color: colors.gray[600],
+          padding: '6px 12px', 
+          borderTop: '1px solid #e5e7eb', 
+          backgroundColor: '#f8fafc',
+          fontSize: '13px',
+          color: '#64748b',
           textAlign: 'center'
         }}>
-          Total: <strong style={{ color: colors.gray[900] }}>{filteredCategories.length}</strong> kategori
+          Total: <strong style={{ color: '#1e293b' }}>{filteredCategories.length}</strong> kategori
           {searchTerm && ` (hasil pencarian untuk "${searchTerm}")`}
         </div>
-      </Card>
+      </div>
     </div>
   );
-};
-
-const tableHeaderStyle = {
-  padding: spacing[3],
-  textAlign: 'left',
-  fontSize: typography.fontSize.xs,
-  fontWeight: typography.fontWeight.semibold,
-  color: colors.gray[700],
-  textTransform: 'uppercase',
-  letterSpacing: '0.05em',
-};
-
-const tableCellStyle = {
-  padding: spacing[3],
-  color: colors.gray[700],
-};
-
-const actionButtonStyle = {
-  padding: spacing[2],
-  backgroundColor: 'transparent',
-  border: 'none',
-  cursor: 'pointer',
-  color: colors.gray[600],
-  borderRadius: borderRadius.base,
-  transition: 'all 150ms',
-  fontSize: typography.fontSize.base,
 };
 
 export default ModernMasterCategories;

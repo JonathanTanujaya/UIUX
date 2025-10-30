@@ -10,13 +10,10 @@ import CustomerFormPage from './pages/MasterData/Customers/CustomerFormPage';
 import BarangManager from './components/BarangManager';
 import InvoiceManager from './components/InvoiceManager';
 // Master Data pages
-import MasterArea from './pages/MasterData/Area/MasterAreaNew';
 import AreaListPage from './pages/MasterData/Area/AreaListPage';
 import AreaFormPage from './pages/MasterData/Area/AreaFormPage';
-import MasterSales from './pages/MasterData/Sales/MasterSales';
 import SalesListPage from './pages/MasterData/Sales/SalesListPage';
 import SalesFormPage from './pages/MasterData/Sales/SalesFormPage';
-import MasterSuppliers from './pages/MasterData/Suppliers/MasterSuppliers';
 import SupplierListPage from './pages/MasterData/Suppliers/SupplierListPage';
 import SupplierFormPage from './pages/MasterData/Suppliers/SupplierFormPage';
 import MasterBank from './pages/MasterData/Bank/MasterBank';

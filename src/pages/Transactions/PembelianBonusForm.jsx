@@ -223,7 +223,7 @@ const PembelianBonusForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-full bg-gray-50">
       <div className="max-w-6xl mx-auto px-4">
         
         <form onSubmit={handleSubmit} className="space-y-4">

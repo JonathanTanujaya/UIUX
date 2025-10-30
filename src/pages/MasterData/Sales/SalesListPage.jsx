@@ -253,14 +253,14 @@ function SalesListPage() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>No</th>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Kode Sales</th>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Nama Sales</th>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Alamat</th>
-                <th style={{ padding: '16px 20px', textAlign: 'left', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>No HP</th>
-                <th style={{ padding: '16px 20px', textAlign: 'right', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Target</th>
-                <th style={{ padding: '16px 20px', textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
-                <th style={{ padding: '16px 20px', textAlign: 'center', fontSize: '13px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Aksi</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>No</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Kode Sales</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Nama Sales</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Alamat</th>
+                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>No HP</th>
+                <th style={{ padding: '6px 12px', textAlign: 'right', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Target</th>
+                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Status</th>
+                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -286,23 +286,23 @@ function SalesListPage() {
                       onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
                     >
-                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b' }}>{index + 1}</td>
-                      <td style={{ padding: '18px 20px', fontSize: '14px', fontWeight: '600', color: '#1e293b', fontFamily: 'monospace' }}>{sale.kodeSales}</td>
-                      <td style={{ padding: '18px 20px', fontSize: '15px', color: '#334155', fontWeight: '500' }}>{sale.namaSales}</td>
-                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b', maxWidth: '250px' }}>{sale.alamat}</td>
-                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#64748b' }}>{sale.noHp}</td>
-                      <td style={{ padding: '18px 20px', fontSize: '14px', color: '#475569', textAlign: 'right', fontWeight: '500' }}>{formatCurrency(sale.target)}</td>
-                      <td style={{ padding: '18px 20px', textAlign: 'center' }}>
-                        <span style={{ padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '600', color: statusBadge.color, backgroundColor: statusBadge.bg, border: `1px solid ${statusBadge.color}20` }}>
+                      <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b' }}>{index + 1}</td>
+                      <td style={{ padding: '6px 12px', fontSize: '13px', fontWeight: '600', color: '#1e293b', fontFamily: 'monospace' }}>{sale.kodeSales}</td>
+                      <td style={{ padding: '6px 12px', fontSize: '13px', color: '#334155', fontWeight: '500' }}>{sale.namaSales}</td>
+                      <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b', maxWidth: '250px' }}>{sale.alamat}</td>
+                      <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b' }}>{sale.noHp}</td>
+                      <td style={{ padding: '6px 12px', fontSize: '13px', color: '#475569', textAlign: 'right', fontWeight: '500' }}>{formatCurrency(sale.target)}</td>
+                      <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                        <span style={{ padding: '3px 8px', borderRadius: '16px', fontSize: '11px', fontWeight: '600', color: statusBadge.color, backgroundColor: statusBadge.bg, border: `1px solid ${statusBadge.color}20` }}>
                           {statusBadge.text}
                         </span>
                       </td>
-                      <td style={{ padding: '18px 20px', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                          <button onClick={() => navigate(`/master/sales/edit/${sale.kodeSales}`)} style={{ padding: '8px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '6px', transition: 'all 150ms', fontSize: '16px' }} title="Edit sales">
+                      <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                        <div style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
+                          <button onClick={() => navigate(`/master/sales/edit/${sale.kodeSales}`)} style={{ padding: '4px 6px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '4px', transition: 'all 150ms', fontSize: '14px' }} title="Edit sales">
                             <EditIcon />
                           </button>
-                          <button onClick={() => handleDelete(sale.kodeSales)} style={{ padding: '8px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '6px', transition: 'all 150ms', fontSize: '16px' }} title="Hapus sales">
+                          <button onClick={() => handleDelete(sale.kodeSales)} style={{ padding: '4px 6px', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', color: '#6b7280', borderRadius: '4px', transition: 'all 150ms', fontSize: '14px' }} title="Hapus sales">
                             <TrashIcon />
                           </button>
                         </div>

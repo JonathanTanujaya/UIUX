@@ -95,13 +95,13 @@ const ModernInventoryForm = () => {
   };
 
   return (
-    <div className="min-h-full bg-gray-50">
-      <div className="max-w-full mx-auto">
+    <div className="h-full bg-gray-50 flex flex-col">
+      <div className="max-w-full mx-auto flex-1 flex flex-col">
         
         {/* Container Utama - Semua Menyatu */}
-        <div className="bg-white shadow-sm border">
+        <div className="bg-white shadow-sm border flex-1 flex flex-col">
           {/* Header Form - Responsive Full Width */}
-          <div className="p-3 border-l-4 border-blue-500 border-b border-gray-200">
+          <div className="p-3 border-l-4 border-blue-500 border-b border-gray-200 flex-shrink-0">
             {/* Single Row: All 5 fields responsive to fill device width */}
             <div className="flex gap-2 w-full">
               <div className="flex-1 min-w-[120px]">
@@ -162,11 +162,11 @@ const ModernInventoryForm = () => {
           </div>
 
           {/* Main Content - Table dan Summary */}
-          <div className="grid grid-cols-1 lg:grid-cols-4">
+          <div className="grid grid-cols-1 lg:grid-cols-4 flex-1">
           
             {/* Items Table - 3/4 width */}
-            <div className="lg:col-span-3 border-r border-gray-200">
-              <div className="p-3 border-b border-gray-200">
+            <div className="lg:col-span-3 border-r border-gray-200 flex flex-col">
+              <div className="p-3 border-b border-gray-200 flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <h3 className="text-base font-semibold text-gray-900">Daftar Barang</h3>
                   <button 
@@ -180,17 +180,7 @@ const ModernInventoryForm = () => {
               </div>
             
               {/* Compact Table - Hidden Vertical Scroll */}
-              <div className="overflow-x-auto overflow-y-hidden scrollbar-hide-vertical" style={{
-                overflowY: 'hidden',
-              }}>
-                <style>{`
-                  .scrollbar-hide-vertical::-webkit-scrollbar-track:vertical {
-                    display: none;
-                  }
-                  .scrollbar-hide-vertical::-webkit-scrollbar:vertical {
-                    display: none;
-                  }
-                `}</style>
+              <div className="overflow-auto flex-1">
                 <table className="w-full text-xs">
                   <thead className="bg-gray-50">
                     <tr>
@@ -310,11 +300,11 @@ const ModernInventoryForm = () => {
             </div>
 
             {/* Sticky Summary Panel - 1/4 width */}
-            <div className="lg:col-span-1 p-3">
+            <div className="lg:col-span-1 p-3 flex flex-col h-full">
               <h3 className="text-base font-semibold text-gray-900 mb-3">Ringkasan</h3>
               
               {/* Financial Inputs */}
-              <div className="space-y-2 mb-3">
+              <div className="space-y-2 mb-3 flex-shrink-0">
                 <div>
                   <label className="block text-xs font-medium text-gray-700 mb-1">Diskon Global</label>
                   <input
@@ -336,8 +326,8 @@ const ModernInventoryForm = () => {
                 </div>
               </div>
 
-              {/* Summary */}
-              <div className="border-t pt-3 space-y-1.5">
+              {/* Summary - Flex-1 untuk mengisi ruang */}
+              <div className="border-t pt-3 space-y-1.5 flex-1 flex flex-col justify-center">
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-600">Subtotal:</span>
                   <span className="font-medium">{formatCurrency(totals.subtotal)}</span>
@@ -362,8 +352,8 @@ const ModernInventoryForm = () => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="mt-4 space-y-1.5">
+              {/* Action Buttons - Flex-shrink-0 untuk tetap di bawah */}
+              <div className="mt-4 space-y-1.5 flex-shrink-0">
                 <button className="w-full px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-xs font-medium">
                   Simpan Pembelian
                 </button>

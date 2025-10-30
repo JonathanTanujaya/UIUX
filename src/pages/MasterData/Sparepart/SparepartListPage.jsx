@@ -152,79 +152,79 @@ function SparepartListPage() {
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Kode
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Nama Sparepart
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Kategori
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'center', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Stok
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'right', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Harga Beli
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'right', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Harga Jual
                 </th>
                 <th style={{ 
-                  padding: '16px 20px', 
+                  padding: '6px 12px', 
                   textAlign: 'center', 
-                  fontSize: '13px', 
+                  fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.5px'
+                  letterSpacing: '0.3px'
                 }}>
                   Aksi
                 </th>
@@ -249,8 +249,8 @@ function SparepartListPage() {
                     }}
                   >
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       fontWeight: '600', 
                       color: '#1e293b',
                       fontFamily: 'monospace'
@@ -258,24 +258,24 @@ function SparepartListPage() {
                       {item.kode_barang}
                     </td>
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '15px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       color: '#334155',
                       fontWeight: '500'
                     }}>
                       {item.nama_barang}
                     </td>
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       color: '#64748b'
                     }}>
                       {item.kode_kategori}
                     </td>
-                    <td style={{ padding: '18px 20px', textAlign: 'center' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
                         <span style={{ 
-                          fontSize: '15px',
+                          fontSize: '13px',
                           fontWeight: '600', 
                           color: '#1e293b',
                           minWidth: '40px'
@@ -283,9 +283,9 @@ function SparepartListPage() {
                           {item.stok}
                         </span>
                         <span style={{
-                          padding: '4px 12px',
-                          borderRadius: '20px',
-                          fontSize: '12px',
+                          padding: '3px 8px',
+                          borderRadius: '16px',
+                          fontSize: '11px',
                           fontWeight: '600',
                           color: stockBadge.color,
                           backgroundColor: stockBadge.bg,
@@ -296,8 +296,8 @@ function SparepartListPage() {
                       </div>
                     </td>
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       color: '#475569',
                       textAlign: 'right',
                       fontWeight: '500'
@@ -305,26 +305,26 @@ function SparepartListPage() {
                       {formatCurrency(item.harga_beli)}
                     </td>
                     <td style={{ 
-                      padding: '18px 20px', 
-                      fontSize: '14px', 
+                      padding: '6px 12px', 
+                      fontSize: '13px', 
                       color: '#475569',
                       textAlign: 'right',
                       fontWeight: '500'
                     }}>
                       {formatCurrency(item.harga_jual)}
                     </td>
-                    <td style={{ padding: '18px 20px', textAlign: 'center' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
                       <button
                         onClick={() => navigate(`/master/sparepart/${item.kode_barang}/edit`)}
                         style={{
-                          padding: '8px',
+                          padding: '4px 6px',
                           backgroundColor: 'transparent',
                           border: 'none',
                           cursor: 'pointer',
                           color: '#6b7280',
-                          borderRadius: '6px',
+                          borderRadius: '4px',
                           transition: 'all 150ms',
-                          fontSize: '16px'
+                          fontSize: '14px'
                         }}
                         title="Edit sparepart"
                       >

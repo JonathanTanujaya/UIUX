@@ -118,9 +118,8 @@ const MobileBarcodeScanner = ({
       setIsScanning(true);
 
       // Here you would integrate with a barcode detection library
-      // For now, we'll simulate barcode detection
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
+      // For now, we'll simulate barcode detection immediately
+      
       // Simulate barcode result
       const mockBarcode = '1234567890123';
       onScanResult({

@@ -236,8 +236,7 @@ const StoreApp = () => {
         // In real app, send to API
         console.log('Saving transaction online:', transactionData);
 
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Process immediately without delay
 
         // Show success notification
         await showNotification('Transaction Saved', {

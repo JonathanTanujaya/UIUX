@@ -58,7 +58,8 @@ const ModernDashboard = () => {
 
   const handleRefresh = () => {
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 1000);
+    // Refresh immediately without delay
+    setIsLoading(false);
   };
 
   return (

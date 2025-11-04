@@ -168,9 +168,7 @@ export const AnalyticsDashboard = () => {
   const loadData = useCallback(async () => {
     setLoading(true);
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    // Load data immediately
     const days = timeRange === '7days' ? 7 : timeRange === '30days' ? 30 : 90;
     const sales = generateSalesData(days);
     const products = generateProductData();

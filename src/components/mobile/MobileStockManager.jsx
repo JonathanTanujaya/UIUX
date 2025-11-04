@@ -105,9 +105,8 @@ const MobileStockManager = ({ onAddProduct, onEditProduct, onViewProduct, onScan
       setLoading(true);
       setError('');
 
-      // Simulate API call with pagination
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
+      // Load mock product data immediately
+      
       // Mock product data
       const mockProducts = Array.from({ length: 20 }, (_, index) => ({
         id: (pageNum - 1) * 20 + index + 1,

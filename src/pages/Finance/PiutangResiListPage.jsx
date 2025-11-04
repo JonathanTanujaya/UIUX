@@ -59,12 +59,10 @@ const PiutangResiListPage = () => {
 
   const loadPiutangData = () => {
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      setPiutangData(dummyPiutangData);
-      setFilteredData(dummyPiutangData);
-      setLoading(false);
-    }, 1000);
+    // Load dummy data immediately
+    setPiutangData(dummyPiutangData);
+    setFilteredData(dummyPiutangData);
+    setLoading(false);
   };
 
   // Filter data berdasarkan search term dan date range
@@ -135,29 +133,9 @@ const PiutangResiListPage = () => {
 
   return (
     <div className="p-6 bg-gray-50 h-full">
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-              <CreditCard className="w-7 h-7 text-blue-600" />
-              Piutang Resi
-            </h1>
-            <p className="text-gray-600 mt-1">Kelola data piutang resi dan pembayaran customer</p>
-          </div>
-          <button
-            onClick={handleCreate}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            Tambah Piutang Resi
-          </button>
-        </div>
-      </div>
-
       {/* Filters */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
-        <div className="flex flex-wrap gap-4 items-center">
+        <div className="flex flex-wrap gap-4 items-center justify-between">
           {/* Search */}
           <div className="flex-1 min-w-[300px]">
             <div className="relative">
@@ -190,16 +168,25 @@ const PiutangResiListPage = () => {
             />
           </div>
 
-          {/* Clear Filters */}
-          <button
-            onClick={() => {
-              setSearchTerm('');
-              setSelectedDateRange({ start: '', end: '' });
-            }}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50"
-          >
-            Reset Filter
-          </button>
+          {/* Clear Filters and Add Button */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedDateRange({ start: '', end: '' });
+              }}
+              className="px-4 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Reset Filter
+            </button>
+            <button
+              onClick={handleCreate}
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Tambah Piutang Resi
+            </button>
+          </div>
         </div>
       </div>
 

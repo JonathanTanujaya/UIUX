@@ -128,9 +128,7 @@ const BarangForm = ({
     setIsLoading(true);
 
     try {
-      // Simulasi API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // In real app, you would call API here
       const submitData = {
         ...formData,
         harga_jual: parseFloat(formData.harga_jual),

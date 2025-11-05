@@ -80,9 +80,6 @@ function CustomerFormPage() {
     setLoading(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
       // In real app, you would call API here
       console.log(isEdit ? 'Updating customer:' : 'Creating customer:', formData);
       

@@ -102,7 +102,7 @@ const ModernInventoryForm = () => {
         <div className="bg-white shadow-sm border flex-1 flex flex-col">
           {/* Header Form - Responsive Full Width */}
           <div className="p-3 border-l-4 border-blue-500 border-b border-gray-200 flex-shrink-0">
-            {/* Single Row: All 5 fields responsive to fill device width */}
+            {/* Single Row: 4 fields (Tanggal Terima sampai Supplier) */}
             <div className="flex gap-2 w-full">
               <div className="flex-1 min-w-[120px]">
                 <label className="block text-xs font-medium text-gray-700 mb-1">TGL TERIMA</label>
@@ -148,15 +148,6 @@ const ModernInventoryForm = () => {
                     <Search className="w-3 h-3" />
                   </button>
                 </div>
-              </div>
-              <div className="flex-[0.7] min-w-[80px]">
-                <label className="block text-xs font-medium text-gray-700 mb-1">PPN %</label>
-                <input
-                  type="number"
-                  value={formData.ppn}
-                  onChange={(e) => handleInputChange('ppn', e.target.value)}
-                  className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
               </div>
             </div>
           </div>
@@ -306,6 +297,16 @@ const ModernInventoryForm = () => {
               {/* Financial Inputs */}
               <div className="space-y-2 mb-3 flex-shrink-0">
                 <div>
+                  <label className="block text-xs font-medium text-gray-700 mb-1">PPN %</label>
+                  <input
+                    type="number"
+                    value={formData.ppn}
+                    onChange={(e) => handleInputChange('ppn', e.target.value)}
+                    className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="11"
+                  />
+                </div>
+                <div>
                   <label className="block text-xs font-medium text-gray-700 mb-1">Diskon Global</label>
                   <input
                     type="number"
@@ -326,8 +327,11 @@ const ModernInventoryForm = () => {
                 </div>
               </div>
 
-              {/* Summary - Flex-1 untuk mengisi ruang */}
-              <div className="border-t pt-3 space-y-1.5 flex-1 flex flex-col justify-center">
+              {/* Spacer untuk mendorong summary ke bawah */}
+              <div className="flex-1"></div>
+
+              {/* Summary - Menempel di atas tombol */}
+              <div className="border-t pt-3 space-y-1.5 flex-shrink-0">
                 <div className="flex justify-between text-xs">
                   <span className="text-gray-600">Subtotal:</span>
                   <span className="font-medium">{formatCurrency(totals.subtotal)}</span>
@@ -352,8 +356,8 @@ const ModernInventoryForm = () => {
                 </div>
               </div>
 
-              {/* Action Buttons - Flex-shrink-0 untuk tetap di bawah */}
-              <div className="mt-4 space-y-1.5 flex-shrink-0">
+              {/* Action Buttons - Langsung di bawah summary */}
+              <div className="mt-3 space-y-1.5 flex-shrink-0">
                 <button className="w-full px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-xs font-medium">
                   Simpan Pembelian
                 </button>

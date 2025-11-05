@@ -7,7 +7,7 @@ import { api } from '../../../services/api';
 
 const SearchIcon = () => <span>🔍</span>;
 const PlusIcon = () => <span>+</span>;
-const EditIcon = () => <span>✏️</span>;
+const EditIcon = () => <span>📝</span>;
 const TrashIcon = () => <span>🗑️</span>;
 const XIcon = () => <span>✖️</span>;
 
@@ -368,14 +368,14 @@ const ModernMasterCategories = () => {
                         <button 
                           style={{
                             padding: '4px 6px',
-                            backgroundColor: '#3b82f6',
-                            color: 'white',
+                            backgroundColor: 'transparent',
+                            color: '#3b82f6',
                             border: 'none',
                             borderRadius: '3px',
                             fontSize: '10px',
                             fontWeight: 'bold',
                             cursor: 'pointer',
-                            transition: 'background-color 0.15s ease',
+                            transition: 'color 0.15s ease',
                             minWidth: '24px',
                             height: '20px',
                             display: 'flex',
@@ -385,10 +385,10 @@ const ModernMasterCategories = () => {
                           onClick={() => handleEdit(category)}
                           title="Edit kategori"
                           onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = '#2563eb';
+                            e.target.style.color = '#2563eb';
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = '#3b82f6';
+                            e.target.style.color = '#3b82f6';
                           }}
                         >
                           <EditIcon />
@@ -396,14 +396,14 @@ const ModernMasterCategories = () => {
                         <button 
                           style={{
                             padding: '4px 6px',
-                            backgroundColor: '#ef4444',
-                            color: 'white',
+                            backgroundColor: 'transparent',
+                            color: '#ef4444',
                             border: 'none',
                             borderRadius: '3px',
                             fontSize: '10px',
                             fontWeight: 'bold',
                             cursor: 'pointer',
-                            transition: 'background-color 0.15s ease',
+                            transition: 'color 0.15s ease',
                             minWidth: '24px',
                             height: '20px',
                             display: 'flex',
@@ -413,10 +413,10 @@ const ModernMasterCategories = () => {
                           onClick={() => handleDelete(category.kode_kategori)}
                           title="Hapus kategori"
                           onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = '#dc2626';
+                            e.target.style.color = '#dc2626';
                           }}
                           onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = '#ef4444';
+                            e.target.style.color = '#ef4444';
                           }}
                         >
                           <TrashIcon />

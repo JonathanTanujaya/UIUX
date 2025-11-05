@@ -15,6 +15,7 @@ const ModernMasterCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState({
     kode_kategori: '',
@@ -57,6 +58,7 @@ const ModernMasterCategories = () => {
     }
     
     resetForm();
+    setIsModalOpen(false);
   };
 
   const handleEdit = (category) => {
@@ -65,8 +67,12 @@ const ModernMasterCategories = () => {
       kode_kategori: category.kode_kategori,
       nama_kategori: category.nama_kategori
     });
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setIsModalOpen(true);
+  };
+
+  const handleAdd = () => {
+    resetForm();
+    setIsModalOpen(true);
   };
 
   const handleDelete = (kodeKategori) => {
@@ -79,6 +85,7 @@ const ModernMasterCategories = () => {
   const resetForm = () => {
     setFormData({ kode_kategori: '', nama_kategori: '' });
     setEditingId(null);
+    setIsModalOpen(false);
   };
 
   const filteredCategories = categories.filter(
@@ -93,142 +100,59 @@ const ModernMasterCategories = () => {
       backgroundColor: colors.gray[50], 
       height: '100%' 
     }}>
-      {/* Inline Form */}
-      <Card padding={spacing[4]} style={{ marginBottom: spacing[4] }}>
-        <form onSubmit={handleSubmit}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: spacing[4] }}>
-            {/* Kode Kategori */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: spacing[2] }}>
-              <label style={{ 
-                fontSize: typography.fontSize.sm,
-                fontWeight: typography.fontWeight.medium,
-                color: colors.gray[700],
-                minWidth: '100px',
-                whiteSpace: 'nowrap'
-              }}>
-                Kode Kategori:
-              </label>
-              <input
-                name="kode_kategori"
-                value={formData.kode_kategori}
-                onChange={(e) => setFormData({ ...formData, kode_kategori: e.target.value })}
-                placeholder="KAT001"
-                required
-                disabled={!!editingId}
-                style={{
-                  width: '120px',
-                  padding: `${spacing[2]} ${spacing[3]}`,
-                  fontSize: typography.fontSize.sm,
-                  border: `1px solid ${colors.gray[300]}`,
-                  borderRadius: borderRadius.md,
-                  outline: 'none',
-                  backgroundColor: editingId ? colors.gray[100] : colors.white,
-                  color: colors.gray[900]
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = colors.primary[500];
-                  e.target.style.boxShadow = `0 0 0 3px ${colors.primary[50]}`;
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = colors.gray[300];
-                  e.target.style.boxShadow = 'none';
-                }}
-              />
-            </div>
-
-            {/* Nama Kategori */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: spacing[2], flex: 1 }}>
-              <label style={{ 
-                fontSize: typography.fontSize.sm,
-                fontWeight: typography.fontWeight.medium,
-                color: colors.gray[700],
-                minWidth: '110px',
-                whiteSpace: 'nowrap'
-              }}>
-                Nama Kategori:
-              </label>
-              <input
-                name="nama_kategori"
-                value={formData.nama_kategori}
-                onChange={(e) => setFormData({ ...formData, nama_kategori: e.target.value })}
-                placeholder="Masukkan nama kategori..."
-                required
-                style={{
-                  flex: 1,
-                  padding: `${spacing[2]} ${spacing[3]}`,
-                  fontSize: typography.fontSize.sm,
-                  border: `1px solid ${colors.gray[300]}`,
-                  borderRadius: borderRadius.md,
-                  outline: 'none',
-                  backgroundColor: colors.white,
-                  color: colors.gray[900]
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = colors.primary[500];
-                  e.target.style.boxShadow = `0 0 0 3px ${colors.primary[50]}`;
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = colors.gray[300];
-                  e.target.style.boxShadow = 'none';
-                }}
-              />
-            </div>
-
-            {/* Buttons */}
-            <div style={{ display: 'flex', gap: spacing[2] }}>
-              <Button type="submit" icon={editingId ? <EditIcon /> : <PlusIcon />}>
-                {editingId ? 'Update' : 'Simpan'}
-              </Button>
-              {editingId && (
-                <Button type="button" variant="secondary" icon={<XIcon />} onClick={resetForm}>
-                  Batal
-                </Button>
-              )}
-            </div>
-          </div>
-        </form>
-      </Card>
-
-      {/* Search */}
+      {/* Search and Button in one row */}
       <Card padding={spacing[4]} style={{ marginBottom: spacing[4] }}>
         <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: spacing[2], 
-          maxWidth: '400px'
+          justifyContent: 'space-between',
+          gap: spacing[4]
         }}>
-          <label style={{ 
-            fontWeight: typography.fontWeight.medium,
-            fontSize: typography.fontSize.sm,
-            color: colors.gray[700],
-            minWidth: '80px'
-          }}>
-            Pencarian:
-          </label>
+          {/* Search - Left */}
           <div style={{ 
-            position: 'relative', 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: spacing[2],
             flex: 1,
-            marginLeft: '20px' // Menggeser box input agar sejajar dengan input kode kategori
+            maxWidth: '400px'
           }}>
-            <input
-              type="text"
-              placeholder="Cari kategori (kode/nama)..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                width: '100%',
-                height: '40px',
-                padding: `${spacing[2]} ${spacing[3]} ${spacing[2]} ${spacing[10]}`,
-                fontSize: typography.fontSize.sm,
-                border: `1px solid ${colors.gray[300]}`,
-                borderRadius: borderRadius.md,
-                outline: 'none',
-              }}
-            />
-            <div style={{ position: 'absolute', left: spacing[3], top: '50%', transform: 'translateY(-50%)', color: colors.gray[400] }}>
-              <SearchIcon />
+            <label style={{ 
+              fontWeight: typography.fontWeight.medium,
+              fontSize: typography.fontSize.sm,
+              color: colors.gray[700],
+              minWidth: '80px'
+            }}>
+              Pencarian:
+            </label>
+            <div style={{ 
+              position: 'relative', 
+              flex: 1
+            }}>
+              <input
+                type="text"
+                placeholder="Cari kategori (kode/nama)..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  width: '100%',
+                  height: '40px',
+                  padding: `${spacing[2]} ${spacing[3]} ${spacing[2]} ${spacing[10]}`,
+                  fontSize: typography.fontSize.sm,
+                  border: `1px solid ${colors.gray[300]}`,
+                  borderRadius: borderRadius.md,
+                  outline: 'none',
+                }}
+              />
+              <div style={{ position: 'absolute', left: spacing[3], top: '50%', transform: 'translateY(-50%)', color: colors.gray[400] }}>
+                <SearchIcon />
+              </div>
             </div>
           </div>
+
+          {/* Add Button - Right */}
+          <Button onClick={handleAdd} icon={<PlusIcon />}>
+            Tambah Kategori
+          </Button>
         </div>
       </Card>
 
@@ -443,6 +367,187 @@ const ModernMasterCategories = () => {
           {searchTerm && ` (hasil pencarian untuk "${searchTerm}")`}
         </div>
       </div>
+
+      {/* Modal Form */}
+      {isModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '12px',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            width: '100%',
+            maxWidth: '500px',
+            margin: '16px'
+          }}>
+            {/* Modal Header */}
+            <div style={{
+              padding: '20px 24px',
+              borderBottom: '1px solid #e5e7eb'
+            }}>
+              <h2 style={{
+                fontSize: '20px',
+                fontWeight: '600',
+                color: '#111827',
+                margin: 0
+              }}>
+                {editingId ? '✏️ Edit Kategori' : '➕ Tambah Kategori Baru'}
+              </h2>
+            </div>
+
+            {/* Modal Body */}
+            <form onSubmit={handleSubmit}>
+              <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {/* Kode Kategori */}
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '6px'
+                  }}>
+                    Kode Kategori <span style={{ color: '#ef4444' }}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="kode_kategori"
+                    value={formData.kode_kategori}
+                    onChange={(e) => setFormData({ ...formData, kode_kategori: e.target.value })}
+                    placeholder="Contoh: KAT001"
+                    required
+                    disabled={!!editingId}
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '14px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '8px',
+                      outline: 'none',
+                      backgroundColor: editingId ? '#f3f4f6' : 'white',
+                      color: '#111827'
+                    }}
+                    onFocus={(e) => {
+                      if (!editingId) {
+                        e.target.style.borderColor = '#3b82f6';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                      }
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#d1d5db';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  />
+                </div>
+
+                {/* Nama Kategori */}
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '6px'
+                  }}>
+                    Nama Kategori <span style={{ color: '#ef4444' }}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="nama_kategori"
+                    value={formData.nama_kategori}
+                    onChange={(e) => setFormData({ ...formData, nama_kategori: e.target.value })}
+                    placeholder="Contoh: Elektronik"
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '10px 12px',
+                      fontSize: '14px',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '8px',
+                      outline: 'none',
+                      backgroundColor: 'white',
+                      color: '#111827'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = '#3b82f6';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#d1d5db';
+                      e.target.style.boxShadow = 'none';
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div style={{
+                padding: '16px 24px',
+                borderTop: '1px solid #e5e7eb',
+                display: 'flex',
+                justifyContent: 'flex-end',
+                gap: '12px'
+              }}>
+                <button
+                  type="button"
+                  onClick={resetForm}
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: '#374151',
+                    backgroundColor: 'white',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#f9fafb';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'white';
+                  }}
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  style={{
+                    padding: '10px 20px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    color: 'white',
+                    backgroundColor: '#3b82f6',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#2563eb';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = '#3b82f6';
+                  }}
+                >
+                  {editingId ? 'Update' : 'Simpan'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

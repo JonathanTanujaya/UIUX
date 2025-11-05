@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import {
   LineChart,
   Line,
@@ -143,91 +144,85 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="page-container">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">📊 StockFlow Dashboard</h1>
-        <p className="text-gray-600">Real-time business overview dan analytics</p>
-      </div>
-
+    <div className="page-container" style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center">
-            <div className="p-3 rounded-full bg-green-100">
-              <span className="text-2xl">💰</span>
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-gray-900">Penjualan Hari Ini</h3>
-              <p className="text-2xl font-bold text-green-600">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div className="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-xl shadow-sm border border-green-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-green-700 mb-1">Penjualan Hari Ini</p>
+              <p className="text-2xl font-bold text-green-900">
                 {formatCurrency(kpiData.todaySales)}
               </p>
-              <p className="text-sm text-gray-600">Real-time sales data</p>
+              <p className="text-xs text-green-600 mt-1">Real-time sales</p>
+            </div>
+            <div className="w-14 h-14 bg-green-200 rounded-full flex items-center justify-center">
+              <span className="text-3xl">💰</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center">
-            <div className="p-3 rounded-full bg-yellow-100">
-              <span className="text-2xl">⏳</span>
+        <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-5 rounded-xl shadow-sm border border-yellow-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-yellow-700 mb-1">Invoice Tertunda</p>
+              <p className="text-2xl font-bold text-yellow-900">{kpiData.pendingTransactions}</p>
+              <p className="text-xs text-yellow-600 mt-1">Belum lunas</p>
             </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-gray-900">Invoice Tertunda</h3>
-              <p className="text-2xl font-bold text-yellow-600">{kpiData.pendingTransactions}</p>
-              <p className="text-sm text-gray-600">Belum lunas</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center">
-            <div className="p-3 rounded-full bg-red-100">
-              <span className="text-2xl">📦</span>
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-gray-900">Stok Rendah</h3>
-              <p className="text-2xl font-bold text-red-600">{kpiData.lowStockItems}</p>
-              <p className="text-sm text-gray-600">Items perlu restock</p>
+            <div className="w-14 h-14 bg-yellow-200 rounded-full flex items-center justify-center">
+              <span className="text-3xl">⏳</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100">
-              <span className="text-2xl">👥</span>
+        <div className="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-xl shadow-sm border border-red-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-red-700 mb-1">Stok Rendah</p>
+              <p className="text-2xl font-bold text-red-900">{kpiData.lowStockItems}</p>
+              <p className="text-xs text-red-600 mt-1">Perlu restock</p>
             </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-gray-900">Total Customer</h3>
-              <p className="text-2xl font-bold text-blue-600">{kpiData.totalCustomers}</p>
-              <p className="text-sm text-gray-600">Active customers</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center">
-            <div className="p-3 rounded-full bg-purple-100">
-              <span className="text-2xl">🛍️</span>
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-gray-900">Total Produk</h3>
-              <p className="text-2xl font-bold text-purple-600">{kpiData.totalProducts}</p>
-              <p className="text-sm text-gray-600">Items in catalog</p>
+            <div className="w-14 h-14 bg-red-200 rounded-full flex items-center justify-center">
+              <span className="text-3xl">📦</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center">
-            <div className="p-3 rounded-full bg-indigo-100">
-              <span className="text-2xl">🏪</span>
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-xl shadow-sm border border-blue-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-blue-700 mb-1">Total Customer</p>
+              <p className="text-2xl font-bold text-blue-900">{kpiData.totalCustomers}</p>
+              <p className="text-xs text-blue-600 mt-1">Active customers</p>
             </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold text-gray-900">Total Supplier</h3>
-              <p className="text-2xl font-bold text-indigo-600">{kpiData.totalSuppliers}</p>
-              <p className="text-sm text-gray-600">Active suppliers</p>
+            <div className="w-14 h-14 bg-blue-200 rounded-full flex items-center justify-center">
+              <span className="text-3xl">👥</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-xl shadow-sm border border-purple-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-purple-700 mb-1">Total Produk</p>
+              <p className="text-2xl font-bold text-purple-900">{kpiData.totalProducts}</p>
+              <p className="text-xs text-purple-600 mt-1">Items in catalog</p>
+            </div>
+            <div className="w-14 h-14 bg-purple-200 rounded-full flex items-center justify-center">
+              <span className="text-3xl">🛍️</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-5 rounded-xl shadow-sm border border-indigo-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-indigo-700 mb-1">Total Supplier</p>
+              <p className="text-2xl font-bold text-indigo-900">{kpiData.totalSuppliers}</p>
+              <p className="text-xs text-indigo-600 mt-1">Active suppliers</p>
+            </div>
+            <div className="w-14 h-14 bg-indigo-200 rounded-full flex items-center justify-center">
+              <span className="text-3xl">🏪</span>
             </div>
           </div>
         </div>
@@ -280,7 +275,46 @@ const Dashboard = () => {
       </div>
 
       {/* Data Status Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* Master Data Quick Access */}
+        <div className="bg-white rounded-lg shadow-md">
+          <div className="p-6 border-b">
+            <h3 className="text-xl font-semibold text-gray-900">🗂️ Master Data</h3>
+          </div>
+          <div className="p-6">
+            <div className="space-y-3">
+              <Link 
+                to="/master/kategori"
+                className="flex items-center p-2 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-lg mr-3">📝</span>
+                <span className="text-sm font-medium">Kategori</span>
+              </Link>
+              <Link 
+                to="/master/sparepart"
+                className="flex items-center p-2 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-lg mr-3">⚙️</span>
+                <span className="text-sm font-medium">Sparepart</span>
+              </Link>
+              <Link 
+                to="/master/suppliers"
+                className="flex items-center p-2 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-lg mr-3">🏭</span>
+                <span className="text-sm font-medium">Supplier</span>
+              </Link>
+              <Link 
+                to="/master/sales"
+                className="flex items-center p-2 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-lg mr-3">💼</span>
+                <span className="text-sm font-medium">Sales</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-white rounded-lg shadow-md">
           <div className="p-6 border-b">
             <h3 className="text-xl font-semibold text-gray-900">📊 Data Status</h3>
@@ -329,25 +363,37 @@ const Dashboard = () => {
           </div>
           <div className="p-6">
             <div className="grid grid-cols-2 gap-4">
-              <button className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center">
-                <span className="text-2xl mb-2">📝</span>
-                <span className="text-sm font-medium">Buat Invoice</span>
-              </button>
+              <Link 
+                to="/transactions/pembelian"
+                className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center"
+              >
+                <span className="text-2xl mb-2">�</span>
+                <span className="text-sm font-medium">Form Pembelian</span>
+              </Link>
 
-              <button className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center">
+              <Link 
+                to="/reports/stok-barang"
+                className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center"
+              >
                 <span className="text-2xl mb-2">📦</span>
-                <span className="text-sm font-medium">Cek Stok</span>
-              </button>
+                <span className="text-sm font-medium">Laporan Stok</span>
+              </Link>
 
-              <button className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center">
+              <Link 
+                to="/master/customers"
+                className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center"
+              >
                 <span className="text-2xl mb-2">👥</span>
                 <span className="text-sm font-medium">Kelola Customer</span>
-              </button>
+              </Link>
 
-              <button className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center">
+              <Link 
+                to="/reports/penjualan"
+                className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors flex flex-col items-center"
+              >
                 <span className="text-2xl mb-2">📊</span>
-                <span className="text-sm font-medium">View Reports</span>
-              </button>
+                <span className="text-sm font-medium">Laporan Penjualan</span>
+              </Link>
             </div>
           </div>
         </div>

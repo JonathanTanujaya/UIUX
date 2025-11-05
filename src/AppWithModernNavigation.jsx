@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ModernLayout from './components/Layout/ModernLayout';
+import DashboardLayout from './components/Layout/DashboardLayout';
 import DivisiManager from './components/DivisiManager';
 import CustomerManager from './components/CustomerManager';
 import CustomerListPage from './pages/MasterData/Customers/CustomerListPage';
@@ -48,6 +49,7 @@ import PenguranganSaldo from './pages/Finance/PenguranganSaldo';
 import StokBarangReport from './pages/Reports/StokBarangReport';
 import PembelianReport from './pages/Reports/PembelianReport';
 import PenjualanReport from './pages/Reports/PenjualanReport';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 // Create MUI theme
 const theme = createTheme({
@@ -96,14 +98,6 @@ const theme = createTheme({
   },
 });
 
-// Demo page components
-const DashboardPage = () => (
-  <div>
-    <h1>Dashboard</h1>
-    <p>Welcome to the new navigation system!</p>
-  </div>
-);
-
 // Simple placeholders removed in favor of real pages
 
 function AppWithModernNavigation() {
@@ -127,9 +121,14 @@ function AppWithModernNavigation() {
       <CssBaseline />
       <Router>
         <Routes>
+          {/* Dashboard routes with special layout (no sidebar) */}
+          <Route element={<DashboardLayout />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          
+          {/* All other routes with standard layout (with sidebar) */}
           <Route element={<ModernLayout />}>
-            <Route path="/" element={<DashboardPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
             {/* Master */}
             <Route path="/master/divisi" element={<DivisiManager />} />
             <Route path="/master/customer" element={<CustomerListPage />} />

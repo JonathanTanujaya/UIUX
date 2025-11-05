@@ -12,23 +12,13 @@ const DashboardLayout = () => {
         {/* Top Navigation Only */}
         <TopNavbar />
 
-        {/* Main Content - Full Width */}
+        {/* Main Content - Full Width without Sidebar */}
         <Box
           component="main"
           sx={{
             flex: 1,
             overflow: 'auto',
             backgroundColor: 'background.default',
-            p: 3,
-            '& .css-13q5uu1': {
-              display: 'none !important',
-            },
-            '& .MuiBox-root:contains("flex")': {
-              display: 'none !important',
-            },
-            '& div:contains("flex")': {
-              display: 'none !important',
-            },
           }}
         >
           <Outlet />

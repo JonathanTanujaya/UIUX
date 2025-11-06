@@ -23,7 +23,7 @@ const ModernLayout = () => {
             component="main"
             sx={{
               flex: 1,
-              overflow: 'auto',
+              overflow: 'hidden',
               backgroundColor: 'background.default',
             }}
           >

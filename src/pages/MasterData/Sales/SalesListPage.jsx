@@ -71,7 +71,7 @@ const typography = {
 
 const borderRadius = {
   md: '0.375rem',
-  lg: '0.5rem'
+  lg: 'ha0.5rem'
 };
 
 function SalesListPage() {
@@ -79,6 +79,8 @@ function SalesListPage() {
   const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15; // Fixed 15 items per page
 
   // Sample dummy data
   const dummySales = [
@@ -121,6 +123,30 @@ function SalesListPage() {
       noHp: '081234567894',
       target: '48000000',
       status: 'Aktif'
+    },
+    {
+      kodeSales: 'SLS006',
+      namaSales: 'Dewi Lestari',
+      alamat: 'Jl. Senopati No. 234, Jakarta',
+      noHp: '081234567895',
+      target: '42000000',
+      status: 'Aktif'
+    },
+    {
+      kodeSales: 'SLS007',
+      namaSales: 'Rudi Hermawan',
+      alamat: 'Jl. Kemang No. 567, Jakarta',
+      noHp: '081234567896',
+      target: '38000000',
+      status: 'Aktif'
+    },
+    {
+      kodeSales: 'SLS008',
+      namaSales: 'Linda Wijaya',
+      alamat: 'Jl. Panglima Polim No. 890, Jakarta',
+      noHp: '081234567897',
+      target: '46000000',
+      status: 'Nonaktif'
     }
   ];
 
@@ -158,6 +184,50 @@ function SalesListPage() {
       (sale.namaSales || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       (sale.kodeSales || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Pagination calculations
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredSales.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredSales.length / itemsPerPage);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
+  // Reset to page 1 when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = totalPages - 3; i <= totalPages; i++) pageNumbers.push(i);
+      } else {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      }
+    }
+    
+    return pageNumbers;
+  };
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('id-ID', {
@@ -224,21 +294,55 @@ function SalesListPage() {
 
   return (
     <div style={{ 
-      padding: '20px', 
-      backgroundColor: '#f9fafb', 
-      minHeight: '100vh' 
+      padding: '20px',
+      boxSizing: 'border-box',
+      backgroundColor: '#f9fafb',
+      height: '100%'
     }}>
       {/* Action Bar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <div style={{ maxWidth: '400px', flex: 1 }}>
-          <Input
-            type="text"
-            placeholder="Cari sales..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <Button onClick={() => navigate('/master/sales/create')}>Tambah Baru</Button>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <input
+          type="text"
+          placeholder="Cari sales..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{
+            height: '40px',
+            padding: '0 12px',
+            border: '1px solid #d1d5db',
+            borderRadius: '8px',
+            fontSize: '14px',
+            outline: 'none',
+            width: '300px'
+          }}
+          onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+          onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
+        />
+        <button
+          onClick={() => navigate('/master/sales/create')}
+          style={{
+            height: '40px',
+            padding: '0 20px',
+            backgroundColor: '#3b82f6',
+            color: 'white',
+            border: 'none',
+            borderRadius: '8px',
+            fontSize: '14px',
+            fontWeight: '500',
+            cursor: 'pointer',
+            whiteSpace: 'nowrap',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#2563eb'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#3b82f6'}
+        >
+          <svg style={{ width: '18px', height: '18px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          Tambah Sales
+        </button>
       </div>
 
       {/* Table */}
@@ -253,14 +357,14 @@ function SalesListPage() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
-                <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>No</th>
+                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px', width: '60px' }}>No</th>
                 <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Kode Sales</th>
                 <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Nama Sales</th>
                 <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Alamat</th>
                 <th style={{ padding: '6px 12px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>No HP</th>
                 <th style={{ padding: '6px 12px', textAlign: 'right', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Target</th>
-                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Status</th>
-                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px' }}>Aksi</th>
+                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px', width: '120px' }}>Status</th>
+                <th style={{ padding: '6px 12px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.3px', width: '100px' }}>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -271,22 +375,23 @@ function SalesListPage() {
                   </td>
                 </tr>
               ) : (
-                filteredSales.map((sale, index) => {
+                currentItems.map((sale, index) => {
                   const statusBadge = sale.status === 'Aktif' 
                     ? { text: 'Aktif', color: '#10b981', bg: '#f0fdf4' }
                     : { text: 'Tidak Aktif', color: '#6b7280', bg: '#f9fafb' };
+                  const rowNumber = indexOfFirstItem + index + 1;
                   return (
                     <tr
                       key={sale.kodeSales}
                       style={{ 
-                        borderBottom: index < filteredSales.length - 1 ? '1px solid #f1f5f9' : 'none',
+                        borderBottom: index < currentItems.length - 1 ? '1px solid #f1f5f9' : 'none',
                         backgroundColor: 'white',
                         transition: 'background-color 0.15s ease'
                       }}
                       onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
                     >
-                      <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b' }}>{index + 1}</td>
+                      <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b', textAlign: 'center', fontWeight: '500' }}>{rowNumber}</td>
                       <td style={{ padding: '6px 12px', fontSize: '13px', fontWeight: '600', color: '#1e293b', fontFamily: 'monospace' }}>{sale.kodeSales}</td>
                       <td style={{ padding: '6px 12px', fontSize: '13px', color: '#334155', fontWeight: '500' }}>{sale.namaSales}</td>
                       <td style={{ padding: '6px 12px', fontSize: '13px', color: '#64748b', maxWidth: '250px' }}>{sale.alamat}</td>
@@ -315,10 +420,89 @@ function SalesListPage() {
           </table>
         </div>
         
-        {/* Footer */}
-        <div style={{ padding: '16px 20px', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0', fontSize: '14px', color: '#64748b', fontWeight: '500' }}>
-          Menampilkan {filteredSales.length} dari {sales.length} sales
-        </div>
+        {/* Pagination - Only show when more than 15 items */}
+        {filteredSales.length > 15 && (
+          <div style={{
+            padding: '16px 20px',
+            backgroundColor: '#f8fafc',
+            borderTop: '1px solid #e2e8f0',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              style={{
+                padding: '6px 12px',
+                backgroundColor: currentPage === 1 ? '#f1f5f9' : 'white',
+                color: currentPage === 1 ? '#94a3b8' : '#475569',
+                border: '1px solid #e2e8f0',
+                borderRadius: '6px',
+                cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                fontSize: '13px',
+                fontWeight: '500',
+                transition: 'all 150ms'
+              }}
+            >
+              ‹ Prev
+            </button>
+
+            {getPageNumbers().map((pageNum, idx) => (
+              pageNum === '...' ? (
+                <span key={`ellipsis-${idx}`} style={{ padding: '0 4px', color: '#94a3b8' }}>...</span>
+              ) : (
+                <button
+                  key={pageNum}
+                  onClick={() => paginate(pageNum)}
+                  style={{
+                    padding: '6px 12px',
+                    backgroundColor: currentPage === pageNum ? '#3b82f6' : 'white',
+                    color: currentPage === pageNum ? 'white' : '#475569',
+                    border: `1px solid ${currentPage === pageNum ? '#3b82f6' : '#e2e8f0'}`,
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '13px',
+                    fontWeight: '500',
+                    minWidth: '36px',
+                    transition: 'all 150ms'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (currentPage !== pageNum) {
+                      e.target.style.backgroundColor = '#f8fafc';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (currentPage !== pageNum) {
+                      e.target.style.backgroundColor = 'white';
+                    }
+                  }}
+                >
+                  {pageNum}
+                </button>
+              )
+            ))}
+
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              style={{
+                padding: '6px 12px',
+                backgroundColor: currentPage === totalPages ? '#f1f5f9' : 'white',
+                color: currentPage === totalPages ? '#94a3b8' : '#475569',
+                border: '1px solid #e2e8f0',
+                borderRadius: '6px',
+                cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                fontSize: '13px',
+                fontWeight: '500',
+                transition: 'all 150ms'
+              }}
+            >
+              Next ›
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

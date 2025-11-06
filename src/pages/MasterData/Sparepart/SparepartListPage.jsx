@@ -4,12 +4,15 @@ import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 
 const EditIcon = () => <span>✏️</span>;
+const SearchIcon = () => <span>🔍</span>;
 import api from '../../../services/api';
 
 function SparepartListPage() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15; // Fixed 15 items per page
   
   useEffect(() => {
     // Data dummy untuk testing
@@ -107,6 +110,50 @@ function SparepartListPage() {
     item.kode_barang?.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Pagination calculations
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
+  // Reset to page 1 when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search]);
+
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = totalPages - 3; i <= totalPages; i++) pageNumbers.push(i);
+      } else {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      }
+    }
+    
+    return pageNumbers;
+  };
+
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
@@ -123,20 +170,65 @@ function SparepartListPage() {
 
   return (
     <div style={{ 
-      padding: '20px', 
+      padding: '24px', 
       backgroundColor: '#f9fafb', 
-      minHeight: '100vh' 
+      minHeight: 'calc(100vh - 60px)',
+      paddingTop: '16px',
+      display: 'flex',
+      flexDirection: 'column'
     }}>
       {/* Action Bar */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <div style={{ maxWidth: '400px', flex: 1 }}>
-          <Input 
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', gap: '16px' }}>
+        <div style={{ flex: 1, maxWidth: '400px' }}>
+          <input
+            type="text"
             placeholder="Cari sparepart..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            style={{
+              width: '100%',
+              height: '40px',
+              padding: '0 12px',
+              fontSize: '14px',
+              border: '1px solid #d1d5db',
+              borderRadius: '6px',
+              outline: 'none',
+              backgroundColor: 'white'
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = '#3b82f6';
+              e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = '#d1d5db';
+              e.target.style.boxShadow = 'none';
+            }}
           />
         </div>
-        <Button onClick={() => navigate('/master/sparepart/create')}>Tambah Baru</Button>
+        <button
+          onClick={() => navigate('/master/sparepart/create')}
+          style={{
+            height: '40px',
+            padding: '0 20px',
+            fontSize: '14px',
+            fontWeight: '500',
+            color: 'white',
+            backgroundColor: '#3b82f6',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            transition: 'background-color 0.15s ease',
+            whiteSpace: 'nowrap'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#2563eb';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = '#3b82f6';
+          }}
+        >
+          Tambah Baru
+        </button>
       </div>
 
       {/* Table */}
@@ -151,6 +243,18 @@ function SparepartListPage() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                <th style={{ 
+                  padding: '6px 12px', 
+                  textAlign: 'center', 
+                  fontSize: '12px', 
+                  fontWeight: '600', 
+                  color: '#475569', 
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.3px',
+                  width: '60px'
+                }}>
+                  No
+                </th>
                 <th style={{ 
                   padding: '6px 12px', 
                   textAlign: 'left', 
@@ -224,20 +328,21 @@ function SparepartListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  width: '100px'
                 }}>
                   Aksi
                 </th>
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((item, idx) => {
+              {currentItems.map((item, idx) => {
                 const stockBadge = getStockBadge(item.stok, item.min_stok);
                 return (
                   <tr 
                     key={item.kode_barang} 
                     style={{ 
-                      borderBottom: idx < filteredData.length - 1 ? '1px solid #f1f5f9' : 'none',
+                      borderBottom: idx < currentItems.length - 1 ? '1px solid #f1f5f9' : 'none',
                       backgroundColor: 'white',
                       transition: 'background-color 0.15s ease'
                     }}
@@ -248,6 +353,14 @@ function SparepartListPage() {
                       e.currentTarget.style.backgroundColor = 'white';
                     }}
                   >
+                    <td style={{ 
+                      padding: '6px 12px', 
+                      textAlign: 'center',
+                      fontSize: '13px', 
+                      color: '#64748b'
+                    }}>
+                      {indexOfFirstItem + idx + 1}
+                    </td>
                     <td style={{ 
                       padding: '6px 12px', 
                       fontSize: '13px', 
@@ -317,16 +430,28 @@ function SparepartListPage() {
                       <button
                         onClick={() => navigate(`/master/sparepart/${item.kode_barang}/edit`)}
                         style={{
-                          padding: '4px 6px',
+                          padding: '5px 7px',
                           backgroundColor: 'transparent',
                           border: 'none',
                           cursor: 'pointer',
-                          color: '#6b7280',
+                          color: '#3b82f6',
                           borderRadius: '4px',
                           transition: 'all 150ms',
-                          fontSize: '14px'
+                          fontSize: '14px',
+                          minWidth: '26px',
+                          height: '22px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: '0 auto'
                         }}
                         title="Edit sparepart"
+                        onMouseEnter={(e) => {
+                          e.target.style.color = '#2563eb';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.color = '#3b82f6';
+                        }}
                       >
                         <EditIcon />
                       </button>
@@ -338,17 +463,125 @@ function SparepartListPage() {
           </table>
         </div>
         
-        {/* Footer */}
-        <div style={{ 
-          padding: '16px 20px', 
-          backgroundColor: '#f8fafc', 
-          borderTop: '1px solid #e2e8f0', 
-          fontSize: '14px', 
-          color: '#64748b',
-          fontWeight: '500'
-        }}>
-          Menampilkan {filteredData.length} dari {data.length} sparepart
-        </div>
+        {/* Footer with Pagination - only show if more than 15 items */}
+        {filteredData.length > 15 && (
+          <div style={{ 
+            padding: '10px 12px', 
+            borderTop: '1px solid #e5e7eb', 
+            backgroundColor: '#f8fafc',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <div style={{ 
+              display: 'flex', 
+              gap: '4px',
+              alignItems: 'center'
+            }}>
+              {/* Previous Button */}
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: currentPage === 1 ? '#cbd5e1' : '#475569',
+                  backgroundColor: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '6px',
+                  cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (currentPage !== 1) {
+                    e.target.style.backgroundColor = '#f1f5f9';
+                    e.target.style.borderColor = '#cbd5e1';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'white';
+                  e.target.style.borderColor = '#e2e8f0';
+                }}
+              >
+                ← Prev
+              </button>
+
+              {/* Page Numbers */}
+              {getPageNumbers().map((page, index) => (
+                page === '...' ? (
+                  <span key={`ellipsis-${index}`} style={{ 
+                    padding: '6px 8px',
+                    color: '#94a3b8',
+                    fontSize: '13px'
+                  }}>
+                    ...
+                  </span>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => paginate(page)}
+                    style={{
+                      padding: '6px 12px',
+                      fontSize: '13px',
+                      fontWeight: '500',
+                      color: currentPage === page ? 'white' : '#475569',
+                      backgroundColor: currentPage === page ? '#3b82f6' : 'white',
+                      border: `1px solid ${currentPage === page ? '#3b82f6' : '#e2e8f0'}`,
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                      minWidth: '36px'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (currentPage !== page) {
+                        e.target.style.backgroundColor = '#f1f5f9';
+                        e.target.style.borderColor = '#cbd5e1';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (currentPage !== page) {
+                        e.target.style.backgroundColor = 'white';
+                        e.target.style.borderColor = '#e2e8f0';
+                      }
+                    }}
+                  >
+                    {page}
+                  </button>
+                )
+              ))}
+
+              {/* Next Button */}
+              <button
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: currentPage === totalPages ? '#cbd5e1' : '#475569',
+                  backgroundColor: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '6px',
+                  cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (currentPage !== totalPages) {
+                    e.target.style.backgroundColor = '#f1f5f9';
+                    e.target.style.borderColor = '#cbd5e1';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'white';
+                  e.target.style.borderColor = '#e2e8f0';
+                }}
+              >
+                Next →
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

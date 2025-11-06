@@ -17,6 +17,8 @@ const ModernMasterCategories = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15; // Fixed 15 items per page
   const [formData, setFormData] = useState({
     kode_kategori: '',
     nama_kategori: ''
@@ -29,9 +31,47 @@ const ModernMasterCategories = () => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
+      // Dummy data untuk testing pagination (30 items)
+      const dummyData = [
+        { kode_kategori: 'KAT001', nama_kategori: 'Elektronik' },
+        { kode_kategori: 'KAT002', nama_kategori: 'Fashion' },
+        { kode_kategori: 'KAT003', nama_kategori: 'Makanan & Minuman' },
+        { kode_kategori: 'KAT004', nama_kategori: 'Otomotif' },
+        { kode_kategori: 'KAT005', nama_kategori: 'Peralatan Rumah Tangga' },
+        { kode_kategori: 'KAT006', nama_kategori: 'Olahraga' },
+        { kode_kategori: 'KAT007', nama_kategori: 'Kesehatan & Kecantikan' },
+        { kode_kategori: 'KAT008', nama_kategori: 'Buku & Alat Tulis' },
+        { kode_kategori: 'KAT009', nama_kategori: 'Mainan & Hobi' },
+        { kode_kategori: 'KAT010', nama_kategori: 'Furniture' },
+        { kode_kategori: 'KAT011', nama_kategori: 'Komputer & Aksesoris' },
+        { kode_kategori: 'KAT012', nama_kategori: 'Handphone & Tablet' },
+        { kode_kategori: 'KAT013', nama_kategori: 'Kamera' },
+        { kode_kategori: 'KAT014', nama_kategori: 'Gaming' },
+        { kode_kategori: 'KAT015', nama_kategori: 'Audio' },
+        { kode_kategori: 'KAT016', nama_kategori: 'Perlengkapan Bayi' },
+        { kode_kategori: 'KAT017', nama_kategori: 'Perlengkapan Pesta' },
+        { kode_kategori: 'KAT018', nama_kategori: 'Dekorasi Rumah' },
+        { kode_kategori: 'KAT019', nama_kategori: 'Taman & Outdoor' },
+        { kode_kategori: 'KAT020', nama_kategori: 'Alat Musik' },
+        { kode_kategori: 'KAT021', nama_kategori: 'Film & Musik' },
+        { kode_kategori: 'KAT022', nama_kategori: 'Perhiasan & Aksesoris' },
+        { kode_kategori: 'KAT023', nama_kategori: 'Tas & Dompet' },
+        { kode_kategori: 'KAT024', nama_kategori: 'Jam Tangan' },
+        { kode_kategori: 'KAT025', nama_kategori: 'Sepatu' },
+        { kode_kategori: 'KAT026', nama_kategori: 'Kacamata' },
+        { kode_kategori: 'KAT027', nama_kategori: 'Perlengkapan Kantor' },
+        { kode_kategori: 'KAT028', nama_kategori: 'Tools & Hardware' },
+        { kode_kategori: 'KAT029', nama_kategori: 'Pet Supplies' },
+        { kode_kategori: 'KAT030', nama_kategori: 'Lainnya' },
+      ];
+      
+      setCategories(dummyData);
+      
+      /* Original API call - uncomment when ready to use real API
       const response = await api.get('/categories');
       const data = response.data || [];
       setCategories(Array.isArray(data) ? data : []);
+      */
     } catch (error) {
       console.error('Error fetching categories:', error);
       setCategories([]);
@@ -94,14 +134,61 @@ const ModernMasterCategories = () => {
       cat.kode_kategori?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Pagination calculations
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredCategories.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredCategories.length / itemsPerPage);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  
+  // Reset to page 1 when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = totalPages - 3; i <= totalPages; i++) pageNumbers.push(i);
+      } else {
+        pageNumbers.push(1);
+        pageNumbers.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pageNumbers.push(i);
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      }
+    }
+    
+    return pageNumbers;
+  };
+
   return (
     <div style={{ 
       padding: spacing[6], 
       backgroundColor: colors.gray[50], 
-      height: '100%' 
+      minHeight: 'calc(100vh - 60px)', // Kurangi tinggi navbar
+      paddingTop: spacing[4],
+      display: 'flex',
+      flexDirection: 'column'
     }}>
       {/* Search and Button in one row */}
-      <Card padding={spacing[4]} style={{ marginBottom: spacing[4] }}>
+      <Card padding={spacing[3]} style={{ marginBottom: spacing[3] }}> {/* Kurangi padding dan margin */}
         <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
@@ -162,14 +249,17 @@ const ModernMasterCategories = () => {
         borderRadius: '12px', 
         border: '1px solid #e5e7eb',
         overflow: 'hidden',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
-      }}>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1 // Ambil sisa ruang yang tersedia
+      }}> 
+        <div style={{ overflowX: 'auto', flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', flex: 1 }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
                 <th style={{ 
-                  padding: '6px 12px', 
+                  padding: '8px 12px', 
                   textAlign: 'center', 
                   fontSize: '12px', 
                   fontWeight: '600', 
@@ -181,7 +271,7 @@ const ModernMasterCategories = () => {
                   No
                 </th>
                 <th style={{ 
-                  padding: '6px 12px', 
+                  padding: '8px 12px', 
                   textAlign: 'left', 
                   fontSize: '12px', 
                   fontWeight: '600', 
@@ -192,7 +282,7 @@ const ModernMasterCategories = () => {
                   Kode Kategori
                 </th>
                 <th style={{ 
-                  padding: '6px 12px', 
+                  padding: '8px 12px', 
                   textAlign: 'left', 
                   fontSize: '12px', 
                   fontWeight: '600', 
@@ -203,7 +293,7 @@ const ModernMasterCategories = () => {
                   Nama Kategori
                 </th>
                 <th style={{ 
-                  padding: '6px 12px', 
+                  padding: '8px 12px', 
                   textAlign: 'center', 
                   fontSize: '12px', 
                   fontWeight: '600', 
@@ -220,7 +310,7 @@ const ModernMasterCategories = () => {
               {loading ? (
                 <tr>
                   <td colSpan="4" style={{ 
-                    padding: '12px 12px', 
+                    padding: '12px', 
                     textAlign: 'center', 
                     color: '#64748b',
                     fontSize: '13px'
@@ -228,10 +318,10 @@ const ModernMasterCategories = () => {
                     Loading data...
                   </td>
                 </tr>
-              ) : filteredCategories.length === 0 ? (
+              ) : currentItems.length === 0 ? (
                 <tr>
                   <td colSpan="4" style={{ 
-                    padding: '12px 12px', 
+                    padding: '12px', 
                     textAlign: 'center', 
                     color: '#64748b',
                     fontSize: '13px'
@@ -240,11 +330,11 @@ const ModernMasterCategories = () => {
                   </td>
                 </tr>
               ) : (
-                filteredCategories.map((category, index) => (
+                currentItems.map((category, index) => (
                   <tr 
                     key={category.kode_kategori || index} 
                     style={{ 
-                      borderBottom: index < filteredCategories.length - 1 ? '1px solid #f1f5f9' : 'none',
+                      borderBottom: index < currentItems.length - 1 ? '1px solid #f1f5f9' : 'none',
                       backgroundColor: editingId === category.kode_kategori ? '#eff6ff' : 'white',
                       transition: 'background-color 0.15s ease'
                     }}
@@ -260,15 +350,15 @@ const ModernMasterCategories = () => {
                     }}
                   >
                     <td style={{ 
-                      padding: '6px 12px', 
+                      padding: '7px 12px', 
                       textAlign: 'center',
                       fontSize: '13px', 
                       color: '#64748b'
                     }}>
-                      {index + 1}
+                      {indexOfFirstItem + index + 1}
                     </td>
                     <td style={{ 
-                      padding: '6px 12px', 
+                      padding: '7px 12px', 
                       fontSize: '13px', 
                       fontWeight: '600', 
                       color: '#1e293b',
@@ -277,31 +367,31 @@ const ModernMasterCategories = () => {
                       {category.kode_kategori}
                     </td>
                     <td style={{ 
-                      padding: '6px 12px', 
-                      fontSize: '14px', 
+                      padding: '7px 12px', 
+                      fontSize: '13px', 
                       color: '#334155',
                       fontWeight: '500'
                     }}>
                       {category.nama_kategori}
                     </td>
                     <td style={{ 
-                      padding: '6px 12px', 
+                      padding: '7px 12px', 
                       textAlign: 'center'
                     }}>
-                      <div style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
+                      <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
                         <button 
                           style={{
-                            padding: '4px 6px',
+                            padding: '5px 7px',
                             backgroundColor: 'transparent',
                             color: '#3b82f6',
                             border: 'none',
-                            borderRadius: '3px',
-                            fontSize: '10px',
+                            borderRadius: '4px',
+                            fontSize: '11px',
                             fontWeight: 'bold',
                             cursor: 'pointer',
                             transition: 'color 0.15s ease',
-                            minWidth: '24px',
-                            height: '20px',
+                            minWidth: '26px',
+                            height: '22px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'
@@ -319,17 +409,17 @@ const ModernMasterCategories = () => {
                         </button>
                         <button 
                           style={{
-                            padding: '4px 6px',
+                            padding: '5px 7px',
                             backgroundColor: 'transparent',
                             color: '#ef4444',
                             border: 'none',
-                            borderRadius: '3px',
-                            fontSize: '10px',
+                            borderRadius: '4px',
+                            fontSize: '11px',
                             fontWeight: 'bold',
                             cursor: 'pointer',
                             transition: 'color 0.15s ease',
-                            minWidth: '24px',
-                            height: '20px',
+                            minWidth: '26px',
+                            height: '22px',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'
@@ -354,17 +444,125 @@ const ModernMasterCategories = () => {
           </table>
         </div>
 
-        {/* Footer Info */}
+        {/* Footer Info & Pagination */}
         <div style={{ 
-          padding: '6px 12px', 
+          padding: '10px 12px', 
           borderTop: '1px solid #e5e7eb', 
           backgroundColor: '#f8fafc',
-          fontSize: '13px',
-          color: '#64748b',
-          textAlign: 'center'
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}>
-          Total: <strong style={{ color: '#1e293b' }}>{filteredCategories.length}</strong> kategori
-          {searchTerm && ` (hasil pencarian untuk "${searchTerm}")`}
+          {/* Pagination Controls - Center */}
+          {totalPages > 1 && (
+            <div style={{ 
+              display: 'flex', 
+              gap: '4px',
+              alignItems: 'center'
+            }}>
+              {/* Previous Button */}
+              <button
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: currentPage === 1 ? '#cbd5e1' : '#475569',
+                  backgroundColor: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '6px',
+                  cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (currentPage !== 1) {
+                    e.target.style.backgroundColor = '#f1f5f9';
+                    e.target.style.borderColor = '#cbd5e1';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'white';
+                  e.target.style.borderColor = '#e2e8f0';
+                }}
+              >
+                ← Prev
+              </button>
+
+              {/* Page Numbers */}
+              {getPageNumbers().map((page, index) => (
+                page === '...' ? (
+                  <span key={`ellipsis-${index}`} style={{ 
+                    padding: '6px 8px',
+                    color: '#94a3b8',
+                    fontSize: '13px'
+                  }}>
+                    ...
+                  </span>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => paginate(page)}
+                    style={{
+                      padding: '6px 12px',
+                      fontSize: '13px',
+                      fontWeight: '500',
+                      color: currentPage === page ? 'white' : '#475569',
+                      backgroundColor: currentPage === page ? '#3b82f6' : 'white',
+                      border: `1px solid ${currentPage === page ? '#3b82f6' : '#e2e8f0'}`,
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                      minWidth: '36px'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (currentPage !== page) {
+                        e.target.style.backgroundColor = '#f1f5f9';
+                        e.target.style.borderColor = '#cbd5e1';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (currentPage !== page) {
+                        e.target.style.backgroundColor = 'white';
+                        e.target.style.borderColor = '#e2e8f0';
+                      }
+                    }}
+                  >
+                    {page}
+                  </button>
+                )
+              ))}
+
+              {/* Next Button */}
+              <button
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: currentPage === totalPages ? '#cbd5e1' : '#475569',
+                  backgroundColor: 'white',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '6px',
+                  cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+                onMouseEnter={(e) => {
+                  if (currentPage !== totalPages) {
+                    e.target.style.backgroundColor = '#f1f5f9';
+                    e.target.style.borderColor = '#cbd5e1';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = 'white';
+                  e.target.style.borderColor = '#e2e8f0';
+                }}
+              >
+                Next →
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

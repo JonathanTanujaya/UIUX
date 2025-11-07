@@ -434,11 +434,8 @@ const ModernPurchaseFormCompact = () => {
   };
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0
-    }).format(amount);
+    // Format number with dot (.) as thousand separator
+    return Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
   const calculateTotals = () => {

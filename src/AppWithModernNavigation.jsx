@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import ModernLayout from './components/Layout/ModernLayout';
+import Layout from './components/Layout/Layout';
 import DashboardLayout from './components/Layout/DashboardLayout';
 import DivisiManager from './components/DivisiManager';
 import CustomerManager from './components/CustomerManager';
@@ -18,13 +18,13 @@ import SalesFormPage from './pages/MasterData/Sales/SalesFormPage';
 import SupplierListPage from './pages/MasterData/Suppliers/SupplierListPage';
 import SupplierFormPage from './pages/MasterData/Suppliers/SupplierFormPage';
 import MasterBank from './pages/MasterData/Bank/MasterBank';
-import ModernMasterCategories from './pages/MasterData/Categories/ModernMasterCategories';
+import CategoriesPage from './pages/MasterData/Categories/CategoriesPage';
 import SparepartListPage from './pages/MasterData/Sparepart/SparepartListPage';
 import SparepartFormPage from './pages/MasterData/Sparepart/SparepartFormPage';
 // Transactions pages
 import SalesForm from './pages/Sales/SalesForm';
 import ReturPenjualanForm from './pages/Sales/ReturPenjualanForm';
-import PurchaseFormModern from './pages/Purchasing/PurchaseFormModern';
+import PurchaseFormPage from './pages/Purchasing/PurchaseFormPage';
 import ReturPembelianForm from './pages/Purchasing/ReturPembelianForm';
 import StokOpnamePage from './components/StokOpnamePage';
 import PembelianBonusForm from './pages/Transactions/PembelianBonusForm';
@@ -128,13 +128,13 @@ function AppWithModernNavigation() {
           </Route>
           
           {/* All other routes with standard layout (with sidebar) */}
-          <Route element={<ModernLayout />}>
+          <Route element={<Layout />}>
             {/* Master */}
             <Route path="/master/divisi" element={<DivisiManager />} />
             <Route path="/master/customer" element={<CustomerListPage />} />
             <Route path="/master/customer/create" element={<CustomerFormPage />} />
             <Route path="/master/customer/edit/:kodeCustomer" element={<CustomerFormPage />} />
-            <Route path="/master/kategori" element={<ModernMasterCategories />} />
+            <Route path="/master/kategori" element={<CategoriesPage />} />
             <Route path="/master/sparepart" element={<SparepartListPage />} />
             <Route path="/master/sparepart/create" element={<SparepartFormPage />} />
             <Route path="/master/sparepart/:id/edit" element={<SparepartFormPage />} />
@@ -153,7 +153,7 @@ function AppWithModernNavigation() {
             {/* Transactions */}
             <Route path="/transactions/invoices" element={<WithDivisi Component={InvoiceManager} />} />
             <Route path="/transactions/penjualan" element={<WithDivisi Component={SalesForm} />} />
-            <Route path="/transactions/pembelian" element={<WithDivisi Component={PurchaseFormModern} />} />
+            <Route path="/transactions/pembelian" element={<WithDivisi Component={PurchaseFormPage} />} />
             <Route path="/transactions/retur-pembelian" element={<WithDivisi Component={ReturPembelianForm} />} />
             <Route path="/transactions/retur-penjualan" element={<WithDivisi Component={ReturPenjualanForm} />} />
             <Route path="/transactions/stok-opname" element={<WithDivisi Component={StokOpnamePage} />} />

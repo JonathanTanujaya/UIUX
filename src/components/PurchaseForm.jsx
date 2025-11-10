@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Plus, Search, Package, Calendar, FileText, Building, Calculator } from 'lucide-react';
-import ModernDataTable from './ModernDataTable';
+import DataTable from './DataTable';
 
-const ModernPurchaseForm = () => {
+const PurchaseForm = () => {
   const [formData, setFormData] = useState({
     tglTerima: '',
     tglJatuhTempo: '',
@@ -221,7 +221,7 @@ const ModernPurchaseForm = () => {
         </div>
 
         {/* Items Table */}
-        <ModernDataTable
+        <DataTable
           title="Daftar Barang"
           subtitle="Kelola item pembelian"
           columns={itemColumns}
@@ -285,4 +285,4 @@ const ModernPurchaseForm = () => {
   );
 };
 
-export default ModernPurchaseForm;
+export default PurchaseForm;

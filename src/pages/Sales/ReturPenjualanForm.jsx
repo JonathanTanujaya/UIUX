@@ -1,9 +1,9 @@
 import React from 'react';
-import ModernReturPenjualanFormSimple from '../../components/ModernReturPenjualanFormSimple';
+import ReturPenjualanFormSimple from '../../components/ReturPenjualanFormSimple';
 
 const ReturPenjualanForm = () => {
   // Simple sales return form - only customer selection and invoice list
-  return <ModernReturPenjualanFormSimple />;
+  return <ReturPenjualanFormSimple />;
 };
 
 export default ReturPenjualanForm;

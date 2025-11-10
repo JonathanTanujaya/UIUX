@@ -1,9 +1,9 @@
 import React from 'react';
-import ModernPurchaseFormCompact from '../../components/ModernPurchaseFormCompact';
+import PurchaseFormCompact from '../../components/PurchaseFormCompact';
 
 function PurchaseForm() {
   // Compact modern purchase form - no scrolling required for single item
-  return <ModernPurchaseFormCompact />;
+  return <PurchaseFormCompact />;
 }
 
 export default PurchaseForm;

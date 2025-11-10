@@ -1,7 +1,7 @@
 import React from 'react';
 import { Edit, Trash2, Eye, Plus } from 'lucide-react';
 
-const ModernDataTable = ({ 
+const DataTable = ({ 
   title,
   subtitle,
   columns,
@@ -167,4 +167,4 @@ const ModernDataTable = ({
   );
 };
 
-export default ModernDataTable;
+export default DataTable;

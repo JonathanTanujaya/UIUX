@@ -1,9 +1,9 @@
 import React from 'react';
-import ModernReturPenjualanFormCompact from '../../components/ModernReturPenjualanFormCompact';
+import ReturPenjualanFormCompact from '../../components/ReturPenjualanFormCompact';
 
 const ReturPenjualanForm = () => {
   // Compact modern sales return form - no scrolling required for single item
-  return <ModernReturPenjualanFormCompact />;
+  return <ReturPenjualanFormCompact />;
 };
 
 export default ReturPenjualanForm;

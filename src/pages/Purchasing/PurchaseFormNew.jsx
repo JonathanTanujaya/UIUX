@@ -1,9 +1,9 @@
 import React from 'react';
-import ModernInventoryForm from '../../components/ModernInventoryForm';
+import InventoryForm from '../../components/InventoryForm';
 
 function PurchaseForm() {
   // Modern inventory management form with clean design
-  return <ModernInventoryForm />;
+  return <InventoryForm />;
 }
 
 export default PurchaseForm;

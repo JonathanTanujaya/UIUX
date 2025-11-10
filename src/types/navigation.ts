@@ -55,7 +55,7 @@ export interface ContextualSidebarProps {}
 
 export interface CommandPaletteProps {}
 
-export interface ModernLayoutProps {
+export interface LayoutProps {
   children: React.ReactNode;
 }
 

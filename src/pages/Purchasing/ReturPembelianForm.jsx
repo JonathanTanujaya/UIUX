@@ -1,8 +1,8 @@
 import React from 'react';
-import ModernReturPembelianForm from '../../components/ModernReturPembelianForm';
+import ReturPembelianForm from '../../components/ReturPembelianForm';
 
-const ReturPembelianForm = () => {
-  return <ModernReturPembelianForm />;
+const ReturPembelianFormPage = () => {
+  return <ReturPembelianForm />;
 };
 
-export default ReturPembelianForm;
+export default ReturPembelianFormPage;

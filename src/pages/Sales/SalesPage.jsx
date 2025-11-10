@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ModernDataTable from '../../../components/ModernDataTable';
+import DataTable from '../../../components/DataTable';
 
-const ModernSalesPage = () => {
+const SalesPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Sample data untuk penjualan
@@ -141,7 +141,7 @@ const ModernSalesPage = () => {
         </div>
       </div>
 
-      <ModernDataTable
+      <DataTable
         title="Daftar Transaksi Penjualan"
         subtitle="Kelola semua transaksi penjualan"
         columns={salesColumns}
@@ -160,4 +160,4 @@ const ModernSalesPage = () => {
   );
 };
 
-export default ModernSalesPage;
+export default SalesPage;

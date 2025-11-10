@@ -11,7 +11,7 @@ const EditIcon = () => <span>📝</span>;
 const TrashIcon = () => <span>🗑️</span>;
 const XIcon = () => <span>✖️</span>;
 
-const ModernMasterCategories = () => {
+const CategoriesPage = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -750,4 +750,4 @@ const ModernMasterCategories = () => {
   );
 };
 
-export default ModernMasterCategories;
+export default CategoriesPage;

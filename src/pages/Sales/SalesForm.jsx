@@ -1,9 +1,9 @@
 import React from 'react';
-import ModernSalesFormCompact from '../../components/ModernSalesFormCompact';
+import ModernSalesInventoryForm from '../../components/ModernSalesInventoryForm';
 
 const SalesForm = () => {
-  // Compact modern sales form with all required variables
-  return <ModernSalesFormCompact />;
+  // Modern sales form with inventory management
+  return <ModernSalesInventoryForm />;
 };
 
 export default SalesForm;

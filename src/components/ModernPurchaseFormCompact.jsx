@@ -1,8 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, Package, Calendar, FileText, Building, DollarSign, Trash2 } from 'lucide-react';
-import { useSuppliers, useMasterBarang, useCreatePurchase } from '../hooks/useApi';
 
 const ModernPurchaseFormCompact = () => {
+  // Data dummy untuk suppliers
+  const dummySuppliers = [
+    { id: 'SUP001', nama: 'PT. Supplier Utama', kodeSupplier: 'SUP001' },
+    { id: 'SUP002', nama: 'CV. Mitra Jaya', kodeSupplier: 'SUP002' },
+    { id: 'SUP003', nama: 'UD. Sejahtera', kodeSupplier: 'SUP003' }
+  ];
+
+  // Data dummy untuk barang (dari sparepart list)
+  const dummyBarang = [
+    {
+      kode: 'SPR001',
+      nama: 'Filter Oli Mesin',
+      kategori: 'FILTER',
+      satuan: 'Pcs',
+      harga: 35000
+    },
+    {
+      kode: 'SPR002',
+      nama: 'Brake Pad Depan',
+      kategori: 'BRAKE',
+      satuan: 'Set',
+      harga: 120000
+    },
+    {
+      kode: 'SPR003',
+      nama: 'Spark Plug NGK',
+      kategori: 'ENGINE',
+      satuan: 'Pcs',
+      harga: 25000
+    },
+    {
+      kode: 'SPR004',
+      nama: 'Timing Belt',
+      kategori: 'ENGINE',
+      satuan: 'Pcs',
+      harga: 85000
+    },
+    {
+      kode: 'SPR005',
+      nama: 'Air Filter',
+      kategori: 'FILTER',
+      satuan: 'Pcs',
+      harga: 45000
+    },
+    {
+      kode: 'SPR006',
+      nama: 'Radiator Coolant',
+      kategori: 'COOLANT',
+      satuan: 'Liter',
+      harga: 28000
+    },
+    {
+      kode: 'SPR007',
+      nama: 'Disc Brake Rotor',
+      kategori: 'BRAKE',
+      satuan: 'Pcs',
+      harga: 350000
+    },
+    {
+      kode: 'SPR008',
+      nama: 'Engine Oil 5W-30',
+      kategori: 'OIL',
+      satuan: 'Liter',
+      harga: 75000
+    }
+  ];
+
   const [formData, setFormData] = useState({
     tglTerima: new Date().toISOString().split('T')[0], // Default hari ini
     tglJatuhTempo: new Date().toISOString().split('T')[0], // Default hari ini  
@@ -41,21 +107,21 @@ const ModernPurchaseFormCompact = () => {
   const [newItemSuggestions, setNewItemSuggestions] = useState([]);
   const [newItemActiveIndex, setNewItemActiveIndex] = useState(0);
 
-  // Fetch data from APIs
-  const { data: suppliersData, loading: loadingSuppliers, error: errorSuppliers } = useSuppliers();
-  const { data: barangData, loading: loadingBarang, error: errorBarang } = useMasterBarang();
+  // State untuk loading (dummy - selalu false)
+  const loadingSuppliers = false;
+  const loadingBarang = false;
 
   // Initialize supplier input when supplier is selected
   useEffect(() => {
-    if (formData.supplier && suppliersData?.data) {
-      const selectedSupplier = suppliersData.data.find(s => s.id === formData.supplier);
+    if (formData.supplier && dummySuppliers) {
+      const selectedSupplier = dummySuppliers.find(s => s.id === formData.supplier);
       if (selectedSupplier && supplierInput !== selectedSupplier.nama) {
         setSupplierInput(selectedSupplier.nama);
       }
     } else if (!formData.supplier) {
       setSupplierInput('');
     }
-  }, [formData.supplier, suppliersData, supplierInput]);
+  }, [formData.supplier, supplierInput]);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -68,8 +134,8 @@ const ModernPurchaseFormCompact = () => {
   const handleSupplierInputChange = (value) => {
     setSupplierInput(value);
     
-    if (value.length > 0 && suppliersData?.data) {
-      const filtered = suppliersData.data
+    if (value.length > 0 && dummySuppliers) {
+      const filtered = dummySuppliers
         .filter(s =>
           s.nama.toLowerCase().includes(value.toLowerCase()) ||
           s.kodeSupplier.toLowerCase().includes(value.toLowerCase())
@@ -135,8 +201,8 @@ const ModernPurchaseFormCompact = () => {
   const handleBarangInputChange = (index, field, value) => {
     handleItemChange(index, field, value);
     
-    if ((field === 'nama' || field === 'kode') && value.length > 0 && barangData?.data) {
-      const filtered = barangData.data
+    if ((field === 'nama' || field === 'kode') && value.length > 0 && dummyBarang) {
+      const filtered = dummyBarang
         .filter(b => {
           if (field === 'nama') {
             return (b.nama && b.nama.toLowerCase().includes(value.toLowerCase())) ||
@@ -210,8 +276,8 @@ const ModernPurchaseFormCompact = () => {
     }));
 
     // Autocomplete untuk kode barang
-    if (field === 'kode' && value.length > 0 && barangData?.data) {
-      const filtered = barangData.data
+    if (field === 'kode' && value.length > 0 && dummyBarang) {
+      const filtered = dummyBarang
         .filter(b => {
           return (b.kode && b.kode.toLowerCase().includes(value.toLowerCase())) ||
                  (b.nama && b.nama.toLowerCase().includes(value.toLowerCase()));
@@ -540,7 +606,7 @@ const ModernPurchaseFormCompact = () => {
           <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
             {/* Input Kode Barang dengan Autocomplete */}
             <div className="relative">
-              <label className="block text-sm font-medium text-gray-700 mb-1">KODE BARANG</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">CARI BARANG</label>
               <input
                 type="text"
                 value={newItemForm.kode}
@@ -549,7 +615,7 @@ const ModernPurchaseFormCompact = () => {
                 onFocus={() => setShowNewItemSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowNewItemSuggestions(false), 200)}
                 className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Masukkan kode barang"
+                placeholder="Ketik kode atau nama barang..."
                 autoComplete="off"
               />
               
@@ -566,8 +632,16 @@ const ModernPurchaseFormCompact = () => {
                       }`}
                       onClick={() => selectNewItemBarang(barang)}
                     >
-                      <div className="font-medium">{barang.kode || ''}</div>
-                      <div className="text-gray-500 text-xs truncate">{barang.nama || ''}</div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-semibold text-blue-600">{barang.kode || ''}</span>
+                        <span className="text-gray-400">•</span>
+                        <span className="text-gray-700">{barang.nama || ''}</span>
+                      </div>
+                      {barang.harga && (
+                        <div className="text-xs text-gray-500 mt-0.5">
+                          Harga: {Math.round(barang.harga).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -807,13 +881,7 @@ const ModernPurchaseFormCompact = () => {
               </div>
             )}
 
-            {errorBarang && (
-              <div className="text-center py-8">
-                <p className="text-red-600">Error: {errorBarang}</p>
-              </div>
-            )}
-
-            {barangData?.data && (
+            {dummyBarang && (
               <div className="max-h-64 overflow-y-auto">
                 <table className="w-full text-sm">
                   <thead className="bg-gray-50 sticky top-0">
@@ -825,7 +893,7 @@ const ModernPurchaseFormCompact = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {barangData.data.map((barang, index) => (
+                    {dummyBarang.map((barang, index) => (
                       <tr key={index} className="hover:bg-gray-50 border-b">
                         <td className="px-3 py-2 font-mono">{barang.kode || ''}</td>
                         <td className="px-3 py-2">{barang.nama || ''}</td>
@@ -845,7 +913,7 @@ const ModernPurchaseFormCompact = () => {
               </div>
             )}
 
-            {barangData?.data?.length === 0 && (
+            {dummyBarang?.length === 0 && (
               <div className="text-center py-8">
                 <p className="text-gray-500">Tidak ada data barang</p>
               </div>

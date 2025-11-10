@@ -1,9 +1,8 @@
 import React from 'react';
-import ModernReturPembelianFormCompact from '../../components/ModernReturPembelianFormCompact';
+import ModernReturPembelianForm from '../../components/ModernReturPembelianForm';
 
 const ReturPembelianForm = () => {
-  // Compact modern return form - no scrolling required for single item
-  return <ModernReturPembelianFormCompact />;
+  return <ModernReturPembelianForm />;
 };
 
 export default ReturPembelianForm;

@@ -58,7 +58,7 @@ const ModernReturPembelianForm = () => {
       const baseItem = baseItems[i % baseItems.length];
       const paddedNum = String(i).padStart(3, '0');
       items.push({
-         id: `SPR${paddedNum}`,
+        id: `SPR${paddedNum}`,
         kode: `SPR${paddedNum}`,
         nama: `${baseItem.nama} ${i > 20 ? 'Type ' + String.fromCharCode(65 + (i % 26)) : ''}`.trim(),
         harga_beli: baseItem.harga_beli + (i * 1000),
@@ -515,6 +515,7 @@ const ModernReturPembelianForm = () => {
                 </table>
               </div>
             </div>
+              </div>
             ) : (
               <div className="text-center py-12">
                 <Building2 className="w-16 h-16 mx-auto text-gray-300 mb-4" />

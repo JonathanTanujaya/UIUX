@@ -1,0 +1,62 @@
+[
+  {
+    "no_tt": "TT-2303001",
+    "tanggal": "2023-03-15",
+    "kode_cust": "C0002",
+    "keterangan": "Tanda terima untuk invoice INV-2303002"
+  },
+  {
+    "no_tt": "TT-2304001",
+    "tanggal": "2023-04-15",
+    "kode_cust": "C0010",
+    "keterangan": "Tanda terima untuk invoice INV-2304002"
+  },
+  {
+    "no_tt": "TT-2304002",
+    "tanggal": "2023-04-20",
+    "kode_cust": "C0006",
+    "keterangan": "Tanda terima untuk invoice INV-2304005"
+  },
+  {
+    "no_tt": "TT-2305001",
+    "tanggal": "2023-05-25",
+    "kode_cust": "C0007",
+    "keterangan": "Tanda terima untuk invoice INV-2305002"
+  },
+  {
+    "no_tt": "TT-2305002",
+    "tanggal": "2023-06-10",
+    "kode_cust": "C0004",
+    "keterangan": "Tanda terima untuk invoice INV-2305005"
+  },
+  {
+    "no_tt": "TT-2306001",
+    "tanggal": "2023-06-20",
+    "kode_cust": "C0001",
+    "keterangan": "Tanda terima pembayaran sebagian INV-2303001"
+  },
+  {
+    "no_tt": "TT-2306002",
+    "tanggal": "2023-06-25",
+    "kode_cust": "C0009",
+    "keterangan": "Tanda terima pembayaran sebagian INV-2303004"
+  },
+  {
+    "no_tt": "TT-2307001",
+    "tanggal": "2023-07-01",
+    "kode_cust": "C0008",
+    "keterangan": "Tanda terima untuk pembayaran"
+  },
+  {
+    "no_tt": "TT-2307002",
+    "tanggal": "2023-07-05",
+    "kode_cust": "C0005",
+    "keterangan": "Tanda terima untuk pembayaran"
+  },
+  {
+    "no_tt": "TT-2307003",
+    "tanggal": "2023-07-10",
+    "kode_cust": "C0003",
+    "keterangan": "Tanda terima untuk pembayaran"
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "kode_sales": "S001",
+    "nama_sales": "Budi Santoso",
+    "kode_area": "A001",
+    "alamat": "Jl. Merdeka No. 10",
+    "no_hp": "081234567890",
+    "target": 50000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S002",
+    "nama_sales": "Siti Aminah",
+    "kode_area": "A002",
+    "alamat": "Jl. Sudirman No. 20",
+    "no_hp": "081234567891",
+    "target": 60000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S003",
+    "nama_sales": "Anton Wijaya",
+    "kode_area": "A003",
+    "alamat": "Jl. Gajah Mada No. 30",
+    "no_hp": "081234567892",
+    "target": 55000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S004",
+    "nama_sales": "Dewi Lestari",
+    "kode_area": "A006",
+    "alamat": "Jl. Asia Afrika No. 40",
+    "no_hp": "081234567893",
+    "target": 70000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S005",
+    "nama_sales": "Eko Prasetyo",
+    "kode_area": "A007",
+    "alamat": "Jl. Tunjungan No. 50",
+    "no_hp": "081234567894",
+    "target": 75000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S006",
+    "nama_sales": "Fajar Nugroho",
+    "kode_area": "A008",
+    "alamat": "Jl. Pahlawan No. 60",
+    "no_hp": "081234567895",
+    "target": 65000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S007",
+    "nama_sales": "Gita Permata",
+    "kode_area": "A009",
+    "alamat": "Jl. Malioboro No. 70",
+    "no_hp": "081234567896",
+    "target": 80000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S008",
+    "nama_sales": "Heru Wibowo",
+    "kode_area": "A010",
+    "alamat": "Jl. Kesawan No. 80",
+    "no_hp": "081234567897",
+    "target": 72000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S009",
+    "nama_sales": "Indah Sari",
+    "kode_area": "A011",
+    "alamat": "Jl. Losari No. 90",
+    "no_hp": "081234567898",
+    "target": 68000000,
+    "status": true
+  },
+  {
+    "kode_sales": "S010",
+    "nama_sales": "Joko Susilo",
+    "kode_area": "A012",
+    "alamat": "Jl. Legian No. 100",
+    "no_hp": "081234567899",
+    "target": 85000000,
+    "status": true
+  }
+]

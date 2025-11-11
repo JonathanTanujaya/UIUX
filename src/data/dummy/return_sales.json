@@ -1,0 +1,112 @@
+[
+  {
+    "no_retur": "RS-2303001",
+    "tgl_retur": "2023-03-10",
+    "kode_cust": "C0002",
+    "total": 250000,
+    "sisa_retur": 250000,
+    "keterangan": "Retur 2 pcs Kaos Polos Keren, salah ukuran",
+    "status": "Open",
+    "tipe_retur": "sales",
+    "tt": null
+  },
+  {
+    "no_retur": "RS-2304001",
+    "tgl_retur": "2023-04-05",
+    "kode_cust": "C0001",
+    "total": 1750000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 1 unit Meja Kerja Modern, cacat produksi",
+    "status": "Finish",
+    "tipe_retur": "sales",
+    "tt": "TT-2304003"
+  },
+  {
+    "no_retur": "RS-2304002",
+    "tgl_retur": "2023-04-10",
+    "kode_cust": "C0009",
+    "total": 247500,
+    "sisa_retur": 247500,
+    "keterangan": "Retur 1 liter Oli Mesin Sintetik, kemasan rusak",
+    "status": "Open",
+    "tipe_retur": "sales",
+    "tt": null
+  },
+  {
+    "no_retur": "RS-2305001",
+    "tgl_retur": "2023-05-15",
+    "kode_cust": "C0007",
+    "total": 360000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 1 pcs Celana Jeans Slim Fit, salah warna",
+    "status": "Finish",
+    "tipe_retur": "sales",
+    "tt": "TT-2305003"
+  },
+  {
+    "no_retur": "RS-2305002",
+    "tgl_retur": "2023-05-25",
+    "kode_cust": "C0004",
+    "total": 2250000,
+    "sisa_retur": 2250000,
+    "keterangan": "Retur 1 unit Kursi Kantor Ergonomis, tidak sesuai pesanan",
+    "status": "Open",
+    "tipe_retur": "sales",
+    "tt": null
+  },
+  {
+    "no_retur": "RS-2306001",
+    "tgl_retur": "2023-06-01",
+    "kode_cust": "C0008",
+    "total": 175000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 1 pcs Lipstick Matte Merah, warna tidak cocok",
+    "status": "Finish",
+    "tipe_retur": "sales",
+    "tt": "TT-2306003"
+  },
+  {
+    "no_retur": "RS-2306002",
+    "tgl_retur": "2023-06-10",
+    "kode_cust": "C0003",
+    "total": 24000,
+    "sisa_retur": 24000,
+    "keterangan": "Retur 2 pcs Snack Kentang Gurih, kadaluarsa",
+    "status": "Open",
+    "tipe_retur": "sales",
+    "tt": null
+  },
+  {
+    "no_retur": "RS-2307001",
+    "tgl_retur": "2023-07-02",
+    "kode_cust": "C0005",
+    "total": 12610000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 1 unit Smartphone Flagship, masalah baterai",
+    "status": "Cancel",
+    "tipe_retur": "sales",
+    "tt": null
+  },
+  {
+    "no_retur": "RS-2307002",
+    "tgl_retur": "2023-07-15",
+    "kode_cust": "C0002",
+    "total": 250000,
+    "sisa_retur": 250000,
+    "keterangan": "Retur 2 pcs Kaos Polos Keren, salah ukuran lagi",
+    "status": "Open",
+    "tipe_retur": "sales",
+    "tt": null
+  },
+  {
+    "no_retur": "RS-2308001",
+    "tgl_retur": "2023-08-01",
+    "kode_cust": "C0010",
+    "total": 120000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 2 botol Vitamin C 500mg, kemasan penyok",
+    "status": "Finish",
+    "tipe_retur": "sales",
+    "tt": "TT-2308001"
+  }
+]

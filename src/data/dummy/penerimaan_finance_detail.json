@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "no_penerimaan": "PF-2303001",
+    "no_invoice": "INV-2303002",
+    "jumlah_invoice": 1387500,
+    "sisa_invoice": 1387500,
+    "jumlah_bayar": 1387500,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  },
+  {
+    "id": 2,
+    "no_penerimaan": "PF-2304001",
+    "no_invoice": "INV-2303004",
+    "jumlah_invoice": 5494500,
+    "sisa_invoice": 5494500,
+    "jumlah_bayar": 3494500,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  },
+  {
+    "id": 3,
+    "no_penerimaan": "PF-2304002",
+    "no_invoice": "INV-2304002",
+    "jumlah_invoice": 1800000,
+    "sisa_invoice": 1800000,
+    "jumlah_bayar": 1800000,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  },
+  {
+    "id": 4,
+    "no_penerimaan": "PF-2304003",
+    "no_invoice": "INV-2304005",
+    "jumlah_invoice": 600000,
+    "sisa_invoice": 600000,
+    "jumlah_bayar": 600000,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  },
+  {
+    "id": 5,
+    "no_penerimaan": "PF-2305001",
+    "no_invoice": "INV-2305002",
+    "jumlah_invoice": 3996000,
+    "sisa_invoice": 3996000,
+    "jumlah_bayar": 3996000,
+    "jumlah_dispensasi": 0,
+    "status": "Open"
+  },
+  {
+    "id": 6,
+    "no_penerimaan": "PF-2306001",
+    "no_invoice": "INV-2305005",
+    "jumlah_invoice": 2497500,
+    "sisa_invoice": 2497500,
+    "jumlah_bayar": 2497500,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  },
+  {
+    "id": 7,
+    "no_penerimaan": "PF-2306002",
+    "no_invoice": "INV-2303001",
+    "jumlah_invoice": 33984000,
+    "sisa_invoice": 33984000,
+    "jumlah_bayar": 10000000,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  },
+  {
+    "id": 8,
+    "no_penerimaan": "PF-2307001",
+    "no_invoice": "INV-2304004",
+    "jumlah_invoice": 875000,
+    "sisa_invoice": 875000,
+    "jumlah_bayar": 500000,
+    "jumlah_dispensasi": 0,
+    "status": "Open"
+  },
+  {
+    "id": 9,
+    "no_penerimaan": "PF-2307002",
+    "no_invoice": "INV-2303005",
+    "jumlah_invoice": 28003800,
+    "sisa_invoice": 28003800,
+    "jumlah_bayar": 15000000,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  },
+  {
+    "id": 10,
+    "no_penerimaan": "PF-2308001",
+    "no_invoice": "INV-2303003",
+    "jumlah_invoice": 600000,
+    "sisa_invoice": 600000,
+    "jumlah_bayar": 300000,
+    "jumlah_dispensasi": 0,
+    "status": "Finish"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "kode_dok": "INV",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "RET-S",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "RET-P",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "PO",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "SO",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "TT",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "VCR",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "PF",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "JRN",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "BANK-IN",
+    "nomor": "00001"
+  },
+  {
+    "kode_dok": "BANK-OUT",
+    "nomor": "00001"
+  }
+]

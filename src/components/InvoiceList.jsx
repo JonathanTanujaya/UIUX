@@ -111,6 +111,7 @@ function InvoiceList({ onEdit, onRefresh }) {
         searchable={true}
         searchFields={['noinvoice', 'namacustomer']}
         keyField="noinvoice"
+        defaultSort={{ field: 'tanggal', direction: 'desc' }}
       />
     </div>
   );

@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "no_retur": "RP-2301001",
+    "no_penerimaan": "PR-2301001",
+    "kode_barang": "E001",
+    "qty_retur": 1,
+    "harga_nett": 14500000,
+    "status": "Finish"
+  },
+  {
+    "id": 2,
+    "no_retur": "RP-2302001",
+    "no_penerimaan": "PR-2302001",
+    "kode_barang": "O001",
+    "qty_retur": 1,
+    "harga_nett": 228000,
+    "status": "Open"
+  },
+  {
+    "id": 3,
+    "no_retur": "RP-2303001",
+    "no_penerimaan": "PR-2301002",
+    "kode_barang": "P001",
+    "qty_retur": 2,
+    "harga_nett": 95000,
+    "status": "Finish"
+  },
+  {
+    "id": 4,
+    "no_retur": "RP-2303002",
+    "no_penerimaan": "PR-2302003",
+    "kode_barang": "F001",
+    "qty_retur": 1,
+    "harga_nett": 1400000,
+    "status": "Open"
+  },
+  {
+    "id": 5,
+    "no_retur": "RP-2304001",
+    "no_penerimaan": "PR-2303003",
+    "kode_barang": "W001",
+    "qty_retur": 10,
+    "harga_nett": 4500,
+    "status": "Cancel"
+  },
+  {
+    "id": 6,
+    "no_retur": "RP-2304002",
+    "no_penerimaan": "PR-2304001",
+    "kode_barang": "E003",
+    "qty_retur": 1,
+    "harga_nett": 190000,
+    "status": "Open"
+  },
+  {
+    "id": 7,
+    "no_retur": "RP-2305001",
+    "no_penerimaan": "PR-2302002",
+    "kode_barang": "M002",
+    "qty_retur": 1,
+    "harga_nett": 18000,
+    "status": "Finish"
+  },
+  {
+    "id": 8,
+    "no_retur": "RP-2305002",
+    "no_penerimaan": "PR-2303002",
+    "kode_barang": "B001",
+    "qty_retur": 1,
+    "harga_nett": 700000,
+    "status": "Open"
+  },
+  {
+    "id": 9,
+    "no_retur": "RP-2306001",
+    "no_penerimaan": "PR-2301003",
+    "kode_barang": "M001",
+    "qty_retur": 1,
+    "harga_nett": 9000,
+    "status": "Finish"
+  },
+  {
+    "id": 10,
+    "no_retur": "RP-2306002",
+    "no_penerimaan": "PR-2303001",
+    "kode_barang": "H001",
+    "qty_retur": 1,
+    "harga_nett": 45000,
+    "status": "Open"
+  }
+]

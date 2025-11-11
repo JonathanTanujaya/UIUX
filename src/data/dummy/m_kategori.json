@@ -1,0 +1,52 @@
+[
+  {
+    "kode_kategori": "K001",
+    "kategori": "Elektronik",
+    "status": true
+  },
+  {
+    "kode_kategori": "K002",
+    "kategori": "Pakaian",
+    "status": true
+  },
+  {
+    "kode_kategori": "K003",
+    "kategori": "Makanan",
+    "status": true
+  },
+  {
+    "kode_kategori": "K004",
+    "kategori": "Minuman",
+    "status": true
+  },
+  {
+    "kode_kategori": "K005",
+    "kategori": "Otomotif",
+    "status": true
+  },
+  {
+    "kode_kategori": "K006",
+    "kategori": "Perabotan",
+    "status": true
+  },
+  {
+    "kode_kategori": "K007",
+    "kategori": "Alat Tulis",
+    "status": true
+  },
+  {
+    "kode_kategori": "K008",
+    "kategori": "Kesehatan",
+    "status": true
+  },
+  {
+    "kode_kategori": "K009",
+    "kategori": "Kecantikan",
+    "status": true
+  },
+  {
+    "kode_kategori": "K010",
+    "kategori": "Olahraga",
+    "status": true
+  }
+]

@@ -155,6 +155,8 @@ const SalesPage = () => {
         emptyStateText="Belum ada transaksi penjualan"
         emptyStateSubtext="Klik 'Tambah Penjualan' untuk membuat transaksi baru"
         isLoading={isLoading}
+        sortBy="tanggal"
+        sortOrder="desc"
       />
     </div>
   );

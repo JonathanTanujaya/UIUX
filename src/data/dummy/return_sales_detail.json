@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "no_retur": "RS-2303001",
+    "no_invoice": "INV-2303002",
+    "kode_barang": "P001",
+    "qty_retur": 2,
+    "harga_nett": 125000,
+    "status": "Open"
+  },
+  {
+    "id": 2,
+    "no_retur": "RS-2304001",
+    "no_invoice": "INV-2304001",
+    "kode_barang": "F001",
+    "qty_retur": 1,
+    "harga_nett": 1750000,
+    "status": "Finish"
+  },
+  {
+    "id": 3,
+    "no_retur": "RS-2304002",
+    "no_invoice": "INV-2303004",
+    "kode_barang": "O001",
+    "qty_retur": 1,
+    "harga_nett": 247500,
+    "status": "Open"
+  },
+  {
+    "id": 4,
+    "no_retur": "RS-2305001",
+    "no_invoice": "INV-2305002",
+    "kode_barang": "P002",
+    "qty_retur": 1,
+    "harga_nett": 360000,
+    "status": "Finish"
+  },
+  {
+    "id": 5,
+    "no_retur": "RS-2305002",
+    "no_invoice": "INV-2305005",
+    "kode_barang": "F002",
+    "qty_retur": 1,
+    "harga_nett": 2250000,
+    "status": "Open"
+  },
+  {
+    "id": 6,
+    "no_retur": "RS-2306001",
+    "no_invoice": "INV-2304004",
+    "kode_barang": "C001",
+    "qty_retur": 1,
+    "harga_nett": 175000,
+    "status": "Finish"
+  },
+  {
+    "id": 7,
+    "no_retur": "RS-2306002",
+    "no_invoice": "INV-2303003",
+    "kode_barang": "M001",
+    "qty_retur": 2,
+    "harga_nett": 12000,
+    "status": "Open"
+  },
+  {
+    "id": 8,
+    "no_retur": "RS-2307001",
+    "no_invoice": "INV-2303005",
+    "kode_barang": "E002",
+    "qty_retur": 1,
+    "harga_nett": 12610000,
+    "status": "Cancel"
+  },
+  {
+    "id": 9,
+    "no_retur": "RS-2307002",
+    "no_invoice": "INV-2303002",
+    "kode_barang": "P001",
+    "qty_retur": 2,
+    "harga_nett": 125000,
+    "status": "Open"
+  },
+  {
+    "id": 10,
+    "no_retur": "RS-2308001",
+    "no_invoice": "INV-2304002",
+    "kode_barang": "H001",
+    "qty_retur": 2,
+    "harga_nett": 60000,
+    "status": "Finish"
+  }
+]

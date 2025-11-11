@@ -1,0 +1,102 @@
+[
+  {
+    "kode_coa": "1101",
+    "nama_coa": "Kas",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "1102",
+    "nama_coa": "Bank",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "1103",
+    "nama_coa": "Piutang Usaha",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "1104",
+    "nama_coa": "Persediaan Barang",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "1201",
+    "nama_coa": "Aset Tetap",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "2101",
+    "nama_coa": "Utang Usaha",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_coa": "2102",
+    "nama_coa": "Utang Bank",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_coa": "3101",
+    "nama_coa": "Modal Disetor",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_coa": "4101",
+    "nama_coa": "Pendapatan Penjualan",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_coa": "5101",
+    "nama_coa": "Beban Pokok Penjualan",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "5102",
+    "nama_coa": "Beban Gaji",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "5103",
+    "nama_coa": "Beban Sewa",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "5104",
+    "nama_coa": "Beban Listrik",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "5105",
+    "nama_coa": "Beban Air",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "5106",
+    "nama_coa": "Beban Telepon",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "5107",
+    "nama_coa": "Beban Pemasaran",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "5108",
+    "nama_coa": "Beban Administrasi",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "6101",
+    "nama_coa": "Pendapatan Lain-lain",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_coa": "6201",
+    "nama_coa": "Beban Lain-lain",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_coa": "7101",
+    "nama_coa": "Pajak Penghasilan",
+    "saldo_normal": "Debit"
+  }
+]

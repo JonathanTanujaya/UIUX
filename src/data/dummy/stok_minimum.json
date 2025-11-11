@@ -1,0 +1,62 @@
+[
+  {
+    "kode_barang": "E001",
+    "tanggal": "2023-11-01",
+    "stok": 10,
+    "stok_min": 5
+  },
+  {
+    "kode_barang": "P001",
+    "tanggal": "2023-11-01",
+    "stok": 50,
+    "stok_min": 20
+  },
+  {
+    "kode_barang": "M001",
+    "tanggal": "2023-11-01",
+    "stok": 100,
+    "stok_min": 50
+  },
+  {
+    "kode_barang": "O001",
+    "tanggal": "2023-11-01",
+    "stok": 20,
+    "stok_min": 10
+  },
+  {
+    "kode_barang": "E002",
+    "tanggal": "2023-11-01",
+    "stok": 15,
+    "stok_min": 10
+  },
+  {
+    "kode_barang": "F001",
+    "tanggal": "2023-11-01",
+    "stok": 5,
+    "stok_min": 3
+  },
+  {
+    "kode_barang": "H001",
+    "tanggal": "2023-11-01",
+    "stok": 40,
+    "stok_min": 30
+  },
+  {
+    "kode_barang": "B001",
+    "tanggal": "2023-11-01",
+    "stok": 25,
+    "stok_min": 15
+  },
+  {
+    "kode_barang": "C001",
+    "tanggal": "2023-11-01",
+    "stok": 30,
+    "stok_min": 25
+  },
+  {
+    "kode_barang": "W001",
+    "tanggal": "2023-11-01",
+    "stok": 200,
+    "stok_min": 100
+  }
+]

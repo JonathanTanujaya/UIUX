@@ -1,0 +1,52 @@
+[
+  {
+    "username": "admin",
+    "nama": "Administrator",
+    "password": "password123"
+  },
+  {
+    "username": "johndoe",
+    "nama": "John Doe",
+    "password": "password123"
+  },
+  {
+    "username": "janedoe",
+    "nama": "Jane Doe",
+    "password": "password123"
+  },
+  {
+    "username": "sales01",
+    "nama": "Sales Person 1",
+    "password": "password123"
+  },
+  {
+    "username": "finance01",
+    "nama": "Finance Person 1",
+    "password": "password123"
+  },
+  {
+    "username": "gudang01",
+    "nama": "Gudang Person 1",
+    "password": "password123"
+  },
+  {
+    "username": "manager",
+    "nama": "General Manager",
+    "password": "password123"
+  },
+  {
+    "username": "supervisor",
+    "nama": "Supervisor",
+    "password": "password123"
+  },
+  {
+    "username": "guest",
+    "nama": "Guest User",
+    "password": "password123"
+  },
+  {
+    "username": "testuser",
+    "nama": "Test User",
+    "password": "password123"
+  }
+]

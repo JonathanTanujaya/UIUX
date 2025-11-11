@@ -1,9 +1,9 @@
 import React from 'react';
-import ReturPenjualanFormSimple from '../../components/ReturPenjualanFormSimple';
+import ReturPenjualanFormCompact from '../../components/ReturPenjualanFormCompact';
 
 const ReturPenjualanForm = () => {
-  // Simple sales return form - only customer selection and invoice list
-  return <ReturPenjualanFormSimple />;
+  // Modern comprehensive sales return form matching the design of retur pembelian
+  return <ReturPenjualanFormCompact />;
 };
 
 export default ReturPenjualanForm;

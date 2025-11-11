@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "kode_paket": "PKT001",
+    "kode_kategori": "K001",
+    "qty_min": 2,
+    "qty_max": 5,
+    "diskon1": 5.00,
+    "diskon2": 0.00
+  },
+  {
+    "id": 2,
+    "kode_paket": "PKT001",
+    "kode_kategori": "K001",
+    "qty_min": 6,
+    "qty_max": 10,
+    "diskon1": 7.50,
+    "diskon2": 2.50
+  },
+  {
+    "id": 3,
+    "kode_paket": "PKT002",
+    "kode_kategori": "K002",
+    "qty_min": 12,
+    "qty_max": 24,
+    "diskon1": 10.00,
+    "diskon2": 0.00
+  },
+  {
+    "id": 4,
+    "kode_paket": "PKT003",
+    "kode_kategori": "K005",
+    "qty_min": 1,
+    "qty_max": 1,
+    "diskon1": 15.00,
+    "diskon2": 5.00
+  },
+  {
+    "id": 5,
+    "kode_paket": "PKT004",
+    "kode_kategori": "K008",
+    "qty_min": 10,
+    "qty_max": 20,
+    "diskon1": 8.00,
+    "diskon2": 0.00
+  },
+  {
+    "id": 6,
+    "kode_paket": "PKT004",
+    "kode_kategori": "K009",
+    "qty_min": 5,
+    "qty_max": 10,
+    "diskon1": 12.00,
+    "diskon2": 3.00
+  },
+  {
+    "id": 7,
+    "kode_paket": "PKT005",
+    "kode_kategori": "K010",
+    "qty_min": 2,
+    "qty_max": 4,
+    "diskon1": 20.00,
+    "diskon2": 0.00
+  },
+  {
+    "id": 8,
+    "kode_paket": "PKT006",
+    "kode_kategori": "K003",
+    "qty_min": 20,
+    "qty_max": 50,
+    "diskon1": 5.00,
+    "diskon2": 0.00
+  },
+  {
+    "id": 9,
+    "kode_paket": "PKT006",
+    "kode_kategori": "K004",
+    "qty_min": 24,
+    "qty_max": 48,
+    "diskon1": 7.00,
+    "diskon2": 0.00
+  },
+  {
+    "id": 10,
+    "kode_paket": "PKT007",
+    "kode_kategori": "K007",
+    "qty_min": 50,
+    "qty_max": 100,
+    "diskon1": 15.00,
+    "diskon2": 0.00
+  },
+  {
+    "id": 11,
+    "kode_paket": "PKT008",
+    "kode_kategori": "K006",
+    "qty_min": 1,
+    "qty_max": 2,
+    "diskon1": 10.00,
+    "diskon2": 5.00
+  }
+]

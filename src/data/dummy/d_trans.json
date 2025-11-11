@@ -1,0 +1,62 @@
+[
+  {
+    "kode_trans": "PENJUALAN",
+    "kode_coa": "1103",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_trans": "PENJUALAN",
+    "kode_coa": "4101",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_trans": "PEMBELIAN",
+    "kode_coa": "1104",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_trans": "PEMBELIAN",
+    "kode_coa": "2101",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_trans": "RETUR-JUAL",
+    "kode_coa": "4101",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_trans": "RETUR-JUAL",
+    "kode_coa": "1103",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_trans": "RETUR-BELI",
+    "kode_coa": "2101",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_trans": "RETUR-BELI",
+    "kode_coa": "1104",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_trans": "BAYAR-PIUTANG",
+    "kode_coa": "1101",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_trans": "BAYAR-PIUTANG",
+    "kode_coa": "1103",
+    "saldo_normal": "Kredit"
+  },
+  {
+    "kode_trans": "BIAYA-GAJI",
+    "kode_coa": "5102",
+    "saldo_normal": "Debit"
+  },
+  {
+    "kode_trans": "BIAYA-GAJI",
+    "kode_coa": "1101",
+    "saldo_normal": "Kredit"
+  }
+]

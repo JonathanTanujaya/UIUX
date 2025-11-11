@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "no_rekening": "1234567890",
+    "tgl_proses": "2023-11-01",
+    "keterangan": "Setoran awal",
+    "debet": 100000000,
+    "kredit": 0,
+    "saldo": 100000000
+  },
+  {
+    "id": 2,
+    "no_rekening": "1234567890",
+    "tgl_proses": "2023-11-02",
+    "keterangan": "Pembayaran invoice INV001",
+    "debet": 5000000,
+    "kredit": 0,
+    "saldo": 105000000
+  },
+  {
+    "id": 3,
+    "no_rekening": "1234567890",
+    "tgl_proses": "2023-11-03",
+    "keterangan": "Biaya operasional",
+    "debet": 0,
+    "kredit": 2000000,
+    "saldo": 103000000
+  },
+  {
+    "id": 4,
+    "no_rekening": "0987654321",
+    "tgl_proses": "2023-11-01",
+    "keterangan": "Setoran awal",
+    "debet": 75500000.50,
+    "kredit": 0,
+    "saldo": 75500000.50
+  },
+  {
+    "id": 5,
+    "no_rekening": "0987654321",
+    "tgl_proses": "2023-11-05",
+    "keterangan": "Pembayaran Gaji",
+    "debet": 0,
+    "kredit": 25000000,
+    "saldo": 50500000.50
+  },
+  {
+    "id": 6,
+    "no_rekening": "1122334455",
+    "tgl_proses": "2023-11-01",
+    "keterangan": "Setoran awal",
+    "debet": 250000000,
+    "kredit": 0,
+    "saldo": 250000000
+  },
+  {
+    "id": 7,
+    "no_rekening": "6677889900",
+    "tgl_proses": "2023-11-01",
+    "keterangan": "Setoran awal",
+    "debet": 50000000,
+    "kredit": 0,
+    "saldo": 50000000
+  },
+  {
+    "id": 8,
+    "no_rekening": "5544332211",
+    "tgl_proses": "2023-11-01",
+    "keterangan": "Setoran awal",
+    "debet": 15000000.75,
+    "kredit": 0,
+    "saldo": 15000000.75
+  },
+  {
+    "id": 9,
+    "no_rekening": "9876543210",
+    "tgl_proses": "2023-11-01",
+    "keterangan": "Setoran awal",
+    "debet": 25000000,
+    "kredit": 0,
+    "saldo": 25000000
+  },
+  {
+    "id": 10,
+    "no_rekening": "1020304050",
+    "tgl_proses": "2023-11-01",
+    "keterangan": "Setoran awal",
+    "debet": 120000000,
+    "kredit": 0,
+    "saldo": 120000000
+  },
+  {
+    "id": 11,
+    "no_rekening": "1234567890",
+    "tgl_proses": "2023-11-10",
+    "keterangan": "Transfer ke rekening 0987654321",
+    "debet": 0,
+    "kredit": 3000000,
+    "saldo": 100000000
+  }
+]

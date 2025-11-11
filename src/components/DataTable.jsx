@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Edit, Trash2, Eye, Plus } from 'lucide-react';
 
 const DataTable = ({ 
@@ -14,8 +14,44 @@ const DataTable = ({
   emptyStateSubtext = "Klik tombol tambah untuk memulai",
   borderColor = "border-blue-500",
   addButtonText = "Tambah Data",
-  isLoading = false
+  isLoading = false,
+  sortBy = null, // Field to sort by (e.g., 'createdAt', 'date', 'tanggal')
+  sortOrder = 'desc' // 'asc' or 'desc' - default to newest first
 }) => {
+  
+  // Sort data automatically
+  const sortedData = useMemo(() => {
+    if (!sortBy || !data.length) return data;
+    
+    return [...data].sort((a, b) => {
+      let aValue = a[sortBy];
+      let bValue = b[sortBy];
+      
+      // Handle different data types
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        // Try to parse as dates first
+        const aDate = new Date(aValue);
+        const bDate = new Date(bValue);
+        
+        if (!isNaN(aDate.getTime()) && !isNaN(bDate.getTime())) {
+          // Both are valid dates
+          aValue = aDate.getTime();
+          bValue = bDate.getTime();
+        } else {
+          // String comparison
+          aValue = aValue.toLowerCase();
+          bValue = bValue.toLowerCase();
+        }
+      }
+      
+      // Sort logic
+      if (sortOrder === 'desc') {
+        return bValue > aValue ? 1 : bValue < aValue ? -1 : 0;
+      } else {
+        return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+      }
+    });
+  }, [data, sortBy, sortOrder]);
   
   const renderCell = (item, column) => {
     if (column.render) {
@@ -93,7 +129,7 @@ const DataTable = ({
                     </div>
                   </td>
                 </tr>
-              ) : data.length === 0 ? (
+              ) : sortedData.length === 0 ? (
                 <tr>
                   <td colSpan={columns.length + 1} className="px-4 py-12 text-center">
                     <div className="flex flex-col items-center justify-center text-gray-500">
@@ -106,7 +142,7 @@ const DataTable = ({
                   </td>
                 </tr>
               ) : (
-                data.map((item, index) => (
+                sortedData.map((item, index) => (
                   <tr 
                     key={item.id || index} 
                     className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors duration-150`}
@@ -157,9 +193,9 @@ const DataTable = ({
         </div>
 
         {/* Footer info */}
-        {data.length > 0 && (
+        {sortedData.length > 0 && (
           <div className="mt-4 text-sm text-gray-500">
-            Menampilkan {data.length} data
+            Menampilkan {sortedData.length} data
           </div>
         )}
       </div>

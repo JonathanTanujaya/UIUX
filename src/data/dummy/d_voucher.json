@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "no_voucher": "VCR-2306001",
+    "no_penerimaan": "PF-2306001"
+  },
+  {
+    "id": 2,
+    "no_voucher": "VCR-2306002",
+    "no_penerimaan": "PF-2306002"
+  },
+  {
+    "id": 3,
+    "no_voucher": "VCR-2307001",
+    "no_penerimaan": "PF-2307002"
+  },
+  {
+    "id": 4,
+    "no_voucher": "VCR-2303001",
+    "no_penerimaan": "PF-2303001"
+  },
+  {
+    "id": 5,
+    "no_voucher": "VCR-2304001",
+    "no_penerimaan": "PF-2304001"
+  },
+  {
+    "id": 6,
+    "no_voucher": "VCR-2304002",
+    "no_penerimaan": "PF-2304002"
+  },
+  {
+    "id": 7,
+    "no_voucher": "VCR-2304002",
+    "no_penerimaan": "PF-2304003"
+  },
+  {
+    "id": 8,
+    "no_voucher": "VCR-2305001",
+    "no_penerimaan": "PF-2305001"
+  },
+  {
+    "id": 9,
+    "no_voucher": "VCR-2307002",
+    "no_penerimaan": "PF-2307001"
+  },
+  {
+    "id": 10,
+    "no_voucher": "VCR-2305002",
+    "no_penerimaan": "PF-2308001"
+  }
+]

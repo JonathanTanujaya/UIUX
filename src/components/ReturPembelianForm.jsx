@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Search, ArrowLeft, Package, Building2, Plus, Trash2, X } from 'lucide-react';
 
 const ModernReturPembelianForm = () => {
@@ -29,47 +29,46 @@ const ModernReturPembelianForm = () => {
     }
   ];
 
-  const generateDummyBarang = () => {
+  const dummyBarang = useMemo(() => {
     const baseItems = [
-      { kode: 'SPR', nama: 'Bearing 6205', harga_beli: 45000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'V-Belt A-43', harga_beli: 85000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Oil Seal 35x52x7', harga_beli: 25000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Baut M12x50', harga_beli: 3500, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Pulley 5 Inch', harga_beli: 125000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Gear Motor 1HP', harga_beli: 1250000, satuan: 'UNIT' },
-      { kode: 'SPR', nama: 'Chain 40-1', harga_beli: 185000, satuan: 'SET' },
-      { kode: 'SPR', nama: 'Sprocket 15T', harga_beli: 95000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Coupling Flexible', harga_beli: 275000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Gasket Ring', harga_beli: 15000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Bolt M10x40', harga_beli: 2500, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Nut M10', harga_beli: 1500, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Washer M10', harga_beli: 800, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Shaft 25mm', harga_beli: 350000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Bushing Bronze', harga_beli: 125000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Rubber Seal', harga_beli: 35000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Spring Steel', harga_beli: 45000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Pin Dowel 8mm', harga_beli: 8500, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Key Parallel 8x7', harga_beli: 12000, satuan: 'PCS' },
-      { kode: 'SPR', nama: 'Grease Tube', harga_beli: 55000, satuan: 'PCS' }
+      { kode: 'SPR', nama: 'V-Belt A-43', satuan: 'PCS' },
+      { kode: 'SPR', nama: 'Oil Seal 35x52x7', satuan: 'PCS' },
+      { kode: 'SPR', nama: 'Baut M12x50', satuan: 'PCS' },
+      { kode: 'SPR', nama: 'Pulley 5 Inch', satuan: 'PCS' },
+      { kode: 'SPR', nama: 'Gear Motor 1HP', satuan: 'UNIT' },
+      { kode: 'SPR', nama: 'Chain 40-1', satuan: 'SET' },
+      { kode: 'SPR', nama: 'Sprocket 15T', satuan: 'PCS' },
+      { kode: 'SPR', nama: 'Coupling Flexible', satuan: 'PCS' },
+      { kode: 'SPR', nama: 'Gasket Ring', satuan: 'PCS' },
+      { kode: 'SPR', nama: 'Belt M10x40', satuan: 'PCS' }
     ];
 
+    const salesNames = ['Budi Santoso', 'Andi Wijaya', 'Siti Rahayu', 'Joko Purnomo'];
+    
     const items = [];
     for (let i = 1; i <= 50; i++) {
       const baseItem = baseItems[i % baseItems.length];
       const paddedNum = String(i).padStart(3, '0');
+      // Use deterministic calculation instead of random
+      const randomDays = (i * 7) % 30; // Deterministic "random"
+      const tanggal = new Date(2025, 10, 11); // Fixed base date
+      tanggal.setDate(tanggal.getDate() - randomDays);
+      
       items.push({
-         id: `SPR${paddedNum}`,
+        id: `SPR${paddedNum}`,
         kode: `SPR${paddedNum}`,
         nama: `${baseItem.nama} ${i > 20 ? 'Type ' + String.fromCharCode(65 + (i % 26)) : ''}`.trim(),
-        harga_beli: baseItem.harga_beli + (i * 1000),
-        stok: Math.floor(Math.random() * 200) + 50,
+        noInvoice: `INV-2025-${paddedNum}`,
+        tglFaktur: tanggal.toISOString().split('T')[0],
+        namaSales: salesNames[i % salesNames.length],
+        qtySupply: ((i * 13) % 90) + 10, // Deterministic value
+        qtyClaim: ((i * 7) % 20), // Deterministic value
+        stok: ((i * 17) % 150) + 50, // Deterministic value
         satuan: baseItem.satuan
       });
     }
     return items;
-  };
-
-  const dummyBarang = generateDummyBarang();
+  }, []); // Empty dependency array means this only runs once
 
   const [supplier, setSupplier] = useState(null);
   const [supplierSearch, setSupplierSearch] = useState('');
@@ -202,8 +201,20 @@ const ModernReturPembelianForm = () => {
     return 'Rp ' + Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   };
 
-  const calculateTotal = () => {
-    return items.reduce((sum, item) => sum + (item.harga_beli * item.qty), 0);
+  const handleSelectAll = (checked) => {
+    if (checked) {
+      // Select all barang with qty: 1
+      const allItems = dummyBarang.map(brg => ({
+        ...brg,
+        qty: 1,
+        kondisi: 'Rusak',
+        keterangan: ''
+      }));
+      setItems(allItems);
+    } else {
+      // Deselect all
+      setItems([]);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -239,7 +250,7 @@ const ModernReturPembelianForm = () => {
       <div className="h-full flex flex-col">
         <div className="bg-white shadow-sm flex-1 flex flex-col overflow-hidden">
           <div className="p-4 border-l-4 border-orange-500 border-b border-gray-200 flex-shrink-0">
-            <div className="min-w-[800px]">
+            <div className="w-full">
               <div className="w-full">
                 <div className="flex-1">
                   
@@ -324,50 +335,38 @@ const ModernReturPembelianForm = () => {
 
           <div className="flex-1 overflow-auto">
             {supplier ? (
-              <div className="p-4">
+              <div className="p-4 w-full">
             {/* Barang Table with Checkbox */}
-            <div className="border border-gray-300 rounded-md overflow-hidden">
-              <div className="max-h-96 overflow-y-auto">
-                <table className="min-w-full bg-white">
+            <div className="border border-gray-300 rounded-md overflow-hidden w-full">
+              <div className="overflow-y-auto overflow-x-auto" style={{maxHeight: 'calc(100vh - 320px)'}}>
+                <table className="w-full bg-white">
                   <thead className="bg-gray-50 sticky top-0">
                     <tr>
                       <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b w-12">
                         <input
                           type="checkbox"
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              // Select all barang
-                              const allItems = dummyBarang.map(brg => ({
-                                ...brg,
-                                qty: 1,
-                                kondisi: 'Rusak',
-                                keterangan: ''
-                              }));
-                              setItems(allItems);
-                            } else {
-                              // Deselect all
-                              setItems([]);
-                            }
-                          }}
+                          onChange={(e) => handleSelectAll(e.target.checked)}
                           checked={items.length === dummyBarang.length && dummyBarang.length > 0}
                           className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500"
                         />
                       </th>
-                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 border-b">KODE</th>
-                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 border-b">NAMA BARANG</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">STOK</th>
-                      <th className="px-3 py-2 text-right text-xs font-medium text-gray-700 border-b">HARGA</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">QTY</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">KONDISI</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">KETERANGAN</th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 border-b" style={{minWidth: '120px'}}>NO INVOICE</th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 border-b" style={{minWidth: '100px'}}>TGL FAKTUR</th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 border-b" style={{minWidth: '120px'}}>NAMA SALES</th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 border-b" style={{minWidth: '100px'}}>KODE BARANG</th>
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 border-b" style={{minWidth: '200px'}}>NAMA BARANG</th>
+                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b" style={{minWidth: '90px'}}>QTY SUPPLY</th>
+                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b" style={{minWidth: '90px'}}>QTY CLAIM</th>
+                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b" style={{minWidth: '80px'}}>QTY</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {dummyBarang.map((brg) => {
+                    {dummyBarang.map((brg, index) => {
                       const selectedItem = items.find(item => item.id === brg.id);
                       const isSelected = !!selectedItem;
+                      
                       return (
-                        <tr key={brg.id} className="hover:bg-gray-50">
+                        <tr key={brg.id} className={`hover:bg-gray-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                           <td className="px-3 py-2 text-center border-b">
                             <input
                               type="checkbox"
@@ -383,51 +382,31 @@ const ModernReturPembelianForm = () => {
                             />
                           </td>
                           <td className="px-3 py-2 border-b">
+                            <span className="text-xs text-gray-900">{brg.noInvoice}</span>
+                          </td>
+                          <td className="px-3 py-2 border-b">
+                            <span className="text-xs text-gray-600">{brg.tglFaktur}</span>
+                          </td>
+                          <td className="px-3 py-2 border-b">
+                            <span className="text-xs text-gray-900">{brg.namaSales}</span>
+                          </td>
+                          <td className="px-3 py-2 border-b">
                             <span className="text-xs font-medium text-orange-600">{brg.kode}</span>
                           </td>
                           <td className="px-3 py-2 border-b">
                             <span className="text-xs text-gray-900">{brg.nama}</span>
                           </td>
                           <td className="px-3 py-2 text-center border-b">
-                            <span className="text-xs text-gray-600">{brg.stok}</span>
+                            <span className="text-xs text-gray-600">{brg.qtySupply}</span>
                           </td>
-                          <td className="px-3 py-2 text-right border-b">
-                            <span className="text-xs text-gray-900">{formatRupiah(brg.harga_beli)}</span>
+                          <td className="px-3 py-2 text-center border-b">
+                            <span className="text-xs text-gray-600">{brg.qtyClaim}</span>
                           </td>
-                          <td className="px-3 py-2 border-b">
-                            {isSelected && (
-                              <input
-                                type="number"
-                                min="1"
-                                value={selectedItem.qty}
-                                onChange={(e) => updateItem(brg.id, 'qty', parseInt(e.target.value) || 1)}
-                                className="w-16 px-2 py-1 text-xs text-center border border-gray-300 rounded focus:ring-1 focus:ring-orange-500"
-                              />
-                            )}
-                          </td>
-                          <td className="px-3 py-2 border-b">
-                            {isSelected && (
-                              <select
-                                value={selectedItem.kondisi}
-                                onChange={(e) => updateItem(brg.id, 'kondisi', e.target.value)}
-                                className="w-24 px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-orange-500"
-                              >
-                                <option value="Rusak">Rusak</option>
-                                <option value="Cacat">Cacat</option>
-                                <option value="Kadaluarsa">Kadaluarsa</option>
-                                <option value="Salah Kirim">Salah Kirim</option>
-                              </select>
-                            )}
-                          </td>
-                          <td className="px-3 py-2 border-b">
-                            {isSelected && (
-                              <input
-                                type="text"
-                                value={selectedItem.keterangan}
-                                onChange={(e) => updateItem(brg.id, 'keterangan', e.target.value)}
-                                placeholder="Keterangan..."
-                                className="w-32 px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-orange-500"
-                              />
+                          <td className="px-3 py-2 text-center border-b">
+                            {isSelected ? (
+                              <span className="text-xs font-medium text-orange-600">{selectedItem.qty}</span>
+                            ) : (
+                              <span className="text-xs text-gray-400">-</span>
                             )}
                           </td>
                         </tr>
@@ -437,83 +416,6 @@ const ModernReturPembelianForm = () => {
                 </table>
               </div>
             </div>
-              <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">KODE</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">NAMA BARANG</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">HARGA</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">QTY</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">SATUAN</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">KONDISI</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">SUBTOTAL</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">KETERANGAN</th>
-                      <th className="px-3 py-2 text-center text-xs font-medium text-gray-700 border-b">AKSI</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {items.map((item, index) => (
-                      <tr key={item.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                        <td className="px-3 py-2 text-center border-b">
-                          <span className="text-sm text-gray-700">{item.kode}</span>
-                        </td>
-                        <td className="px-3 py-2 border-b">
-                          <span className="text-sm text-gray-900">{item.nama}</span>
-                        </td>
-                        <td className="px-3 py-2 text-right border-b">
-                          <span className="text-sm text-gray-700">{formatRupiah(item.harga_beli)}</span>
-                        </td>
-                        <td className="px-3 py-2 border-b">
-                          <input
-                            type="number"
-                            min="1"
-                            value={item.qty}
-                            onChange={(e) => updateItem(item.id, 'qty', parseInt(e.target.value) || 1)}
-                            className="w-20 px-2 py-1 text-sm text-center border border-gray-300 rounded focus:ring-2 focus:ring-orange-500"
-                          />
-                        </td>
-                        <td className="px-3 py-2 text-center border-b">
-                          <span className="text-sm text-gray-700">{item.satuan}</span>
-                        </td>
-                        <td className="px-3 py-2 border-b">
-                          <select
-                            value={item.kondisi}
-                            onChange={(e) => updateItem(item.id, 'kondisi', e.target.value)}
-                            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-orange-500"
-                          >
-                            <option value="rusak">Rusak</option>
-                            <option value="cacat">Cacat</option>
-                            <option value="expired">Expired</option>
-                            <option value="salah_kirim">Salah Kirim</option>
-                            <option value="tidak_sesuai">Tidak Sesuai</option>
-                          </select>
-                        </td>
-                        <td className="px-3 py-2 text-right border-b">
-                          <span className="text-sm font-medium text-gray-900">{formatRupiah(item.harga_beli * item.qty)}</span>
-                        </td>
-                        <td className="px-3 py-2 border-b">
-                          <input
-                            type="text"
-                            value={item.keterangan}
-                            onChange={(e) => updateItem(item.id, 'keterangan', e.target.value)}
-                            placeholder="Keterangan..."
-                            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-orange-500"
-                          />
-                        </td>
-                        <td className="px-3 py-2 text-center border-b">
-                          <button
-                            onClick={() => removeItem(item.id)}
-                            className="p-1 text-red-600 hover:bg-red-50 rounded"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
             </div>
             ) : (
               <div className="text-center py-12">
@@ -528,9 +430,9 @@ const ModernReturPembelianForm = () => {
           <div className="border-t border-gray-200 p-4 bg-gray-50">
             <div className="flex items-center justify-between">
               <div className="text-left">
-                <div className="text-xs text-gray-600 mb-1">TOTAL NILAI RETUR</div>
-                <div className="text-2xl font-bold text-orange-600">{formatRupiah(calculateTotal())}</div>
-                <div className="text-xs text-gray-500 mt-1">{items.length} item</div>
+                <div className="text-xs text-gray-600 mb-1">TOTAL ITEM RETUR</div>
+                <div className="text-2xl font-bold text-orange-600">{items.length} item</div>
+                <div className="text-xs text-gray-500 mt-1">dipilih dari {dummyBarang.length} barang</div>
               </div>
               
               <div className="flex space-x-3">

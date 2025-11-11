@@ -1,0 +1,122 @@
+[
+  {
+    "kode_supplier": "S001",
+    "nama_supplier": "PT. Sejahtera Abadi",
+    "alamat": "Jl. Raya Sejahtera No. 1",
+    "telp": "021-1234567",
+    "contact": "Bapak Budi",
+    "status": true
+  },
+  {
+    "kode_supplier": "S002",
+    "nama_supplier": "CV. Maju Jaya",
+    "alamat": "Jl. Maju Mundur No. 2",
+    "telp": "021-7654321",
+    "contact": "Ibu Siti",
+    "status": true
+  },
+  {
+    "kode_supplier": "S003",
+    "nama_supplier": "UD. Sumber Rejeki",
+    "alamat": "Jl. Rejeki Nomplok No. 3",
+    "telp": "031-1234567",
+    "contact": "Bapak Anton",
+    "status": true
+  },
+  {
+    "kode_supplier": "S004",
+    "nama_supplier": "PT. Elektronik Jaya",
+    "alamat": "Jl. Elektronik No. 4",
+    "telp": "031-7654321",
+    "contact": "Bapak Chandra",
+    "status": true
+  },
+  {
+    "kode_supplier": "S005",
+    "nama_supplier": "CV. Pangan Makmur",
+    "alamat": "Jl. Pangan No. 5",
+    "telp": "022-1234567",
+    "contact": "Ibu Dewi",
+    "status": true
+  },
+  {
+    "kode_supplier": "S006",
+    "nama_supplier": "PT. Otomotif Prima",
+    "alamat": "Jl. Otomotif No. 6",
+    "telp": "022-7654321",
+    "contact": "Bapak Eko",
+    "status": true
+  },
+  {
+    "kode_supplier": "S007",
+    "nama_supplier": "UD. Perabot Indah",
+    "alamat": "Jl. Perabot No. 7",
+    "telp": "024-1234567",
+    "contact": "Bapak Fajar",
+    "status": true
+  },
+  {
+    "kode_supplier": "S008",
+    "nama_supplier": "PT. ATK Lengkap",
+    "alamat": "Jl. ATK No. 8",
+    "telp": "024-7654321",
+    "contact": "Ibu Gita",
+    "status": true
+  },
+  {
+    "kode_supplier": "S009",
+    "nama_supplier": "CV. Sehat Sentosa",
+    "alamat": "Jl. Sehat No. 9",
+    "telp": "061-1234567",
+    "contact": "Bapak Heru",
+    "status": true
+  },
+  {
+    "kode_supplier": "S010",
+    "nama_supplier": "PT. Cantik Berseri",
+    "alamat": "Jl. Cantik No. 10",
+    "telp": "061-7654321",
+    "contact": "Ibu Indah",
+    "status": true
+  },
+  {
+    "kode_supplier": "S011",
+    "nama_supplier": "UD. Sport Mania",
+    "alamat": "Jl. Sport No. 11",
+    "telp": "0361-1234567",
+    "contact": "Bapak Joko",
+    "status": true
+  },
+  {
+    "kode_supplier": "S012",
+    "nama_supplier": "PT. Jaya Abadi",
+    "alamat": "Jl. Abadi No. 12",
+    "telp": "0361-7654321",
+    "contact": "Ibu Kiki",
+    "status": true
+  },
+  {
+    "kode_supplier": "S013",
+    "nama_supplier": "CV. Makmur Sentosa",
+    "alamat": "Jl. Sentosa No. 13",
+    "telp": "0711-1234567",
+    "contact": "Bapak Luki",
+    "status": true
+  },
+  {
+    "kode_supplier": "S014",
+    "nama_supplier": "UD. Rejeki Makmur",
+    "alamat": "Jl. Makmur No. 14",
+    "telp": "0711-7654321",
+    "contact": "Ibu Mita",
+    "status": true
+  },
+  {
+    "kode_supplier": "S015",
+    "nama_supplier": "PT. Abadi Jaya",
+    "alamat": "Jl. Jaya No. 15",
+    "telp": "0542-1234567",
+    "contact": "Bapak Nana",
+    "status": true
+  }
+]

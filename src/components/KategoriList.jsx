@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import DataTable from './common/DataTable';
-import { useDataFetch } from '../hooks/useDataFetch';
-import { kategoriService } from '../config/apiService';
+import { useData } from '../hooks/useData';
 import { useConfirmDialog } from './common/LoadingComponents';
 
 function KategoriList({ onEdit, onRefresh }) {
@@ -13,13 +12,20 @@ function KategoriList({ onEdit, onRefresh }) {
     keterangan: ''
   });
 
-  const {
-    data: kategori,
-    loading,
-    refresh,
-  } = useDataFetch(() => kategoriService.getAll(), [onRefresh], {
-    errorMessage: 'Gagal memuat data kategori',
-  });
+  // Use data from JSON file
+  const { kategori: kategoriData } = useData();
+  const [loading, setLoading] = useState(false);
+  
+  // Transform data to match component structure
+  const kategori = useMemo(() => {
+    return kategoriData.map(item => ({
+      id: item.id_kategori,
+      kodedivisi: 'DIV001', // Static for now, bisa disesuaikan jika ada relasi
+      kodekategori: item.kode_kategori,
+      namakategori: item.nama_kategori,
+      keterangan: item.keterangan
+    }));
+  }, [kategoriData]);
 
   const confirm = useConfirmDialog();
 
@@ -70,22 +76,27 @@ function KategoriList({ onEdit, onRefresh }) {
     e.preventDefault();
     
     try {
-      if (editingKategori) {
-        // Update existing kategori
-        await kategoriService.update(editingKategori.id, formData);
-      } else {
-        // Create new kategori
-        await kategoriService.create(formData);
-      }
+      setLoading(true);
+      
+      // Simulate API call with dummy data
+      console.log('Saving kategori:', formData);
+      
+      // In real implementation, this would call API
+      // if (editingKategori) {
+      //   await kategoriService.update(editingKategori.id, formData);
+      // } else {
+      //   await kategoriService.create(formData);
+      // }
       
       handleCloseModal();
-      refresh();
       
-      // Show success message (you can add a toast notification here)
+      // Show success message
       alert(editingKategori ? 'Kategori berhasil diupdate!' : 'Kategori berhasil ditambahkan!');
     } catch (error) {
       console.error('Error saving kategori:', error);
       alert('Gagal menyimpan kategori: ' + (error.message || 'Unknown error'));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -161,7 +172,7 @@ function KategoriList({ onEdit, onRefresh }) {
         columns={columns}
         actions={actions}
         loading={loading}
-        onRefresh={refresh}
+        onRefresh={() => console.log('Refresh clicked')}
         searchable={true}
         searchFields={['kodekategori', 'namakategori', 'keterangan']}
         keyField="id"

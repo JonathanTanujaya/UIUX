@@ -1,0 +1,83 @@
+[
+  {
+    "no_penerimaan": "PR-2301001",
+    "kode_barang": "E001",
+    "qty_supply": 10,
+    "harga": 14500000,
+    "diskon1": 0,
+    "diskon2": 0,
+    "harga_nett": 14500000
+  },
+  {
+    "no_penerimaan": "PR-2301002",
+    "kode_barang": "P001",
+    "qty_supply": 50,
+    "harga": 95000,
+    "diskon1": 0,
+    "diskon2": 0,
+    "harga_nett": 95000
+  },
+  {
+    "no_penerimaan": "PR-2301003",
+    "kode_barang": "M001",
+    "qty_supply": 100,
+    "harga": 9000,
+    "diskon1": 0,
+    "diskon2": 0,
+    "harga_nett": 9000
+  },
+  {
+    "no_penerimaan": "PR-2302001",
+    "kode_barang": "O001",
+    "qty_supply": 20,
+    "harga": 240000,
+    "diskon1": 5,
+    "diskon2": 0,
+    "harga_nett": 228000
+  },
+  {
+    "no_penerimaan": "PR-2302002",
+    "kode_barang": "E002",
+    "qty_supply": 10,
+    "harga": 11500000,
+    "diskon1": 2,
+    "diskon2": 0,
+    "harga_nett": 11270000
+  },
+  {
+    "no_penerimaan": "PR-2302003",
+    "kode_barang": "F001",
+    "qty_supply": 5,
+    "harga": 1400000,
+    "diskon1": 0,
+    "diskon2": 0,
+    "harga_nett": 1400000
+  },
+  {
+    "no_penerimaan": "PR-2303001",
+    "kode_barang": "H001",
+    "qty_supply": 30,
+    "harga": 50000,
+    "diskon1": 0,
+    "diskon2": 0,
+    "harga_nett": 50000
+  },
+  {
+    "no_penerimaan": "PR-2303002",
+    "kode_barang": "C001",
+    "qty_supply": 100,
+    "harga": 140000,
+    "diskon1": 10,
+    "diskon2": 0,
+    "harga_nett": 126000
+  },
+  {
+    "no_penerimaan": "PR-2304001",
+    "kode_barang": "E003",
+    "qty_supply": 20,
+    "harga": 190000,
+    "diskon1": 0,
+    "diskon2": 0,
+    "harga_nett": 190000
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "no_voucher": "VCR-2303001",
+    "tanggal": "2023-03-31",
+    "kode_sales": "S001",
+    "total_omzet": 58000000,
+    "komisi": 2.5,
+    "jumlah_komisi": 1450000
+  },
+  {
+    "no_voucher": "VCR-2303002",
+    "tanggal": "2023-03-31",
+    "kode_sales": "S002",
+    "total_omzet": 65000000,
+    "komisi": 2.5,
+    "jumlah_komisi": 1625000
+  },
+  {
+    "no_voucher": "VCR-2304001",
+    "tanggal": "2023-04-30",
+    "kode_sales": "S003",
+    "total_omzet": 72000000,
+    "komisi": 2.5,
+    "jumlah_komisi": 1800000
+  },
+  {
+    "no_voucher": "VCR-2304002",
+    "tanggal": "2023-04-30",
+    "kode_sales": "S004",
+    "total_omzet": 80000000,
+    "komisi": 3.0,
+    "jumlah_komisi": 2400000
+  },
+  {
+    "no_voucher": "VCR-2305001",
+    "tanggal": "2023-05-31",
+    "kode_sales": "S005",
+    "total_omzet": 90000000,
+    "komisi": 3.0,
+    "jumlah_komisi": 2700000
+  },
+  {
+    "no_voucher": "VCR-2305002",
+    "tanggal": "2023-05-31",
+    "kode_sales": "S001",
+    "total_omzet": 45000000,
+    "komisi": 2.5,
+    "jumlah_komisi": 1125000
+  },
+  {
+    "no_voucher": "VCR-2306001",
+    "tanggal": "2023-06-30",
+    "kode_sales": "S007",
+    "total_omzet": 85000000,
+    "komisi": 3.0,
+    "jumlah_komisi": 2550000
+  },
+  {
+    "no_voucher": "VCR-2306002",
+    "tanggal": "2023-06-30",
+    "kode_sales": "S008",
+    "total_omzet": 75000000,
+    "komisi": 2.75,
+    "jumlah_komisi": 2062500
+  },
+  {
+    "no_voucher": "VCR-2307001",
+    "tanggal": "2023-07-31",
+    "kode_sales": "S009",
+    "total_omzet": 68000000,
+    "komisi": 2.75,
+    "jumlah_komisi": 1870000
+  },
+  {
+    "no_voucher": "VCR-2307002",
+    "tanggal": "2023-07-31",
+    "kode_sales": "S010",
+    "total_omzet": 92000000,
+    "komisi": 3.25,
+    "jumlah_komisi": 2990000
+  }
+]

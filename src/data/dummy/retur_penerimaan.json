@@ -1,0 +1,92 @@
+[
+  {
+    "no_retur": "RP-2301001",
+    "tgl_retur": "2023-01-20",
+    "kode_supplier": "S001",
+    "total": 14500000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 1 unit Laptop Super Canggih, cacat layar",
+    "status": "Finish"
+  },
+  {
+    "no_retur": "RP-2302001",
+    "tgl_retur": "2023-02-25",
+    "kode_supplier": "S004",
+    "total": 240000,
+    "sisa_retur": 240000,
+    "keterangan": "Retur 1 liter Oli Mesin Sintetik, segel terbuka",
+    "status": "Open"
+  },
+  {
+    "no_retur": "RP-2303001",
+    "tgl_retur": "2023-03-15",
+    "kode_supplier": "S002",
+    "total": 190000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 2 pcs Kaos Polos Keren, salah kirim warna",
+    "status": "Finish"
+  },
+  {
+    "no_retur": "RP-2303002",
+    "tgl_retur": "2023-03-20",
+    "kode_supplier": "S006",
+    "total": 1400000,
+    "sisa_retur": 1400000,
+    "keterangan": "Retur 1 unit Meja Kerja Modern, kaki tidak stabil",
+    "status": "Open"
+  },
+  {
+    "no_retur": "RP-2304001",
+    "tgl_retur": "2023-04-05",
+    "kode_supplier": "S008",
+    "total": 45000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 10 pcs Buku Tulis, basah",
+    "status": "Cancel"
+  },
+  {
+    "no_retur": "RP-2304002",
+    "tgl_retur": "2023-04-18",
+    "kode_supplier": "S001",
+    "total": 190000,
+    "sisa_retur": 190000,
+    "keterangan": "Retur 1 unit Mouse Wireless, tombol macet",
+    "status": "Open"
+  },
+  {
+    "no_retur": "RP-2305001",
+    "tgl_retur": "2023-05-10",
+    "kode_supplier": "S005",
+    "total": 18000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 1 box Kopi Instan, salah varian",
+    "status": "Finish"
+  },
+  {
+    "no_retur": "RP-2305002",
+    "tgl_retur": "2023-05-22",
+    "kode_supplier": "S011",
+    "total": 700000,
+    "sisa_retur": 700000,
+    "keterangan": "Retur 1 pasang Sepatu Lari, ukuran tidak sesuai",
+    "status": "Open"
+  },
+  {
+    "no_retur": "RP-2306001",
+    "tgl_retur": "2023-06-05",
+    "kode_supplier": "S003",
+    "total": 9000,
+    "sisa_retur": 0,
+    "keterangan": "Retur 1 pcs Snack Kentang, remuk",
+    "status": "Finish"
+  },
+  {
+    "no_retur": "RP-2306002",
+    "tgl_retur": "2023-06-15",
+    "kode_supplier": "S009",
+    "total": 45000,
+    "sisa_retur": 45000,
+    "keterangan": "Retur 1 botol Vitamin C, segel rusak",
+    "status": "Open"
+  }
+]

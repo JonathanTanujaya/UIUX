@@ -1,0 +1,77 @@
+[
+  {
+    "kode_area": "A001",
+    "area": "Jakarta Pusat",
+    "status": true
+  },
+  {
+    "kode_area": "A002",
+    "area": "Jakarta Selatan",
+    "status": true
+  },
+  {
+    "kode_area": "A003",
+    "area": "Jakarta Barat",
+    "status": true
+  },
+  {
+    "kode_area": "A004",
+    "area": "Jakarta Timur",
+    "status": true
+  },
+  {
+    "kode_area": "A005",
+    "area": "Jakarta Utara",
+    "status": true
+  },
+  {
+    "kode_area": "A006",
+    "area": "Bandung",
+    "status": true
+  },
+  {
+    "kode_area": "A007",
+    "area": "Surabaya",
+    "status": true
+  },
+  {
+    "kode_area": "A008",
+    "area": "Semarang",
+    "status": true
+  },
+  {
+    "kode_area": "A009",
+    "area": "Yogyakarta",
+    "status": true
+  },
+  {
+    "kode_area": "A010",
+    "area": "Medan",
+    "status": true
+  },
+  {
+    "kode_area": "A011",
+    "area": "Makassar",
+    "status": true
+  },
+  {
+    "kode_area": "A012",
+    "area": "Denpasar",
+    "status": true
+  },
+  {
+    "kode_area": "A013",
+    "area": "Palembang",
+    "status": true
+  },
+  {
+    "kode_area": "A014",
+    "area": "Balikpapan",
+    "status": true
+  },
+  {
+    "kode_area": "A015",
+    "area": "Pekanbaru",
+    "status": true
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "kode_trans": "PENJUALAN",
+    "transaksi": "Penjualan Barang"
+  },
+  {
+    "kode_trans": "PEMBELIAN",
+    "transaksi": "Pembelian Barang"
+  },
+  {
+    "kode_trans": "RETUR-JUAL",
+    "transaksi": "Retur Penjualan"
+  },
+  {
+    "kode_trans": "RETUR-BELI",
+    "transaksi": "Retur Pembelian"
+  },
+  {
+    "kode_trans": "BAYAR-PIUTANG",
+    "transaksi": "Pembayaran Piutang"
+  },
+  {
+    "kode_trans": "BAYAR-UTANG",
+    "transaksi": "Pembayaran Utang"
+  },
+  {
+    "kode_trans": "BIAYA-GAJI",
+    "transaksi": "Biaya Gaji"
+  },
+  {
+    "kode_trans": "BIAYA-SEWA",
+    "transaksi": "Biaya Sewa"
+  },
+  {
+    "kode_trans": "SETOR-MODAL",
+    "transaksi": "Setoran Modal"
+  },
+  {
+    "kode_trans": "TARIK-MODAL",
+    "transaksi": "Penarikan Modal"
+  }
+]

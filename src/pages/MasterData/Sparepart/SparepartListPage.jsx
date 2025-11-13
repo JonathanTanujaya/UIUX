@@ -1,109 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
+import { useData } from '../../../hooks/useData';
 
 const EditIcon = () => <span>✏️</span>;
 const SearchIcon = () => <span>🔍</span>;
-import api from '../../../services/api';
 
 function SparepartListPage() {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const { barang: barangData, kategori: kategoriData } = useData();
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15; // Fixed 15 items per page
   
-  useEffect(() => {
-    // Data dummy untuk testing
-    const dummyData = [
-      {
-        kode_barang: 'SPR001',
-        nama_barang: 'Filter Oli Mesin',
-        kode_kategori: 'FILTER',
-        satuan: 'pcs',
-        stok: 25,
-        min_stok: 10,
-        harga_beli: 35000,
-        harga_jual: 50000
-      },
-      {
-        kode_barang: 'SPR002',
-        nama_barang: 'Brake Pad Depan',
-        kode_kategori: 'BRAKE',
-        satuan: 'set',
-        stok: 8,
-        min_stok: 15,
-        harga_beli: 120000,
-        harga_jual: 180000
-      },
-      {
-        kode_barang: 'SPR003',
-        nama_barang: 'Spark Plug NGK',
-        kode_kategori: 'ENGINE',
-        satuan: 'pcs',
-        stok: 0,
-        min_stok: 5,
-        harga_beli: 25000,
-        harga_jual: 40000
-      },
-      {
-        kode_barang: 'SPR004',
-        nama_barang: 'Timing Belt',
-        kode_kategori: 'ENGINE',
-        satuan: 'pcs',
-        stok: 12,
-        min_stok: 8,
-        harga_beli: 85000,
-        harga_jual: 125000
-      },
-      {
-        kode_barang: 'SPR005',
-        nama_barang: 'Air Filter',
-        kode_kategori: 'FILTER',
-        satuan: 'pcs',
-        stok: 3,
-        min_stok: 10,
-        harga_beli: 45000,
-        harga_jual: 65000
-      },
-      {
-        kode_barang: 'SPR006',
-        nama_barang: 'Radiator Coolant',
-        kode_kategori: 'COOLANT',
-        satuan: 'liter',
-        stok: 18,
-        min_stok: 5,
-        harga_beli: 28000,
-        harga_jual: 42000
-      },
-      {
-        kode_barang: 'SPR007',
-        nama_barang: 'Disc Brake Rotor',
-        kode_kategori: 'BRAKE',
-        satuan: 'pcs',
-        stok: 6,
-        min_stok: 4,
-        harga_beli: 350000,
-        harga_jual: 480000
-      },
-      {
-        kode_barang: 'SPR008',
-        nama_barang: 'Engine Oil 5W-30',
-        kode_kategori: 'OIL',
-        satuan: 'liter',
-        stok: 22,
-        min_stok: 15,
-        harga_beli: 75000,
-        harga_jual: 95000
-      }
-    ];
-    
-    setData(dummyData);
-    
-    // Uncomment untuk menggunakan API
-    // api.get('/spareparts').then(res => setData(res.data || []));
-  }, []);
+  // Transform data from JSON to component format
+  const data = useMemo(() => {
+    return barangData.map(item => ({
+      kode_barang: item.kode_barang,
+      nama_barang: item.nama_barang,
+      kode_kategori: kategoriData.find(k => k.id_kategori === item.id_kategori)?.kode_kategori || '-',
+      satuan: item.satuan,
+      stok: item.stok_tersedia || 0,
+      min_stok: item.stok_minimum || 0,
+      harga_beli: item.harga_beli,
+      harga_jual: item.harga_jual
+    }));
+  }, [barangData, kategoriData]);
 
   const filteredData = data.filter(item => 
     item.nama_barang?.toLowerCase().includes(search.toLowerCase()) ||
@@ -239,8 +162,8 @@ function SparepartListPage() {
         overflow: 'hidden',
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
       }}>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div>
+          <table style={{ width: '100%', borderCollapse: 'collapse', borderSpacing: 0 }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
                 <th style={{ 
@@ -251,6 +174,7 @@ function SparepartListPage() {
                   color: '#475569', 
                   textTransform: 'uppercase',
                   letterSpacing: '0.3px',
+                  lineHeight: '1.2',
                   width: '60px'
                 }}>
                   No
@@ -262,7 +186,8 @@ function SparepartListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Kode
                 </th>
@@ -273,7 +198,8 @@ function SparepartListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Nama Sparepart
                 </th>
@@ -284,7 +210,8 @@ function SparepartListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Kategori
                 </th>
@@ -295,7 +222,8 @@ function SparepartListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Stok
                 </th>
@@ -306,7 +234,8 @@ function SparepartListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Harga Beli
                 </th>
@@ -317,7 +246,8 @@ function SparepartListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Harga Jual
                 </th>
@@ -329,6 +259,7 @@ function SparepartListPage() {
                   color: '#475569', 
                   textTransform: 'uppercase',
                   letterSpacing: '0.3px',
+                  lineHeight: '1.2',
                   width: '100px'
                 }}>
                   Aksi
@@ -357,7 +288,8 @@ function SparepartListPage() {
                       padding: '6px 12px', 
                       textAlign: 'center',
                       fontSize: '13px', 
-                      color: '#64748b'
+                      color: '#64748b',
+                      lineHeight: '1.2'
                     }}>
                       {indexOfFirstItem + idx + 1}
                     </td>
@@ -366,7 +298,8 @@ function SparepartListPage() {
                       fontSize: '13px', 
                       fontWeight: '600', 
                       color: '#1e293b',
-                      fontFamily: 'monospace'
+                      fontFamily: 'monospace',
+                      lineHeight: '1.2'
                     }}>
                       {item.kode_barang}
                     </td>
@@ -374,18 +307,24 @@ function SparepartListPage() {
                       padding: '6px 12px', 
                       fontSize: '13px', 
                       color: '#334155',
-                      fontWeight: '500'
+                      fontWeight: '500',
+                      lineHeight: '1.2',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      maxWidth: '320px'
                     }}>
                       {item.nama_barang}
                     </td>
                     <td style={{ 
                       padding: '6px 12px', 
                       fontSize: '13px', 
-                      color: '#64748b'
+                      color: '#64748b',
+                      lineHeight: '1.2'
                     }}>
                       {item.kode_kategori}
                     </td>
-                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center', lineHeight: '1.2' }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>
                         <span style={{ 
                           fontSize: '13px',
@@ -413,7 +352,8 @@ function SparepartListPage() {
                       fontSize: '13px', 
                       color: '#475569',
                       textAlign: 'right',
-                      fontWeight: '500'
+                      fontWeight: '500',
+                      lineHeight: '1.2'
                     }}>
                       {formatCurrency(item.harga_beli)}
                     </td>
@@ -422,22 +362,23 @@ function SparepartListPage() {
                       fontSize: '13px', 
                       color: '#475569',
                       textAlign: 'right',
-                      fontWeight: '500'
+                      fontWeight: '500',
+                      lineHeight: '1.2'
                     }}>
                       {formatCurrency(item.harga_jual)}
                     </td>
-                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center', lineHeight: '1.2' }}>
                       <button
                         onClick={() => navigate(`/master/sparepart/${item.kode_barang}/edit`)}
                         style={{
-                          padding: '5px 7px',
+                          padding: '4px 6px',
                           backgroundColor: 'transparent',
                           border: 'none',
                           cursor: 'pointer',
                           color: '#3b82f6',
                           borderRadius: '4px',
                           transition: 'all 150ms',
-                          fontSize: '14px',
+                          fontSize: '12px',
                           minWidth: '26px',
                           height: '22px',
                           display: 'flex',
@@ -463,8 +404,8 @@ function SparepartListPage() {
           </table>
         </div>
         
-        {/* Footer with Pagination - only show if more than 15 items */}
-        {filteredData.length > 15 && (
+  {/* Footer with Pagination - show whenever there is any data */}
+  {filteredData.length > 0 && (
           <div style={{ 
             padding: '10px 12px', 
             borderTop: '1px solid #e5e7eb', 

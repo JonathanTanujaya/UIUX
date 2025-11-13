@@ -277,7 +277,7 @@ const MasterCategories = () => {
               </div>
 
               {/* Pagination */}
-              {totalPages > 1 && (
+              {totalPages >= 1 && (
                 <div className="flex justify-between items-center p-6 border-t border-gray-200">
                   <span className="text-sm text-gray-500">
                     Menampilkan {startIndex + 1}-

@@ -339,7 +339,7 @@ function CustomerListPage() {
         )}
         
         {/* Pagination - Only show when more than 15 items */}
-        {filteredData.length > 15 && (
+  {filteredData.length > 0 && (
           <div style={{
             padding: '16px 20px',
             backgroundColor: '#f8fafc',
@@ -456,12 +456,12 @@ function CustomerListPage() {
               alignItems: 'center'
             }}>
               <h2 style={{
-                fontSize: '18px',
-                fontWeight: '600',
+                fontSize: '20px',
+                fontWeight: '700',
                 color: '#1e293b',
                 margin: 0
               }}>
-                Detail Customer
+                {selectedCustomer.nama_customer}
               </h2>
               <button
                 onClick={handleCloseDetailModal}
@@ -487,75 +487,65 @@ function CustomerListPage() {
             </div>
 
             {/* Content */}
-            <div style={{
-              padding: '24px',
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '20px 32px'
-            }}>
-              {/* Left Column */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Kode Customer</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600', fontFamily: 'monospace' }}>{selectedCustomer.kode_customer}</p>
-                </div>
+            {/* Summary cards */}
+            <div style={{ padding: '16px 24px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', borderBottom: '1px solid #e5e7eb' }}>
+              <div style={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '12px 16px', textAlign: 'center', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Kode</div>
+                <div style={{ marginTop: '6px', fontSize: '14px', fontWeight: 700, color: '#1e293b', fontFamily: 'monospace' }}>{selectedCustomer.kode_customer}</div>
+              </div>
+              <div style={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '12px 16px', textAlign: 'center', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Credit Limit</div>
+                <div style={{ marginTop: '6px', fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>{formatCurrency(selectedCustomer.credit_limit)}</div>
+              </div>
+              <div style={{ backgroundColor: 'white', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '12px 16px', textAlign: 'center', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Jatuh Tempo</div>
+                <div style={{ marginTop: '6px', fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>{selectedCustomer.jatuh_tempo} Hari</div>
+              </div>
+            </div>
 
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Nama Customer</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600' }}>{selectedCustomer.nama_customer}</p>
-                </div>
-
+            {/* Informasi Umum */}
+            <div style={{ padding: '16px 24px' }}>
+              <div style={{ fontSize: '16px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>Informasi Umum</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px' }}>
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Area</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155' }}>{selectedCustomer.nama_area}</p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600' }}>{selectedCustomer.nama_area}</p>
                 </div>
-
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Alamat</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155', lineHeight: '1.5' }}>{selectedCustomer.alamat}</p>
-                </div>
-
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>No Telpon</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155' }}>{selectedCustomer.no_telpon}</p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600' }}>{selectedCustomer.no_telpon}</p>
                 </div>
-
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Alamat</label>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600', lineHeight: '1.5' }}>{selectedCustomer.alamat}</p>
+                </div>
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Contact Person</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155' }}>{selectedCustomer.contact}</p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600' }}>{selectedCustomer.contact}</p>
                 </div>
               </div>
+            </div>
 
-              {/* Right Column */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Credit Limit</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600' }}>{formatCurrency(selectedCustomer.credit_limit)}</p>
-                </div>
-
-                <div>
-                  <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Jatuh Tempo</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155' }}>{selectedCustomer.jatuh_tempo} Hari</p>
-                </div>
-
+            {/* Informasi Pajak */}
+            <div style={{ padding: '0 24px 24px 24px' }}>
+              <div style={{ height: '1px', backgroundColor: '#e5e7eb', margin: '4px 0 16px 0' }} />
+              <div style={{ fontSize: '16px', fontWeight: 700, color: '#1e293b', marginBottom: '12px' }}>Informasi Pajak</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px 32px' }}>
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>No NPWP</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155', fontFamily: 'monospace' }}>{selectedCustomer.no_npwp}</p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600', fontFamily: 'monospace' }}>{selectedCustomer.no_npwp}</p>
                 </div>
-
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>NIK</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155', fontFamily: 'monospace' }}>{selectedCustomer.nik}</p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600', fontFamily: 'monospace' }}>{selectedCustomer.nik}</p>
                 </div>
-
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Nama Pajak</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155' }}>{selectedCustomer.nama_pajak}</p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600' }}>{selectedCustomer.nama_pajak}</p>
                 </div>
-
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: '600', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Alamat Pajak</label>
-                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#334155', lineHeight: '1.5' }}>{selectedCustomer.alamat_pajak}</p>
+                  <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#1e293b', fontWeight: '600', lineHeight: '1.5' }}>{selectedCustomer.alamat_pajak}</p>
                 </div>
               </div>
             </div>

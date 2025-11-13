@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { Input } from '../../../components/ui/Input';
 import { colors, spacing, typography, borderRadius } from '../../../styles/designTokens';
 import { api } from '../../../services/api';
+import { useData } from '../../../hooks/useData';
 
 const SearchIcon = () => <span>🔍</span>;
 const PlusIcon = () => <span>+</span>;
@@ -12,8 +13,8 @@ const TrashIcon = () => <span>🗑️</span>;
 const XIcon = () => <span>✖️</span>;
 
 const CategoriesPage = () => {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { kategori: kategoriData } = useData();
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -24,77 +25,27 @@ const CategoriesPage = () => {
     nama_kategori: ''
   });
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      setLoading(true);
-      // Dummy data untuk testing pagination (30 items)
-      const dummyData = [
-        { kode_kategori: 'KAT001', nama_kategori: 'Elektronik' },
-        { kode_kategori: 'KAT002', nama_kategori: 'Fashion' },
-        { kode_kategori: 'KAT003', nama_kategori: 'Makanan & Minuman' },
-        { kode_kategori: 'KAT004', nama_kategori: 'Otomotif' },
-        { kode_kategori: 'KAT005', nama_kategori: 'Peralatan Rumah Tangga' },
-        { kode_kategori: 'KAT006', nama_kategori: 'Olahraga' },
-        { kode_kategori: 'KAT007', nama_kategori: 'Kesehatan & Kecantikan' },
-        { kode_kategori: 'KAT008', nama_kategori: 'Buku & Alat Tulis' },
-        { kode_kategori: 'KAT009', nama_kategori: 'Mainan & Hobi' },
-        { kode_kategori: 'KAT010', nama_kategori: 'Furniture' },
-        { kode_kategori: 'KAT011', nama_kategori: 'Komputer & Aksesoris' },
-        { kode_kategori: 'KAT012', nama_kategori: 'Handphone & Tablet' },
-        { kode_kategori: 'KAT013', nama_kategori: 'Kamera' },
-        { kode_kategori: 'KAT014', nama_kategori: 'Gaming' },
-        { kode_kategori: 'KAT015', nama_kategori: 'Audio' },
-        { kode_kategori: 'KAT016', nama_kategori: 'Perlengkapan Bayi' },
-        { kode_kategori: 'KAT017', nama_kategori: 'Perlengkapan Pesta' },
-        { kode_kategori: 'KAT018', nama_kategori: 'Dekorasi Rumah' },
-        { kode_kategori: 'KAT019', nama_kategori: 'Taman & Outdoor' },
-        { kode_kategori: 'KAT020', nama_kategori: 'Alat Musik' },
-        { kode_kategori: 'KAT021', nama_kategori: 'Film & Musik' },
-        { kode_kategori: 'KAT022', nama_kategori: 'Perhiasan & Aksesoris' },
-        { kode_kategori: 'KAT023', nama_kategori: 'Tas & Dompet' },
-        { kode_kategori: 'KAT024', nama_kategori: 'Jam Tangan' },
-        { kode_kategori: 'KAT025', nama_kategori: 'Sepatu' },
-        { kode_kategori: 'KAT026', nama_kategori: 'Kacamata' },
-        { kode_kategori: 'KAT027', nama_kategori: 'Perlengkapan Kantor' },
-        { kode_kategori: 'KAT028', nama_kategori: 'Tools & Hardware' },
-        { kode_kategori: 'KAT029', nama_kategori: 'Pet Supplies' },
-        { kode_kategori: 'KAT030', nama_kategori: 'Lainnya' },
-      ];
-      
-      setCategories(dummyData);
-      
-      /* Original API call - uncomment when ready to use real API
-      const response = await api.get('/categories');
-      const data = response.data || [];
-      setCategories(Array.isArray(data) ? data : []);
-      */
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-      setCategories([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Transform data from JSON to component format
+  const categories = useMemo(() => {
+    return kategoriData.map(item => ({
+      kode_kategori: item.kode_kategori,
+      nama_kategori: item.kategori  // Field name in JSON is "kategori"
+    }));
+  }, [kategoriData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
     if (editingId) {
-      // Update existing
+      // Update existing - in real app, this would call API
       console.log('Updating category:', editingId, formData);
-      setCategories(categories.map(cat => 
-        cat.kode_kategori === editingId 
-          ? { ...cat, ...formData }
-          : cat
-      ));
+      // TODO: Call API to update category
+      alert('Fitur update kategori akan tersedia setelah integrasi API');
     } else {
-      // Add new
+      // Add new - in real app, this would call API
       console.log('Adding category:', formData);
-      setCategories([...categories, { ...formData }]);
+      // TODO: Call API to add category
+      alert('Fitur tambah kategori akan tersedia setelah integrasi API');
     }
     
     resetForm();
@@ -118,7 +69,8 @@ const CategoriesPage = () => {
   const handleDelete = (kodeKategori) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus kategori ini?')) {
       console.log('Deleting category:', kodeKategori);
-      setCategories(categories.filter(cat => cat.kode_kategori !== kodeKategori));
+      // TODO: Call API to delete category
+      alert('Fitur hapus kategori akan tersedia setelah integrasi API');
     }
   };
 
@@ -254,52 +206,56 @@ const CategoriesPage = () => {
         flexDirection: 'column',
         flex: 1 // Ambil sisa ruang yang tersedia
       }}> 
-        <div style={{ overflowX: 'auto', flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', flex: 1 }}>
+  <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', borderSpacing: 0, flex: 1 }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
                 <th style={{ 
-                  padding: '8px 12px', 
+                  padding: '6px 12px', 
                   textAlign: 'center', 
                   fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
                   letterSpacing: '0.3px',
+                  lineHeight: '1.2',
                   width: '60px'
                 }}>
                   No
                 </th>
                 <th style={{ 
-                  padding: '8px 12px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
                   fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Kode Kategori
                 </th>
                 <th style={{ 
-                  padding: '8px 12px', 
+                  padding: '6px 12px', 
                   textAlign: 'left', 
                   fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px'
+                  letterSpacing: '0.3px',
+                  lineHeight: '1.2'
                 }}>
                   Nama Kategori
                 </th>
                 <th style={{ 
-                  padding: '8px 12px', 
+                  padding: '6px 12px', 
                   textAlign: 'center', 
                   fontSize: '12px', 
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
                   letterSpacing: '0.3px',
+                  lineHeight: '1.2',
                   width: '100px'
                 }}>
                   Aksi
@@ -350,43 +306,47 @@ const CategoriesPage = () => {
                     }}
                   >
                     <td style={{ 
-                      padding: '7px 12px', 
+                      padding: '6px 12px', 
                       textAlign: 'center',
                       fontSize: '13px', 
-                      color: '#64748b'
+                      color: '#64748b',
+                      lineHeight: '1.2'
                     }}>
                       {indexOfFirstItem + index + 1}
                     </td>
                     <td style={{ 
-                      padding: '7px 12px', 
+                      padding: '6px 12px', 
                       fontSize: '13px', 
                       fontWeight: '600', 
                       color: '#1e293b',
-                      fontFamily: 'monospace'
+                      fontFamily: 'monospace',
+                      lineHeight: '1.2'
                     }}>
                       {category.kode_kategori}
                     </td>
                     <td style={{ 
-                      padding: '7px 12px', 
+                      padding: '6px 12px', 
                       fontSize: '13px', 
                       color: '#334155',
-                      fontWeight: '500'
+                      fontWeight: '500',
+                      lineHeight: '1.2'
                     }}>
                       {category.nama_kategori}
                     </td>
                     <td style={{ 
-                      padding: '7px 12px', 
-                      textAlign: 'center'
+                      padding: '6px 12px', 
+                      textAlign: 'center',
+                      lineHeight: '1.2'
                     }}>
                       <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
                         <button 
                           style={{
-                            padding: '5px 7px',
+                            padding: '4px 6px',
                             backgroundColor: 'transparent',
                             color: '#3b82f6',
                             border: 'none',
                             borderRadius: '4px',
-                            fontSize: '11px',
+                            fontSize: '12px',
                             fontWeight: 'bold',
                             cursor: 'pointer',
                             transition: 'color 0.15s ease',
@@ -409,12 +369,12 @@ const CategoriesPage = () => {
                         </button>
                         <button 
                           style={{
-                            padding: '5px 7px',
+                            padding: '4px 6px',
                             backgroundColor: 'transparent',
                             color: '#ef4444',
                             border: 'none',
                             borderRadius: '4px',
-                            fontSize: '11px',
+                            fontSize: '12px',
                             fontWeight: 'bold',
                             cursor: 'pointer',
                             transition: 'color 0.15s ease',
@@ -454,7 +414,7 @@ const CategoriesPage = () => {
           alignItems: 'center'
         }}>
           {/* Pagination Controls - Center */}
-          {totalPages > 1 && (
+          {totalPages >= 1 && (
             <div style={{ 
               display: 'flex', 
               gap: '4px',

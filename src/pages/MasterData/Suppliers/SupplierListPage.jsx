@@ -466,7 +466,7 @@ function SupplierListPage() {
         </div>
         
         {/* Pagination - Only show when more than 15 items */}
-        {filteredData.length > 15 && (
+  {filteredData.length > 0 && (
           <div style={{
             padding: '16px 20px',
             backgroundColor: '#f8fafc',

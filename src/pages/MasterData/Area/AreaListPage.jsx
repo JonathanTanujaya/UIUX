@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
+import { useData } from '../../../hooks/useData';
 
 const EditIcon = () => <span>✏️</span>;
 const TrashIcon = () => <span>🗑️</span>;
 
 function AreaListPage() {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const { area: areaData } = useData();
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15; // Fixed 15 items per page
@@ -20,61 +21,15 @@ function AreaListPage() {
     status: 'Aktif'
   });
 
-  useEffect(() => {
-    // Data dummy untuk testing
-    const dummyData = [
-      {
-        id: 1,
-        kode_area: 'AR001',
-        nama_area: 'Jakarta Pusat',
-        status: 'Aktif',
-      },
-      {
-        id: 2,
-        kode_area: 'AR002', 
-        nama_area: 'Jakarta Utara',
-        status: 'Aktif',
-      },
-      {
-        id: 3,
-        kode_area: 'AR003',
-        nama_area: 'Jakarta Selatan',
-        status: 'Aktif',
-      },
-      {
-        id: 4,
-        kode_area: 'AR004',
-        nama_area: 'Jakarta Barat',
-        status: 'Aktif',
-      },
-      {
-        id: 5,
-        kode_area: 'AR005',
-        nama_area: 'Jakarta Timur',
-        status: 'Aktif',
-      },
-      {
-        id: 6,
-        kode_area: 'AR006',
-        nama_area: 'Bandung Kota',
-        status: 'Aktif',
-      },
-      {
-        id: 7,
-        kode_area: 'AR007',
-        nama_area: 'Surabaya Pusat',
-        status: 'Aktif',
-      },
-      {
-        id: 8,
-        kode_area: 'AR008',
-        nama_area: 'Medan Kota',
-        status: 'Tidak Aktif',
-      }
-    ];
-    
-    setData(dummyData);
-  }, []);
+  // Transform data from JSON to component format
+  const data = useMemo(() => {
+    return areaData.map((item, index) => ({
+      id: index + 1,
+      kode_area: item.kode_area,
+      nama_area: item.area,
+      status: item.status ? 'Aktif' : 'Tidak Aktif'
+    }));
+  }, [areaData]);
 
   const filteredData = data.filter(item => 
     item.nama_area?.toLowerCase().includes(search.toLowerCase()) ||
@@ -127,8 +82,9 @@ function AreaListPage() {
 
   const handleDelete = async id => {
     if (confirm('Yakin ingin menghapus data ini?')) {
-      setData(prev => prev.filter(item => item.id !== id));
-      alert('Data berhasil dihapus!');
+      console.log('Deleting area with id:', id);
+      // TODO: Call API to delete area
+      alert('Fitur hapus area akan tersedia setelah integrasi API');
     }
   };
 
@@ -171,20 +127,14 @@ function AreaListPage() {
 
     if (editingItem) {
       // Update existing
-      setData(prev => prev.map(item => 
-        item.id === editingItem.id 
-          ? { ...item, ...formData }
-          : item
-      ));
-      alert('Data berhasil diupdate!');
+      console.log('Updating area:', editingItem.id, formData);
+      // TODO: Call API to update area
+      alert('Fitur update area akan tersedia setelah integrasi API');
     } else {
       // Add new
-      const newItem = {
-        id: data.length + 1,
-        ...formData
-      };
-      setData(prev => [...prev, newItem]);
-      alert('Data berhasil ditambahkan!');
+      console.log('Adding new area:', formData);
+      // TODO: Call API to add area
+      alert('Fitur tambah area akan tersedia setelah integrasi API');
     }
     
     handleCloseModal();
@@ -265,7 +215,7 @@ function AreaListPage() {
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
       }}> 
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', borderSpacing: 0 }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
                 <th style={{ 
@@ -287,8 +237,7 @@ function AreaListPage() {
                   fontWeight: '600', 
                   color: '#475569', 
                   textTransform: 'uppercase',
-                  letterSpacing: '0.3px',
-                  width: '150px'
+                  letterSpacing: '0.3px'
                 }}>
                   Kode Area
                 </th>
@@ -311,7 +260,7 @@ function AreaListPage() {
                   color: '#475569', 
                   textTransform: 'uppercase',
                   letterSpacing: '0.3px',
-                  width: '120px'
+                  width: '100px'
                 }}>
                   Status
                 </th>
@@ -353,7 +302,8 @@ function AreaListPage() {
                       fontSize: '13px', 
                       fontWeight: '500', 
                       color: '#64748b',
-                      textAlign: 'center'
+                      textAlign: 'center',
+                      lineHeight: 1.2
                     }}>
                       {rowNumber}
                     </td>
@@ -362,7 +312,8 @@ function AreaListPage() {
                       fontSize: '13px', 
                       fontWeight: '600', 
                       color: '#1e293b',
-                      fontFamily: 'monospace'
+                      fontFamily: 'monospace',
+                      lineHeight: 1.2
                     }}>
                       {item.kode_area}
                     </td>
@@ -370,14 +321,15 @@ function AreaListPage() {
                       padding: '6px 12px', 
                       fontSize: '13px', 
                       color: '#334155',
-                      fontWeight: '500'
+                      fontWeight: '500',
+                      lineHeight: 1.2
                     }}>
                       {item.nama_area}
                     </td>
-                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center', lineHeight: 1.2 }}>
                       <span style={{
-                        padding: '3px 8px',
-                        borderRadius: '16px',
+                        padding: '2px 8px',
+                        borderRadius: '12px',
                         fontSize: '11px',
                         fontWeight: '600',
                         color: statusBadge.color,
@@ -387,7 +339,7 @@ function AreaListPage() {
                         {statusBadge.text}
                       </span>
                     </td>
-                    <td style={{ padding: '6px 12px', textAlign: 'center' }}>
+                    <td style={{ padding: '6px 12px', textAlign: 'center', lineHeight: 1.2 }}>
                       <div style={{ display: 'flex', gap: '4px', justifyContent: 'center' }}>
                         <button
                           onClick={() => handleOpenModal(item)}
@@ -396,10 +348,16 @@ function AreaListPage() {
                             backgroundColor: 'transparent',
                             border: 'none',
                             cursor: 'pointer',
-                            color: '#6b7280',
+                            color: '#3b82f6',
                             borderRadius: '4px',
                             transition: 'all 150ms',
-                            fontSize: '14px'
+                            fontSize: '14px',
+                            minWidth: '26px',
+                            height: '22px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: '0 auto'
                           }}
                           title="Edit area"
                         >
@@ -415,7 +373,13 @@ function AreaListPage() {
                             color: '#6b7280',
                             borderRadius: '4px',
                             transition: 'all 150ms',
-                            fontSize: '14px'
+                            fontSize: '14px',
+                            minWidth: '26px',
+                            height: '22px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: '0 auto'
                           }}
                           title="Hapus area"
                         >
@@ -441,8 +405,8 @@ function AreaListPage() {
           )}
         </div>
         
-        {/* Pagination - Only show when more than 15 items */}
-        {filteredData.length > 15 && (
+  {/* Pagination - Show whenever there is any data */}
+  {filteredData.length > 0 && (
           <div style={{
             padding: '16px 20px',
             backgroundColor: '#f8fafc',

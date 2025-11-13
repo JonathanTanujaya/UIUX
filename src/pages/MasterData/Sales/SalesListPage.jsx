@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
-import { salesAPI } from '../../../services/api';
+import { useData } from '../../../hooks/useData';
 
 const EditIcon = () => <span>✏️</span>;
 const TrashIcon = () => <span>🗑️</span>;
@@ -76,106 +76,28 @@ const borderRadius = {
 
 function SalesListPage() {
   const navigate = useNavigate();
-  const [sales, setSales] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { sales: salesData, area: areaData } = useData();
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 15; // Fixed 15 items per page
-
-  // Sample dummy data
-  const dummySales = [
-    {
-      kodeSales: 'SLS001',
-      namaSales: 'Ahmad Sutanto',
-      alamat: 'Jl. Sudirman No. 123, Jakarta',
-      noHp: '081234567890',
-      target: '50000000',
-      status: 'Aktif'
-    },
-    {
-      kodeSales: 'SLS002',
-      namaSales: 'Siti Nurhaliza',
-      alamat: 'Jl. Thamrin No. 456, Jakarta',
-      noHp: '081234567891',
-      target: '45000000',
-      status: 'Aktif'
-    },
-    {
-      kodeSales: 'SLS003',
-      namaSales: 'Budi Santoso',
-      alamat: 'Jl. Gatot Subroto No. 789, Jakarta',
-      noHp: '081234567892',
-      target: '40000000',
-      status: 'Nonaktif'
-    },
-    {
-      kodeSales: 'SLS004',
-      namaSales: 'Maya Puspita',
-      alamat: 'Jl. Kuningan No. 321, Jakarta',
-      noHp: '081234567893',
-      target: '55000000',
-      status: 'Aktif'
-    },
-    {
-      kodeSales: 'SLS005',
-      namaSales: 'Indra Wijaya',
-      alamat: 'Jl. Menteng No. 654, Jakarta',
-      noHp: '081234567894',
-      target: '48000000',
-      status: 'Aktif'
-    },
-    {
-      kodeSales: 'SLS006',
-      namaSales: 'Dewi Lestari',
-      alamat: 'Jl. Senopati No. 234, Jakarta',
-      noHp: '081234567895',
-      target: '42000000',
-      status: 'Aktif'
-    },
-    {
-      kodeSales: 'SLS007',
-      namaSales: 'Rudi Hermawan',
-      alamat: 'Jl. Kemang No. 567, Jakarta',
-      noHp: '081234567896',
-      target: '38000000',
-      status: 'Aktif'
-    },
-    {
-      kodeSales: 'SLS008',
-      namaSales: 'Linda Wijaya',
-      alamat: 'Jl. Panglima Polim No. 890, Jakarta',
-      noHp: '081234567897',
-      target: '46000000',
-      status: 'Nonaktif'
-    }
-  ];
-
-  useEffect(() => {
-    fetchSales();
-  }, []);
-
-  const fetchSales = async () => {
-    try {
-      setLoading(true);
-      // Gunakan dummy data untuk sementara
-      setSales(dummySales);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching sales:', error);
-      setSales(dummySales); // Fallback ke dummy data
-      setLoading(false);
-    }
-  };
+  // Transform JSON to UI shape
+  const sales = useMemo(() => {
+    return (salesData || []).map(s => ({
+      kodeSales: s.kode_sales,
+      namaSales: s.nama_sales,
+      alamat: s.alamat,
+      noHp: s.no_hp,
+      target: s.target,
+      status: s.status ? 'Aktif' : 'Nonaktif',
+      kodeArea: s.kode_area
+    }));
+  }, [salesData]);
 
   const handleDelete = async (kodeSales) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus sales ini?')) {
-      try {
-        // await salesAPI.delete(kodeSales);
-        // Remove from dummy data
-        setSales(sales.filter(s => s.kodeSales !== kodeSales));
-      } catch (error) {
-        console.error('Error deleting sales:', error);
-      }
+      console.log('Delete sales (stub):', kodeSales);
+      // TODO: Integrate delete when API ready
     }
   };
 
@@ -421,7 +343,7 @@ function SalesListPage() {
         </div>
         
         {/* Pagination - Only show when more than 15 items */}
-        {filteredSales.length > 15 && (
+  {filteredSales.length > 0 && (
           <div style={{
             padding: '16px 20px',
             backgroundColor: '#f8fafc',

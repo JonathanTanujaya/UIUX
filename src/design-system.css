@@ -1426,6 +1426,10 @@ kbd {
   border: 1px solid var(--gray-300);
 }
 
+.subtotal-wrapper .totals-block { 
+  margin-bottom: 12px; 
+}
+
 /* Enhanced Purchase Form Design */
 .purchase-form {
   max-width: 1400px;

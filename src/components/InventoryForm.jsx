@@ -12,62 +12,6 @@ const ModernInventoryForm = () => {
       harga_beli: 35000,
       harga_jual: 50000
     },
-    {
-      kode_barang: 'SPR002',
-      nama_barang: 'Brake Pad Depan',
-      kode_kategori: 'BRAKE',
-      satuan: 'set',
-      harga_beli: 120000,
-      harga_jual: 180000
-    },
-    {
-      kode_barang: 'SPR003',
-      nama_barang: 'Spark Plug NGK',
-      kode_kategori: 'ENGINE',
-      satuan: 'pcs',
-      harga_beli: 25000,
-      harga_jual: 40000
-    },
-    {
-      kode_barang: 'SPR004',
-      nama_barang: 'Timing Belt',
-      kode_kategori: 'ENGINE',
-      satuan: 'pcs',
-      harga_beli: 85000,
-      harga_jual: 125000
-    },
-    {
-      kode_barang: 'SPR005',
-      nama_barang: 'Air Filter',
-      kode_kategori: 'FILTER',
-      satuan: 'pcs',
-      harga_beli: 45000,
-      harga_jual: 65000
-    },
-    {
-      kode_barang: 'SPR006',
-      nama_barang: 'Radiator Coolant',
-      kode_kategori: 'COOLANT',
-      satuan: 'liter',
-      harga_beli: 28000,
-      harga_jual: 42000
-    },
-    {
-      kode_barang: 'SPR007',
-      nama_barang: 'Disc Brake Rotor',
-      kode_kategori: 'BRAKE',
-      satuan: 'pcs',
-      harga_beli: 350000,
-      harga_jual: 480000
-    },
-    {
-      kode_barang: 'SPR008',
-      nama_barang: 'Engine Oil 5W-30',
-      kode_kategori: 'OIL',
-      satuan: 'liter',
-      harga_beli: 75000,
-      harga_jual: 95000
-    }
   ];
   const [formData, setFormData] = useState({
     tglTerima: new Date().toISOString().split('T')[0],
@@ -217,11 +161,11 @@ const ModernInventoryForm = () => {
   };
 
   return (
-    <div className="h-full bg-gray-50 flex flex-col">
-      <div className="w-full mx-auto flex-1 flex flex-col">
-        {/* Container Utama - Grid 81% / 19% */}
-        <div className="bg-white shadow-sm border flex-1">
-          <div className="grid grid-cols-[80%_20%] gap-0 w-full">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="w-full flex-1 flex flex-col">
+        {/* Container Utama - Grid 79% / 21% full height */}
+        <div className="bg-white flex-1">
+          <div className="grid grid-cols-[79%_21%] gap-0 w-full h-full">
             {/* Kolom Kiri: Supplier + Daftar Barang */}
             <div className="flex flex-col min-w-0">
               {/* Header Form - di puncak kolom kiri */}
@@ -274,7 +218,7 @@ const ModernInventoryForm = () => {
               </div>
 
               {/* Items Table - Flexible width */}
-              <div className="flex-1 flex flex-col min-w-0">
+              <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 <div className="p-3 border-b border-gray-200 flex-shrink-0">
                   <div className="flex items-center justify-between">
                     <h3 className="text-base font-semibold text-gray-900">Daftar Barang</h3>
@@ -446,75 +390,79 @@ const ModernInventoryForm = () => {
             </div>
 
             {/* Kolom Kanan: Ringkasan */}
-            <div className="bg-gray-50 border-l border-gray-200 p-3 flex flex-col min-w-0">
-              <h3 className="text-base font-semibold text-gray-900 mb-3">Ringkasan</h3>
-
-              {/* Input Keuangan */}
-              <div className="space-y-3 mb-3">
+            <div className="bg-gray-50 border-l border-gray-200 px-4 pr-6 py-5 flex flex-col">
+              <h3 className="text-base font-medium text-gray-900 mb-5">Ringkasan</h3>
+              
+              {/* Input Fields */}
+              <div className="space-y-3 mb-8">
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">PPN %</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">PPN %</label>
                   <input
                     type="number"
                     value={formData.ppn}
                     onChange={(e) => handleInputChange('ppn', e.target.value)}
-                    className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-400"
                     placeholder="11"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">Diskon Global</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Diskon Global</label>
                   <input
                     type="number"
                     value={formData.diskonGlobal}
                     onChange={(e) => handleInputChange('diskonGlobal', e.target.value)}
-                    className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-gray-400"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-gray-700 mb-1">Catatan</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Catatan</label>
                   <textarea
                     value={formData.catatan}
                     onChange={(e) => handleInputChange('catatan', e.target.value)}
                     placeholder="Catatan pembelian..."
-                    rows={3}
-                    className="w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 resize-none"
+                    rows={4}
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-all duration-200 hover:border-gray-400"
                   />
                 </div>
               </div>
 
-              {/* Ringkasan Angka */}
-              <div className="mt-1">
-                <div className="space-y-1.5">
-                  <div className="flex justify-between text-sm">
+              {/* Subtotal & Buttons */}
+              <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-600">Subtotal:</span>
-                    <span className="font-medium">{formatCurrency(totals.subtotal)}</span>
+                    <span className="font-medium text-gray-900">Rp {formatCurrency(totals.subtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-600">Diskon Global:</span>
-                    <span className="font-medium text-red-600">-{formatCurrency(totals.diskonGlobal)}</span>
+                    <span className="font-medium text-red-500">-Rp {formatCurrency(totals.diskonGlobal)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-600">After Diskon:</span>
-                    <span className="font-medium">{formatCurrency(totals.afterDiskon)}</span>
+                    <span className="font-medium text-gray-900">Rp {formatCurrency(totals.afterDiskon)}</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-600">PPN ({formData.ppn}%):</span>
-                    <span className="font-medium">{formatCurrency(totals.ppn)}</span>
+                    <span className="font-medium text-gray-900">Rp {formatCurrency(totals.ppn)}</span>
                   </div>
-                  <div className="border-t pt-2">
-                    <div className="flex justify-between">
-                      <span className="font-semibold text-gray-900 text-sm">Grand Total:</span>
-                      <span className="font-bold text-blue-600 text-lg">{formatCurrency(totals.grandTotal)}</span>
+                  <div className="border-t border-gray-200 pt-3 mt-3">
+                    <div className="flex justify-between items-center">
+                      <span className="font-semibold text-gray-900">Grand Total:</span>
+                      <span className="font-bold text-blue-600 text-lg">Rp {formatCurrency(totals.grandTotal)}</span>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Tombol Aksi */}
-              <div className="mt-3 space-y-2">
-                <button className="w-full px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm font-medium">Simpan Pembelian</button>
-                <button className="w-full px-3 py-2 bg-white border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm">Simpan Draft</button>
-                <button className="w-full px-3 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 text-sm">Reset</button>
+                <div className="space-y-2">
+                  <button className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 active:bg-blue-800 transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 shadow-sm hover:shadow-md">
+                    Simpan Pembelian
+                  </button>
+                  <button className="w-full px-4 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm hover:bg-gray-50 hover:border-gray-400 active:bg-gray-100 transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-200">
+                    Simpan Draft
+                  </button>
+                  <button className="w-full px-4 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm hover:bg-gray-50 hover:border-gray-400 active:bg-gray-100 transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-200">
+                    Reset
+                  </button>
+                </div>
               </div>
             </div>
           </div>

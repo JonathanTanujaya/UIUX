@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   AppBar,
@@ -19,8 +19,8 @@ import {
   CurrencyDollarIcon,
   ChartBarIcon,
   Bars3Icon,
-  CommandLineIcon,
-  MagnifyingGlassIcon,
+  ArrowsPointingOutIcon,
+  ArrowsPointingInIcon,
 } from '@heroicons/react/24/outline';
 import { useNavigation } from '../../contexts/NavigationContext';
 
@@ -47,18 +47,64 @@ const TopNavbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const location = useLocation();
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const { activeCategory, setActiveCategory, setCommandPaletteOpen, navigationConfig } =
+  const { activeCategory, setActiveCategory, navigationConfig } =
     useNavigation();
+
+  // Handle fullscreen toggle
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      // Enter fullscreen
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+      }
+    } else {
+      // Exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+  };
+
+  // Listen for fullscreen changes and F11 key
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    // Listen for F11 key
+    const handleKeyPress = (event) => {
+      if (event.key === 'F11') {
+        event.preventDefault();
+        toggleFullscreen();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('msfullscreenchange', handleFullscreenChange);
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('msfullscreenchange', handleFullscreenChange);
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
 
   // Mobile menu toggle (placeholder for future drawer integration)
   const handleMenuToggle = () => {
-    // If you add a mobile drawer, toggle it here. For now, open command palette as a quick action.
-    try {
-      setCommandPaletteOpen(true);
-    } catch (e) {
-      // no-op
-    }
+    // Placeholder for mobile drawer functionality
   };
 
   const handleCategoryChange = (event, newCategory) => {
@@ -74,10 +120,6 @@ const TopNavbar = () => {
         navigate(firstItem.path);
       }
     }
-  };
-
-  const handleCommandPalette = () => {
-    setCommandPaletteOpen(true);
   };
 
   // Filter categories for main navigation
@@ -195,22 +237,21 @@ const TopNavbar = () => {
           </Tabs>
         </Box>
 
-        {/* Action Buttons */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          {/* Command Palette */}
+        {/* Fullscreen Button */}
+        <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
           <IconButton
-            onClick={handleCommandPalette}
-            sx={{
-              color: 'text.secondary',
-              '&:hover': { backgroundColor: 'action.hover' },
+            onClick={toggleFullscreen}
+            sx={{ 
+              color: 'primary.main',
+              '&:hover': { backgroundColor: 'primary.50' }
             }}
-            title={`Search (${isMobile ? 'Tap' : 'Ctrl+K'})`}
-            data-testid="command-palette-trigger"
+            title={isFullscreen ? 'Exit Fullscreen (F11)' : 'Enter Fullscreen (F11)'}
+            data-testid="fullscreen-toggle"
           >
-            {isMobile ? (
-              <MagnifyingGlassIcon className="w-5 h-5" />
+            {isFullscreen ? (
+              <ArrowsPointingInIcon className="w-5 h-5" />
             ) : (
-              <CommandLineIcon className="w-5 h-5" />
+              <ArrowsPointingOutIcon className="w-5 h-5" />
             )}
           </IconButton>
         </Box>

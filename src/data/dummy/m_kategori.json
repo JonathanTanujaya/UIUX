@@ -48,5 +48,15 @@
     "kode_kategori": "K010",
     "kategori": "Olahraga",
     "status": true
+  },
+  {
+    "kode_kategori": "K011",
+    "kategori": "Olahraga",
+    "status": true
+  },
+  {
+    "kode_kategori": "K012",
+    "kategori": "Olahraga",
+    "status": true
   }
 ]

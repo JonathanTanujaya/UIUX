@@ -100,7 +100,6 @@ export const NavigationProvider = ({ children }) => {
   const location = useLocation();
   const [activeCategory, setActiveCategory] = useState('dashboard');
   const [favoriteItems, setFavoriteItems] = useState([]);
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
   // Auto-detect active category based on current route
   useEffect(() => {
@@ -145,34 +144,13 @@ export const NavigationProvider = ({ children }) => {
     );
   };
 
-  // Keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = e => {
-      // Ctrl+K or Cmd+K for command palette
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        setCommandPaletteOpen(true);
-      }
-
-      // Escape to close command palette
-      if (e.key === 'Escape') {
-        setCommandPaletteOpen(false);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
   const value = {
     // State
     activeCategory,
     favoriteItems,
-    commandPaletteOpen,
 
     // Actions
     setActiveCategory,
-    setCommandPaletteOpen,
     toggleFavorite,
     searchItems,
 

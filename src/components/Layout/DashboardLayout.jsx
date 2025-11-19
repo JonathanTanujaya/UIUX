@@ -23,9 +23,6 @@ const DashboardLayout = () => {
         >
           <Outlet />
         </Box>
-
-        {/* Command Palette */}
-        <CommandPalette />
       </Box>
     </NavigationProvider>
   );

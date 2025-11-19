@@ -51,7 +51,6 @@ import {
   TrendingUp,
   TrendingDown,
   Download,
-  Fullscreen,
   Settings,
   Refresh,
   Visibility,
@@ -78,7 +77,6 @@ const ChartContainer = ({
   formatters = {},
 }) => {
   const [configOpen, setConfigOpen] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
   const [chartConfig, setChartConfig] = useState({
     showLegend,
     showGrid,
@@ -338,11 +336,11 @@ const ChartContainer = ({
     return stats;
   }, [processedData, visibleYAxisKeys]);
 
-  const containerHeight = fullscreen ? '80vh' : height;
+  const containerHeight = height;
 
   return (
     <>
-      <Paper elevation={1} sx={{ height: fullscreen ? '90vh' : 'auto' }}>
+      <Paper elevation={1} sx={{ height: 'auto' }}>
         {/* Header */}
         <Box p={2} borderBottom={1} borderColor="divider">
           <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -358,12 +356,6 @@ const ChartContainer = ({
               )}
               <IconButton size="small" onClick={() => setConfigOpen(true)}>
                 <Settings />
-              </IconButton>
-              <IconButton
-                size="small"
-                onClick={() => setFullscreen(!fullscreen)}
-              >
-                <Fullscreen />
               </IconButton>
             </Box>
           </Box>
@@ -484,24 +476,6 @@ const ChartContainer = ({
           <Button onClick={() => setConfigOpen(false)}>Close</Button>
         </DialogActions>
       </Dialog>
-
-      {/* Fullscreen Overlay */}
-      {fullscreen && (
-        <Dialog
-          open={fullscreen}
-          onClose={() => setFullscreen(false)}
-          maxWidth={false}
-          fullWidth
-          PaperProps={{
-            sx: { width: '95vw', height: '95vh', maxWidth: 'none', m: 1 }
-          }}
-        >
-          <ChartContainer
-            {...arguments[0]}
-            height="calc(95vh - 100px)"
-          />
-        </Dialog>
-      )}
     </>
   );
 };

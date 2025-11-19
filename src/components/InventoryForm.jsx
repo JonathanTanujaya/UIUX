@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, Package, Trash2 } from 'lucide-react';
 
+// Import dummy data
+import barangData from '../data/dummy/m_barang.json';
+import supplierData from '../data/dummy/m_supplier.json';
+import kategoriData from '../data/dummy/m_kategori.json';
+
 const ModernInventoryForm = () => {
-  // Data dummy sparepart dari SparepartListPage
-  const dummySpareparts = [
-    {
-      kode_barang: 'SPR001',
-      nama_barang: 'Filter Oli Mesin',
-      kode_kategori: 'FILTER',
-      satuan: 'pcs',
-      harga_beli: 35000,
-      harga_jual: 50000
-    },
-  ];
+  // Data dari file JSON dummy
+  const [availableBarang] = useState(barangData);
+  const [availableSuppliers] = useState(supplierData);
+  const [availableKategori] = useState(kategoriData);
+  
   const [formData, setFormData] = useState({
     tglTerima: new Date().toISOString().split('T')[0],
     tglJatuhTempo: '',
     noFaktur: 'PO-2025-001',
-    supplier: 'supplier1',
+    supplier: '',
     catatan: '',
     ppn: '11',
     diskonGlobal: '0',
@@ -49,7 +48,7 @@ const ModernInventoryForm = () => {
     setSearchInput(value);
     
     if (value.length > 0) {
-      const filtered = dummySpareparts
+      const filtered = availableBarang
         .filter(item =>
           item.nama_barang.toLowerCase().includes(value.toLowerCase()) ||
           item.kode_barang.toLowerCase().includes(value.toLowerCase())
@@ -80,7 +79,7 @@ const ModernInventoryForm = () => {
       nama: sparepart.nama_barang,
       qty: 1,
       satuan: sparepart.satuan.toUpperCase(),
-      harga: sparepart.harga_beli,
+      harga: sparepart.harga_list,
       disc1: 0,
       disc2: 0,
     };
@@ -173,7 +172,7 @@ const ModernInventoryForm = () => {
                 {/* Single Row: 4 fields (Tanggal Terima sampai Supplier) */}
                 <div className="flex gap-2 w-full">
                   <div className="flex-1 min-w-[120px]">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">TGL TERIMA</label>
+                    <label className="block text-xs font-bold text-gray-700 mb-1">TGL TERIMA</label>
                     <input
                       type="date"
                       value={formData.tglTerima}
@@ -182,7 +181,7 @@ const ModernInventoryForm = () => {
                     />
                   </div>
                   <div className="flex-1 min-w-[120px]">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">TGL JATUH TEMPO</label>
+                    <label className="block text-xs font-bold text-gray-700 mb-1">TGL JATUH TEMPO</label>
                     <input
                       type="date"
                       value={formData.tglJatuhTempo}
@@ -191,7 +190,7 @@ const ModernInventoryForm = () => {
                     />
                   </div>
                   <div className="flex-1 min-w-[120px]">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">NO FAKTUR</label>
+                    <label className="block text-xs font-bold text-gray-700 mb-1">NO FAKTUR</label>
                     <input
                       type="text"
                       value={formData.noFaktur}
@@ -201,7 +200,7 @@ const ModernInventoryForm = () => {
                     />
                   </div>
                   <div className="flex-[1.5] min-w-[220px]">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">SUPPLIER</label>
+                    <label className="block text-xs font-bold text-gray-700 mb-1">SUPPLIER</label>
                     <div className="flex">
                       <select
                         value={formData.supplier}
@@ -209,8 +208,11 @@ const ModernInventoryForm = () => {
                         className="flex-1 px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       >
                         <option value="">Pilih Supplier</option>
-                        <option value="supplier1">PT. Supplier Jaya</option>
-                        <option value="supplier2">CV. Mitra Sejahtera</option>
+                        {availableSuppliers.map((supplier) => (
+                          <option key={supplier.kode_supplier} value={supplier.kode_supplier}>
+                            {supplier.nama_supplier}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -220,59 +222,56 @@ const ModernInventoryForm = () => {
               {/* Items Table - Flexible width */}
               <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 <div className="p-3 border-b border-gray-200 flex-shrink-0">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-base font-semibold text-gray-900">Daftar Barang</h3>
-                  </div>
+                  {/* Form Tambah Barang */}
+                  <div className="mb-4">
+                    <div className="grid grid-cols-4 gap-3">
+                      <div className="col-span-3">
+                        <label className="block text-xs font-bold text-gray-700 mb-1">Kode Barang / Nama Barang</label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value={searchInput}
+                            onChange={(e) => handleSearchChange(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            placeholder="Ketik kode atau nama barang..."
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          />
 
-                  {/* Add Item Form */}
-                  {showAddForm && (
-                    <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="text-sm font-medium text-blue-900">Tambah Barang Baru</h4>
-                        <button
-                          onClick={cancelAddItem}
-                          className="text-xs text-blue-600 hover:text-blue-800"
-                        >
-                          Batal
-                        </button>
-                      </div>
-                      <div className="relative">
-                        <input
-                          type="text"
-                          value={searchInput}
-                          onChange={(e) => handleSearchChange(e.target.value)}
-                          onKeyDown={handleKeyDown}
-                          placeholder="Ketik kode atau nama barang..."
-                          className="w-full px-3 py-2 text-sm border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          autoFocus
-                        />
-
-                        {/* Suggestions Dropdown */}
-                        {showSuggestions && (
-                          <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
-                            {searchSuggestions.map((item, index) => (
-                              <div
-                                key={item.kode_barang}
-                                className={`px-3 py-2 cursor-pointer ${
-                                  index === activeIndex ? 'bg-blue-50 text-blue-900' : 'hover:bg-gray-50'
-                                }`}
-                                onClick={() => handleSelectSuggestion(item)}
-                              >
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <span className="font-medium text-blue-600">{item.kode_barang}</span>
-                                    <span className="text-gray-600 ml-2">• {item.nama_barang}</span>
+                          {/* Suggestions Dropdown */}
+                          {showSuggestions && searchSuggestions.length > 0 && (
+                            <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                              {searchSuggestions.map((item, index) => (
+                                <div
+                                  key={item.kode_barang}
+                                  className={`px-3 py-2 cursor-pointer ${
+                                    index === activeIndex ? 'bg-blue-50 text-blue-900' : 'hover:bg-gray-50'
+                                  }`}
+                                  onClick={() => handleSelectSuggestion(item)}
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <div>
+                                      <span className="font-medium text-blue-600">{item.kode_barang}</span>
+                                      <span className="text-gray-600 ml-2">• {item.nama_barang}</span>
+                                    </div>
+                                    <div className="text-sm text-gray-500">Rp {formatCurrency(item.harga_list)}</div>
                                   </div>
-                                  <div className="text-sm text-gray-500">Rp {formatCurrency(item.harga_beli)}</div>
+                                  <div className="text-xs text-gray-500 mt-1">{item.satuan.toUpperCase()} • {availableKategori.find(kat => kat.kode_kategori === item.kode_kategori)?.kategori || item.kode_kategori}</div>
                                 </div>
-                                <div className="text-xs text-gray-500 mt-1">{item.satuan.toUpperCase()} • {item.kode_kategori}</div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-span-1">
+                        <label className="block text-xs font-bold text-gray-700 mb-1">Qty</label>
+                        <input
+                          type="number"
+                          placeholder="1"
+                          className="w-full px-2 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 {/* Compact Table - Hidden Vertical Scroll */}
@@ -373,11 +372,7 @@ const ModernInventoryForm = () => {
                               <Package className="w-12 h-12 mx-auto text-gray-300" />
                               <div className="text-center">
                                 <p className="text-sm font-medium text-gray-900 mb-1">Belum ada item barang</p>
-                                <p className="text-xs text-gray-500 mb-4">Klik tombol "Tambah" untuk menambahkan barang ke daftar pembelian</p>
-                                <button onClick={addItem} className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 space-x-2">
-                                  <Plus className="w-4 h-4" />
-                                  <span>Tambah Item Pertama</span>
-                                </button>
+                                <p className="text-xs text-gray-500">Gunakan form di atas untuk menambahkan barang ke daftar pembelian</p>
                               </div>
                             </div>
                           </td>
@@ -390,8 +385,8 @@ const ModernInventoryForm = () => {
             </div>
 
             {/* Kolom Kanan: Ringkasan */}
-            <div className="bg-gray-50 border-l border-gray-200 px-4 pr-6 py-5 flex flex-col">
-              <h3 className="text-base font-medium text-gray-900 mb-5">Ringkasan</h3>
+            <div className="bg-gray-50 border-l border-gray-200 pl-3 pr-8 py-5 flex flex-col">
+              <h3 className="text-base font-bold text-gray-900 mb-5">Ringkasan</h3>
               
               {/* Input Fields */}
               <div className="space-y-3 mb-8">
@@ -427,7 +422,7 @@ const ModernInventoryForm = () => {
               </div>
 
               {/* Subtotal & Buttons */}
-              <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+              <div className="bg-white rounded-lg border border-gray-200 p-3 shadow-sm">
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-gray-600">Subtotal:</span>

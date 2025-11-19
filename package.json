@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "vercel-build": "vite build"
   },
   "dependencies": {
     "@capacitor/camera": "^7.0.2",

@@ -5,7 +5,7 @@ import { NavigationProvider } from '../../contexts/NavigationContext';
 import TopNavbar from './TopNavbar';
 import ContextualSidebar from './ContextualSidebar';
 
-const ModernLayout = () => {
+const Layout = () => {
   return (
     <NavigationProvider>
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
